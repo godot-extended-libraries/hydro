@@ -1,0 +1,23 @@
+#!/usr/bin/env python
+
+Import('env')
+Import('env_modules')
+
+sources = [
+    "clippable_mesh.cpp",
+    "hydro_rigid_body.cpp",
+    "register_types.cpp"
+]
+
+env_hydro = env_modules.Clone()
+
+if ARGUMENTS.get('hydro_shared', 'no') == 'yes':
+    #Build shared library
+    env_hydro.Append(CXXFLAGS='-fPIC')
+    env_hydro['LIBS'] = []
+    shared_lib = env_hydro.SharedLibrary(target='#bin/hydro', source=sources)
+    shared_lib_shim = shared_lib[0].name.rsplit('.', 1)[0]
+    env.Append(LIBS=[shared_lib_shim])
+    env.Append(LIBPATH=['#bin'])
+else:
+    env_hydro.add_source_files(env.modules_sources, sources)
