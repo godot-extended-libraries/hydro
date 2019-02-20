@@ -22,7 +22,6 @@
 /*************************************************************************/
 
 #include "clippable_mesh.h"
-#include "core/dvector.h"
 #include "core/math/face3.h"
 #include "core/math/plane.h"
 #include "core/math/transform.h"

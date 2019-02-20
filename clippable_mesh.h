@@ -24,9 +24,9 @@
 #ifndef CLIPPABLEMESH_H
 #define CLIPPABLEMESH_H
 
-#include "core/dvector.h"
 #include "core/math/face3.h"
 #include "core/math/plane.h"
+#include "core/pool_vector.h"
 #include "core/math/vector3.h"
 
 class MeshInstance;
