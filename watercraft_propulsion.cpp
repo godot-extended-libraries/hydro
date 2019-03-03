@@ -21,21 +21,49 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                */
 /*************************************************************************/
 
-#include "register_types.h"
-#include "core/class_db.h"
-#include "hydro_rigid_body.h"
-#include "water_area.h"
-#include "watercraft_ballast.h"
 #include "watercraft_propulsion.h"
-#include "watercraft_rudder.h"
+#include "hydro_rigid_body.h"
 
-void register_hydro_types() {
-	ClassDB::register_class<HydroRigidBody>();
-	ClassDB::register_class<WaterArea>();
-	ClassDB::register_class<WatercraftBallast>();
-	ClassDB::register_class<WatercraftPropulsion>();
-	ClassDB::register_class<WatercraftRudder>();
+WatercraftPropulsion::WatercraftPropulsion() {
+	m_value = 0;
 }
 
-void unregister_hydro_types() {
+String WatercraftPropulsion::get_configuration_warning() const {
+	if (!Object::cast_to<HydroRigidBody>(get_parent())) {
+		return TTR("WatercraftPropulsion serves to provide a propulsion system to a HydroRigidBody. Please use it as a child of a HydroRigidBody.");
+	}
+
+	return String();
+}
+
+void WatercraftPropulsion::_bind_methods() {
+	ClassDB::bind_method(D_METHOD("set_origin", "origin"), &WatercraftPropulsion::set_origin);
+	ClassDB::bind_method(D_METHOD("get_origin"), &WatercraftPropulsion::get_origin);
+	ClassDB::bind_method(D_METHOD("set_direction", "direction"), &WatercraftPropulsion::set_direction);
+	ClassDB::bind_method(D_METHOD("get_direction"), &WatercraftPropulsion::get_direction);
+	ClassDB::bind_method(D_METHOD("set_value", "value"), &WatercraftPropulsion::set_value);
+	ClassDB::bind_method(D_METHOD("get_value"), &WatercraftPropulsion::get_value);
+
+	ADD_PROPERTY(PropertyInfo(Variant::VECTOR3, "origin"), "set_origin", "get_origin");
+	ADD_PROPERTY(PropertyInfo(Variant::VECTOR3, "direction"), "set_direction", "get_direction");
+	ADD_PROPERTY(PropertyInfo(Variant::REAL, "value"), "set_value", "get_value");
+}
+
+void WatercraftPropulsion::_notification(int p_what) {
+
+	if (p_what == NOTIFICATION_ENTER_TREE) {
+
+		HydroRigidBody *parent = Object::cast_to<HydroRigidBody>(get_parent());
+		if (!parent)
+			return;
+
+		parent->m_propulsion.push_back(this);
+	}
+	if (p_what == NOTIFICATION_EXIT_TREE) {
+		HydroRigidBody *parent = Object::cast_to<HydroRigidBody>(get_parent());
+		if (!parent)
+			return;
+
+		parent->m_propulsion.erase(this);
+	}
 }

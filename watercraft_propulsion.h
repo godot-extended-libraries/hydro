@@ -21,21 +21,33 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                */
 /*************************************************************************/
 
-#include "register_types.h"
-#include "core/class_db.h"
-#include "hydro_rigid_body.h"
-#include "water_area.h"
-#include "watercraft_ballast.h"
-#include "watercraft_propulsion.h"
-#include "watercraft_rudder.h"
+#ifndef WATERCRAFT_PROPULSION_H
+#define WATERCRAFT_PROPULSION_H
 
-void register_hydro_types() {
-	ClassDB::register_class<HydroRigidBody>();
-	ClassDB::register_class<WaterArea>();
-	ClassDB::register_class<WatercraftBallast>();
-	ClassDB::register_class<WatercraftPropulsion>();
-	ClassDB::register_class<WatercraftRudder>();
-}
+#include "scene/3d/spatial.h"
 
-void unregister_hydro_types() {
-}
+class WatercraftPropulsion : public Spatial {
+	GDCLASS(WatercraftPropulsion, Spatial)
+
+public:
+	WatercraftPropulsion();
+	void set_origin(Vector3 origin) { m_origin = origin; }
+	Vector3 get_origin() const { return m_origin; }
+	void set_direction(Vector3 dir) { m_direction = dir; }
+	Vector3 get_direction() const { return m_direction; }
+	void set_value(float value) { m_value = value; }
+	float get_value() const { return m_value; }
+	String get_configuration_warning() const;
+
+protected:
+	Vector3 m_origin;
+	Vector3 m_direction;
+	float m_value;
+
+	static void _bind_methods();
+	void _notification(int p_what);
+
+	friend class HydroRigidBody;
+};
+
+#endif // WATERCRAFT_PROPULSION_H

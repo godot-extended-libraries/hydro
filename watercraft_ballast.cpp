@@ -21,21 +21,46 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                */
 /*************************************************************************/
 
-#include "register_types.h"
-#include "core/class_db.h"
-#include "hydro_rigid_body.h"
-#include "water_area.h"
 #include "watercraft_ballast.h"
-#include "watercraft_propulsion.h"
-#include "watercraft_rudder.h"
+#include "hydro_rigid_body.h"
 
-void register_hydro_types() {
-	ClassDB::register_class<HydroRigidBody>();
-	ClassDB::register_class<WaterArea>();
-	ClassDB::register_class<WatercraftBallast>();
-	ClassDB::register_class<WatercraftPropulsion>();
-	ClassDB::register_class<WatercraftRudder>();
+WatercraftBallast::WatercraftBallast() {
+	m_mass = 0;
 }
 
-void unregister_hydro_types() {
+String WatercraftBallast::get_configuration_warning() const {
+	if (!Object::cast_to<HydroRigidBody>(get_parent())) {
+		return TTR("WatercraftBallast serves to provide custom weight distribution to a HydroRigidBody. Please use it as a child of a HydroRigidBody.");
+	}
+
+	return String();
+}
+
+void WatercraftBallast::_bind_methods() {
+	ClassDB::bind_method(D_METHOD("set_origin", "origin"), &WatercraftBallast::set_origin);
+	ClassDB::bind_method(D_METHOD("get_origin"), &WatercraftBallast::get_origin);
+	ClassDB::bind_method(D_METHOD("set_mass", "mass"), &WatercraftBallast::set_mass);
+	ClassDB::bind_method(D_METHOD("get_mass"), &WatercraftBallast::get_mass);
+
+	ADD_PROPERTY(PropertyInfo(Variant::VECTOR3, "origin"), "set_origin", "get_origin");
+	ADD_PROPERTY(PropertyInfo(Variant::REAL, "mass"), "set_mass", "get_mass");
+}
+
+void WatercraftBallast::_notification(int p_what) {
+
+	if (p_what == NOTIFICATION_ENTER_TREE) {
+
+		HydroRigidBody *parent = Object::cast_to<HydroRigidBody>(get_parent());
+		if (!parent)
+			return;
+
+		parent->m_ballast.push_back(this);
+	}
+	if (p_what == NOTIFICATION_EXIT_TREE) {
+		HydroRigidBody *parent = Object::cast_to<HydroRigidBody>(get_parent());
+		if (!parent)
+			return;
+
+		parent->m_ballast.erase(this);
+	}
 }

@@ -55,6 +55,12 @@ void ClippableMesh::add_face(const Vector3 &a, const Vector3 &b, const Vector3 &
 	++m_face_count;
 }
 
+void ClippableMesh::add_face(const Face3 &face, const Transform &transform) {
+	Face3 global_face(transform.xform(face.vertex[0]), transform.xform(face.vertex[1]), transform.xform(face.vertex[2]));
+	m_faces.append(global_face);
+	++m_face_count;
+}
+
 float ClippableMesh::get_volume() const {
 	float volume = 0;
 	PoolVector<Face3>::Read read_faces = m_faces.read();
@@ -76,7 +82,6 @@ void ClippableMesh::clip_to_plane_quadrant(const Vector3 &center, const PoolVect
 			continue;
 
 		int quadrant = get_quadrant(center, f.get_median_point());
-
 		if (quadrant < 0) {
 			new_faces.append(f);
 			continue;
@@ -84,8 +89,8 @@ void ClippableMesh::clip_to_plane_quadrant(const Vector3 &center, const PoolVect
 		const Plane &plane = read_planes[quadrant];
 
 		bool over[3];
-		for (int i = 0; i < 3; i++)
-			over[i] = plane.is_point_over(f.vertex[i]);
+		for (int j = 0; j < 3; j++)
+			over[j] = plane.is_point_over(f.vertex[j]);
 
 		if (over[0] && over[1] && over[2]) {
 			//face is over the plane, discard it
@@ -118,8 +123,8 @@ void ClippableMesh::clip_to_plane(const Plane &plane) {
 			continue;
 
 		bool over[3];
-		for (int i = 0; i < 3; i++)
-			over[i] = plane.is_point_over(f.vertex[i]);
+		for (int j = 0; j < 3; j++)
+			over[j] = plane.is_point_over(f.vertex[j]);
 
 		if (over[0] && over[1] && over[2]) {
 			//face is over the plane, discard it

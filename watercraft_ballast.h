@@ -21,21 +21,30 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                */
 /*************************************************************************/
 
-#include "register_types.h"
-#include "core/class_db.h"
-#include "hydro_rigid_body.h"
-#include "water_area.h"
-#include "watercraft_ballast.h"
-#include "watercraft_propulsion.h"
-#include "watercraft_rudder.h"
+#ifndef WATERCRAFT_BALLAST_H
+#define WATERCRAFT_BALLAST_H
 
-void register_hydro_types() {
-	ClassDB::register_class<HydroRigidBody>();
-	ClassDB::register_class<WaterArea>();
-	ClassDB::register_class<WatercraftBallast>();
-	ClassDB::register_class<WatercraftPropulsion>();
-	ClassDB::register_class<WatercraftRudder>();
-}
+#include "scene/3d/spatial.h"
 
-void unregister_hydro_types() {
-}
+class WatercraftBallast : public Spatial {
+	GDCLASS(WatercraftBallast, Spatial)
+
+public:
+	WatercraftBallast();
+	void set_origin(Vector3 origin) { m_origin = origin; }
+	Vector3 get_origin() const { return m_origin; }
+	void set_mass(float mass) { m_mass = mass; }
+	float get_mass() { return m_mass; }
+	String get_configuration_warning() const;
+
+protected:
+	Vector3 m_origin;
+	float m_mass;
+
+	static void _bind_methods();
+	void _notification(int p_what);
+
+	friend class HydroRigidBody;
+};
+
+#endif // WATERCRAFT_BALLAST_H

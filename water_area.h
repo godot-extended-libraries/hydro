@@ -20,22 +20,31 @@
 /* TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE     */
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                */
 /*************************************************************************/
+#ifndef WATER_AREA_H
+#define WATER_AREA_H
 
-#include "register_types.h"
-#include "core/class_db.h"
-#include "hydro_rigid_body.h"
-#include "water_area.h"
-#include "watercraft_ballast.h"
-#include "watercraft_propulsion.h"
-#include "watercraft_rudder.h"
+#include "scene/3d/area.h"
 
-void register_hydro_types() {
-	ClassDB::register_class<HydroRigidBody>();
-	ClassDB::register_class<WaterArea>();
-	ClassDB::register_class<WatercraftBallast>();
-	ClassDB::register_class<WatercraftPropulsion>();
-	ClassDB::register_class<WatercraftRudder>();
-}
+class WaterArea : public Area {
+	GDCLASS(WaterArea, Area)
 
-void unregister_hydro_types() {
-}
+public:
+	WaterArea();
+	void set_density(float density) { m_density = density; }
+	float get_density() { return m_density; }
+	void set_water_height(float water_height) { m_water_height = water_height; }
+	float get_water_height() { return m_water_height; }
+
+	void update_water_heights(PoolVector3Array &points);
+
+protected:
+	float m_density;
+	float m_water_height;
+
+	static void _bind_methods();
+	void _notification(int p_what);
+	void _body_entered(Node *node);
+	void _body_exited(Node *node);
+};
+
+#endif // WATER_AREA_H

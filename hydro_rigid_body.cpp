@@ -23,11 +23,16 @@
 
 #include "hydro_rigid_body.h"
 #include "clippable_mesh.h"
+#include "water_area.h"
+#include "watercraft_ballast.h"
+#include "watercraft_propulsion.h"
+#include "watercraft_rudder.h"
+
 #include "core/class_db.h"
 #include "core/math/aabb.h"
 #include "core/math/plane.h"
-#include "core/pool_vector.h"
 #include "core/os/os.h"
+#include "core/pool_vector.h"
 #include "core/variant.h"
 #include "scene/3d/immediate_geometry.h"
 #include "scene/3d/mesh_instance.h"
@@ -36,26 +41,12 @@ HydroRigidBody::HydroRigidBody() :
 		RigidBody() {
 	m_hull_mesh = nullptr;
 	m_debug_mesh = nullptr;
-	m_thrust_rotation = 0;
-	m_thrust_value = 0;
+	m_water_area = nullptr;
+	m_volume = 0;
+	m_density = 0;
 }
 
 void HydroRigidBody::_bind_methods() {
-
-	ClassDB::bind_method(D_METHOD("set_thrust_origin", "thrust_origin"), &HydroRigidBody::set_thrust_origin);
-	ClassDB::bind_method(D_METHOD("get_thrust_origin"), &HydroRigidBody::get_thrust_origin);
-	ClassDB::bind_method(D_METHOD("set_thrust_direction", "thrust_direction"), &HydroRigidBody::set_thrust_direction);
-	ClassDB::bind_method(D_METHOD("get_thrust_direction"), &HydroRigidBody::get_thrust_direction);
-	ClassDB::bind_method(D_METHOD("set_thrust_rotation", "thrust_rotation"), &HydroRigidBody::set_thrust_rotation);
-	ClassDB::bind_method(D_METHOD("get_thrust_rotation"), &HydroRigidBody::get_thrust_rotation);
-	ClassDB::bind_method(D_METHOD("set_thrust_value", "thrust_value"), &HydroRigidBody::set_thrust_value);
-	ClassDB::bind_method(D_METHOD("get_thrust_value"), &HydroRigidBody::get_thrust_value);
-
-	ADD_GROUP("Thrust", "thrust_");
-	ADD_PROPERTY(PropertyInfo(Variant::VECTOR3, "thrust_origin"), "set_thrust_origin", "get_thrust_origin");
-	ADD_PROPERTY(PropertyInfo(Variant::VECTOR3, "thrust_direction"), "set_thrust_direction", "get_thrust_direction");
-	ADD_PROPERTY(PropertyInfo(Variant::REAL, "thrust_rotation"), "set_thrust_rotation", "get_thrust_rotation");
-	ADD_PROPERTY(PropertyInfo(Variant::REAL, "thrust_value"), "set_thrust_value", "get_thrust_value");
 }
 
 void HydroRigidBody::_notification(int p_what) {
@@ -74,31 +65,42 @@ void HydroRigidBody::_notification(int p_what) {
 		}
 	}
 }
-
 void HydroRigidBody::_direct_state_changed(Object *p_state) {
-
-	RigidBody::_direct_state_changed(p_state);
-
-	if (!m_hull_mesh)
-		return;
 
 	if (m_debug_mesh)
 		m_debug_mesh->clear();
 
+	RigidBody::_direct_state_changed(p_state);
 	state = Object::cast_to<PhysicsDirectBodyState>(p_state);
+
+	Vector3 origin = get_global_transform().get_origin();
 	Transform global_transform = get_global_transform();
 	Transform local_transform = global_transform.affine_inverse();
+
+	//Apply ballast weight
+	for (int i = 0; i < m_ballast.size(); i++) {
+		WatercraftBallast *ballast = m_ballast[i];
+		Vector3 start = global_transform.xform(ballast->m_origin);
+		Vector3 weight = state->get_total_gravity() * ballast->m_mass;
+		state->add_force(weight, start - origin);
+		if (m_debug_mesh)
+			draw_debug_vector(weight, start, local_transform);
+	}
+
+	//Shortcut out if we aren't in the water
+	if (!m_water_area || !m_hull_mesh)
+		return;
 
 	//Generate hull data
 	ClippableMesh hull_mesh_data(m_hull_mesh);
 	ClippableMesh under_mesh_data(hull_mesh_data);
 
-	if (m_thrust_direction.length_squared() > 0) {
-		Vector3 thrustAngle = m_thrust_direction.rotated(Vector3(0, 1, 0), m_thrust_rotation);
-		Vector3 rudderBack = m_thrust_origin + thrustAngle;
-		Vector3 rudderBottom = m_thrust_origin + Vector3(0, -1, 0);
-		under_mesh_data.add_face(m_thrust_origin, rudderBack, rudderBottom, global_transform);
-		under_mesh_data.add_face(m_thrust_origin, rudderBottom, rudderBack, global_transform);
+	//Add rudders
+	for (int i = 0; i < m_rudders.size(); i++) {
+		WatercraftRudder *rudder = m_rudders[i];
+		PoolVector<Face3> faces = rudder->get_faces();
+		for (int j = 0; j < faces.size(); j++)
+			under_mesh_data.add_face(faces[j], global_transform);
 	}
 
 	//Generate water planes
@@ -112,7 +114,7 @@ void HydroRigidBody::_direct_state_changed(Object *p_state) {
 	wave_samples.append(Vector3(wave_center.x, 0, wave_center.z + half_z));
 	wave_samples.append(Vector3(wave_center.x - half_x, 0, wave_center.z));
 	wave_samples.append(Vector3(wave_center.x, 0, wave_center.z - half_z));
-	update_water_heights(wave_samples);
+	m_water_area->update_water_heights(wave_samples);
 
 	PoolVector<Plane> wave_planes;
 	wave_planes.append(Plane(wave_samples[0], wave_samples[1], wave_samples[2]));
@@ -135,22 +137,23 @@ void HydroRigidBody::_direct_state_changed(Object *p_state) {
 		draw_debug_face(Face3(wave_samples[0], wave_samples[4], wave_samples[1]), local_transform);
 	}
 
-	Vector3 origin = get_global_transform().get_origin();
-
-	//Apply thrust
-	if (m_thrust_direction.length_squared() > 0) {
-		Vector3 start = global_transform.xform(m_thrust_origin);
-		int thrust_quadrant = ClippableMesh::get_quadrant(wave_center, start);
-		if (!wave_planes[thrust_quadrant].is_point_over(start)) {
-			Basis b = global_transform.get_basis();
-			Vector3 thrust = b.xform(m_thrust_direction * m_thrust_value).rotated(b.get_axis(1), m_thrust_rotation);
-			state->add_force(thrust, start - origin);
-			if (m_debug_mesh)
-				draw_debug_vector(thrust, start, local_transform);
+	//Apply propulsion
+	for (int i = 0; i < m_propulsion.size(); i++) {
+		WatercraftPropulsion *prop = m_propulsion[i];
+		if (prop->m_direction.length_squared() > 0 && Math::absf(prop->m_value) > CMP_EPSILON) {
+			Vector3 start = global_transform.xform(prop->m_origin);
+			int prop_quadrant = ClippableMesh::get_quadrant(wave_center, start);
+			if (!wave_planes[prop_quadrant].is_point_over(start)) {
+				Basis b = global_transform.get_basis();
+				Vector3 thrust = b.xform(prop->m_direction * prop->m_value);
+				state->add_force(thrust, start - origin);
+				if (m_debug_mesh)
+					draw_debug_vector(thrust, start, local_transform);
+			}
 		}
 	}
 
-	float fluidDensity = 1000;
+	float fluid_density = m_water_area->get_density();
 	float gravity = -state->get_total_gravity().length();
 
 	//Calculate buoyancy, drag, and lift per-face
@@ -162,7 +165,7 @@ void HydroRigidBody::_direct_state_changed(Object *p_state) {
 
 		//Buoyant force
 		float depth = fabsf(wave_planes[q].distance_to(center_tri));
-		Vector3 buoyancy_force = fluidDensity * gravity * depth * f.get_area() * normal;
+		Vector3 buoyancy_force = fluid_density * gravity * depth * f.get_area() * normal;
 		buoyancy_force.x = 0;
 		buoyancy_force.z = 0;
 		state->add_force(buoyancy_force, center_tri - origin);
@@ -186,12 +189,6 @@ void HydroRigidBody::_direct_state_changed(Object *p_state) {
 			if (m_debug_mesh)
 				draw_debug_vector(drag_lift, center_tri, local_transform);
 		}
-	}
-}
-
-void HydroRigidBody::update_water_heights(PoolVector3Array &points) {
-	if (get_script_instance()) {
-		points = get_script_instance()->call("_get_water_heights", points);
 	}
 }
 

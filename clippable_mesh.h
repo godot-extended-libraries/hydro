@@ -26,8 +26,8 @@
 
 #include "core/math/face3.h"
 #include "core/math/plane.h"
-#include "core/pool_vector.h"
 #include "core/math/vector3.h"
+#include "core/pool_vector.h"
 
 class MeshInstance;
 class Transform;
@@ -38,6 +38,7 @@ public:
 	ClippableMesh(const MeshInstance *mesh);
 
 	void add_face(const Vector3 &a, const Vector3 &b, const Vector3 &c, const Transform &transform);
+	void add_face(const Face3 &face, const Transform &transform);
 	int face_count() const { return m_face_count; }
 	const Face3 &get_face(int index) const { return m_faces.read()[index]; }
 	float get_volume() const;
