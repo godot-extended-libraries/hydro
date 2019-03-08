@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="WatercraftPropulsion" inherits="Spatial" category="Core" version="3.1">
+	<brief_description>
+		Adds a propulsion system to a [HydroRigidBody]
+	</brief_description>
+	<description>
+		This can be used to add prop or jet drives, bow thrusters, or more to a [HydroRigidBody]-based watercraft.  The propulsion system will only provide thrust when its origin is underwater.
+	</description>
+	<tutorials>
+	</tutorials>
+	<demos>
+	</demos>
+	<methods>
+	</methods>
+	<members>
+		<member name="direction" type="Vector3" setter="set_direction" getter="get_direction">
+			The direction that the propulsion system will push the watercraft.
+		</member>
+		<member name="origin" type="Vector3" setter="set_origin" getter="get_origin">
+			The location of the propulsion system.
+		</member>
+		<member name="value" type="float" setter="set_value" getter="get_value">
+			The amount of thrust applied by the propulsion system.
+		</member>
+	</members>
+	<constants>
+	</constants>
+</class>

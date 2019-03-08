@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<class name="WatercraftBallast" inherits="Spatial" category="Core" version="3.1">
+	<brief_description>
+		Allows off-center weight to be added to a [HydroRigidBody]
+	</brief_description>
+	<description>
+		By default, the mass of a [HydroRigidBody] is centered at the origin of the object.  Adding additional weight at various points can improve realism in some cases. The WatercraftBallast node allows you to position a point mass at a specific location.  This can be useful for cases such as:
+		- Creating a keel on a sailboat
+		- Simulating cargo on a ship
+		- Shifting the weight of a rider
+	</description>
+	<tutorials>
+	</tutorials>
+	<demos>
+	</demos>
+	<methods>
+	</methods>
+	<members>
+		<member name="mass" type="float" setter="set_mass" getter="get_mass">
+			The mass of the ballast.
+		</member>
+		<member name="origin" type="Vector3" setter="set_origin" getter="get_origin">
+			The location of the ballast.
+		</member>
+	</members>
+	<constants>
+	</constants>
+</class>
