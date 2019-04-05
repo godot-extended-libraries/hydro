@@ -21,26 +21,49 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                */
 /*************************************************************************/
 
-#include "register_types.h"
-#include "core/class_db.h"
-#include "hydro_gizmo_plugins.h"
-#include "hydro_rigid_body.h"
-#include "water_area.h"
-#include "watercraft_ballast.h"
-#include "watercraft_propulsion.h"
-#include "watercraft_rudder.h"
+#ifndef HYDRO_GIZMO_PLUGINS_H
+#define HYDRO_GIZMO_PLUGINS_H
 
-void register_hydro_types() {
-	ClassDB::register_class<HydroRigidBody>();
-	ClassDB::register_class<WaterArea>();
-	ClassDB::register_class<WatercraftBallast>();
-	ClassDB::register_class<WatercraftPropulsion>();
-	ClassDB::register_class<WatercraftRudder>();
-	
-#ifdef TOOLS_ENABLED
-	EditorPlugins::add_by_type<EditorPluginHydro>();
+#include "editor/plugins/spatial_editor_plugin.h"
+
+class WatercraftBallastSpatialGizmoPlugin : public EditorSpatialGizmoPlugin {
+	GDCLASS(WatercraftBallastSpatialGizmoPlugin, EditorSpatialGizmoPlugin)
+public:
+	bool has_gizmo(Spatial *p_spatial);
+	String get_name() const;
+	int get_priority() const;
+	void redraw(EditorSpatialGizmo *p_gizmo);
+
+	WatercraftBallastSpatialGizmoPlugin();
+};
+
+
+class WatercraftPropulsionSpatialGizmoPlugin : public EditorSpatialGizmoPlugin {
+	GDCLASS(WatercraftPropulsionSpatialGizmoPlugin, EditorSpatialGizmoPlugin)
+public:
+	bool has_gizmo(Spatial *p_spatial);
+	String get_name() const;
+	int get_priority() const;
+	void redraw(EditorSpatialGizmo *p_gizmo);
+
+	WatercraftPropulsionSpatialGizmoPlugin();
+};
+
+class WatercraftRudderSpatialGizmoPlugin : public EditorSpatialGizmoPlugin {
+	GDCLASS(WatercraftRudderSpatialGizmoPlugin, EditorSpatialGizmoPlugin)
+public:
+	bool has_gizmo(Spatial *p_spatial);
+	String get_name() const;
+	int get_priority() const;
+	void redraw(EditorSpatialGizmo *p_gizmo);
+
+	WatercraftRudderSpatialGizmoPlugin();
+};
+
+class EditorPluginHydro : public EditorPlugin {
+	GDCLASS(EditorPluginHydro, EditorPlugin)
+public:
+	EditorPluginHydro(EditorNode *p_editor);
+};
+
 #endif
-}
-
-void unregister_hydro_types() {
-}

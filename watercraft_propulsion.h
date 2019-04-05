@@ -31,9 +31,9 @@ class WatercraftPropulsion : public Spatial {
 
 public:
 	WatercraftPropulsion();
-	void set_origin(Vector3 origin) { m_origin = origin; }
+	void set_origin(Vector3 origin) { m_origin = origin; update_gizmo(); }
 	Vector3 get_origin() const { return m_origin; }
-	void set_direction(Vector3 dir) { m_direction = dir; }
+	void set_direction(Vector3 dir) { m_direction = dir; update_gizmo(); }
 	Vector3 get_direction() const { return m_direction; }
 	void set_value(float value) { m_value = value; }
 	float get_value() const { return m_value; }

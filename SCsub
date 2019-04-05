@@ -13,6 +13,11 @@ sources = [
 	"watercraft_rudder.cpp",
 ]
 
+if env['tools']:
+	sources +=  [
+		"hydro_gizmo_plugins.cpp",
+	]
+
 env_hydro = env_modules.Clone()
 
 if ARGUMENTS.get('hydro_shared', 'no') == 'yes':
