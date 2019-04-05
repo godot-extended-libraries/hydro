@@ -46,11 +46,14 @@ void WaterArea::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("get_density"), &WaterArea::get_density);
 	ClassDB::bind_method(D_METHOD("set_water_height", "water_height"), &WaterArea::set_water_height);
 	ClassDB::bind_method(D_METHOD("get_water_height"), &WaterArea::get_water_height);
+	ClassDB::bind_method(D_METHOD("set_flow_direction", "flow_direction"), &WaterArea::set_flow_direction);
+	ClassDB::bind_method(D_METHOD("get_flow_direction"), &WaterArea::get_flow_direction);
 	ClassDB::bind_method(D_METHOD("_body_entered", "node"), &WaterArea::_body_entered);
 	ClassDB::bind_method(D_METHOD("_body_exited", "node"), &WaterArea::_body_exited);
 
 	ADD_PROPERTY(PropertyInfo(Variant::REAL, "density"), "set_density", "get_density");
 	ADD_PROPERTY(PropertyInfo(Variant::REAL, "water_height"), "set_water_height", "get_water_height");
+	ADD_PROPERTY(PropertyInfo(Variant::VECTOR3, "flow_direction"), "set_flow_direction", "get_flow_direction");
 }
 
 void WaterArea::_notification(int p_what) {
@@ -61,7 +64,6 @@ void WaterArea::_notification(int p_what) {
 }
 
 void WaterArea::_body_entered(Node *node) {
-	print_line("body entered");
 	HydroRigidBody *body = Object::cast_to<HydroRigidBody>(node);
 	if (body) {
 		body->m_water_area = this;
@@ -69,7 +71,6 @@ void WaterArea::_body_entered(Node *node) {
 }
 
 void WaterArea::_body_exited(Node *node) {
-	print_line("body exited");
 	HydroRigidBody *body = Object::cast_to<HydroRigidBody>(node);
 	if (body && body->m_water_area == this) {
 		body->m_water_area = nullptr;

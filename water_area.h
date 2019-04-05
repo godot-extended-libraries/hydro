@@ -34,12 +34,15 @@ public:
 	float get_density() { return m_density; }
 	void set_water_height(float water_height) { m_water_height = water_height; }
 	float get_water_height() { return m_water_height; }
+	void set_flow_direction(const Vector3 &direction) { m_flow_direction = direction; }
+	Vector3 get_flow_direction() { return m_flow_direction; }
 
 	void update_water_heights(PoolVector3Array &points);
 
 protected:
 	float m_density;
 	float m_water_height;
+	Vector3 m_flow_direction;
 
 	static void _bind_methods();
 	void _notification(int p_what);

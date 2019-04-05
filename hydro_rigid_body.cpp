@@ -157,6 +157,7 @@ void HydroRigidBody::_direct_state_changed(Object *p_state) {
 	float gravity = -state->get_total_gravity().length();
 
 	//Calculate buoyancy, drag, and lift per-face
+	Vector3 base_velocity = get_linear_velocity() - m_water_area->get_flow_direction();
 	for (int i = 0; i < under_mesh_data.face_count(); i++) {
 		const Face3 &f = under_mesh_data.get_face(i);
 		Vector3 center_tri = f.get_median_point();
@@ -173,7 +174,7 @@ void HydroRigidBody::_direct_state_changed(Object *p_state) {
 			draw_debug_vector(buoyancy_force, center_tri, local_transform);
 
 		//Drag and lift forces
-		Vector3 vel = get_linear_velocity() + get_angular_velocity().cross(center_tri - origin);
+		Vector3 vel = base_velocity + get_angular_velocity().cross(center_tri - origin);
 		Vector3 vel_dir = vel.normalized();
 		float drag_coef = vel_dir.dot(normal);
 		if (drag_coef > 0) {
