@@ -6,22 +6,22 @@
 [ext_resource path="res://WaveConnector.gd" type="Script" id=4]
 [ext_resource path="res://Panel.tscn" type="PackedScene" id=5]
 
-[sub_resource type="BoxShape" id=6]
+[sub_resource type="BoxShape" id=1]
 extents = Vector3( 4096, 64, 4096 )
 
-[sub_resource type="CubeMesh" id=1]
+[sub_resource type="CubeMesh" id=2]
 
-[sub_resource type="ConvexPolygonShape" id=2]
+[sub_resource type="ConvexPolygonShape" id=3]
 points = PoolVector3Array( -1, 1, 1, 1, 1, -1, 1, 1, 1, -1, 1, -1, -1, -1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, -1, 1, 1, -1, -1, 1, 1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, 1, 1, 1, -1, -1, 1, -1, 1, 1, 1, -1, 1, 1, 1, -1, -1, -1, -1, -1, 1, -1, 1, -1, -1 )
 
-[sub_resource type="PrismMesh" id=3]
+[sub_resource type="PrismMesh" id=4]
 flip_faces = true
 size = Vector3( 6, -2, 12 )
 
-[sub_resource type="ConvexPolygonShape" id=4]
+[sub_resource type="ConvexPolygonShape" id=5]
 points = PoolVector3Array( 0, -1, 6, 0, -1, -6, 0, -1, 6, 0, -1, -6, -3, 1, 6, 3, 1, -6, 3, 1, 6, -3, 1, -6, 0, -1, 6, 0, -1, -6, 0, -1, -6, 0, -1, 6, 3, 1, 6, -3, 1, -6, 3, 1, -6, -3, 1, 6, -3, 1, 6, 3, 1, 6, -3, 1, -6, 3, 1, -6 )
 
-[sub_resource type="SpatialMaterial" id=5]
+[sub_resource type="SpatialMaterial" id=6]
 vertex_color_use_as_albedo = true
 
 [node name="Node" type="Node"]
@@ -52,7 +52,7 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -60, 0 )
 script = ExtResource( 4 )
 
 [node name="CollisionShape" type="CollisionShape" parent="WaterArea"]
-shape = SubResource( 6 )
+shape = SubResource( 1 )
 
 [node name="Panel" parent="." instance=ExtResource( 5 )]
 
@@ -61,44 +61,44 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1, 0 )
 mass = 3000.0
 
 [node name="MeshInstance" type="MeshInstance" parent="Cube 1"]
-mesh = SubResource( 1 )
+mesh = SubResource( 2 )
 material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="Cube 1"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="Cube 2" type="HydroRigidBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0 )
 mass = 6000.0
 
 [node name="MeshInstance" type="MeshInstance" parent="Cube 2"]
-mesh = SubResource( 1 )
+mesh = SubResource( 2 )
 material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="Cube 2"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="Cube 3" type="HydroRigidBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1, 0 )
 mass = 9000.0
 
 [node name="MeshInstance" type="MeshInstance" parent="Cube 3"]
-mesh = SubResource( 1 )
+mesh = SubResource( 2 )
 material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="Cube 3"]
-shape = SubResource( 2 )
+shape = SubResource( 3 )
 
 [node name="Boat 1" type="HydroRigidBody" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1, -20 )
 mass = 20000.0
 
 [node name="MeshInstance" type="MeshInstance" parent="Boat 1"]
-mesh = SubResource( 3 )
+mesh = SubResource( 4 )
 material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="Boat 1"]
-shape = SubResource( 4 )
+shape = SubResource( 5 )
 
 [node name="WatercraftPropulsion" type="WatercraftPropulsion" parent="Boat 1"]
 origin = Vector3( 0, -1, 6 )
@@ -118,14 +118,14 @@ transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1, -20 )
 mass = 20000.0
 
 [node name="Debug" type="ImmediateGeometry" parent="Boat 2"]
-material_override = SubResource( 5 )
+material_override = SubResource( 6 )
 
 [node name="MeshInstance" type="MeshInstance" parent="Boat 2"]
-mesh = SubResource( 3 )
+mesh = SubResource( 4 )
 material/0 = null
 
 [node name="CollisionShape" type="CollisionShape" parent="Boat 2"]
-shape = SubResource( 4 )
+shape = SubResource( 5 )
 
 [node name="WatercraftPropulsion" type="WatercraftPropulsion" parent="Boat 2"]
 origin = Vector3( 0, -1, 6 )
@@ -139,4 +139,3 @@ direction = Vector3( 0.174, 0, 0.985 )
 [node name="WatercraftBallast" type="WatercraftBallast" parent="Boat 2"]
 origin = Vector3( 0, 0, -6 )
 mass = 10000.0
-
