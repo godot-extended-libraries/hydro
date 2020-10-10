@@ -2,4 +2,6 @@ Hydro is a module for Godot 3.2 which allows rigid bodies to behave realisticall
 
 This is based on https://gitlab.com/ringtechsolutions/godot-tools/hydro/hydro
 
-Looking for volunteers to help out. Documentation, coding and general feedback.
+Looking for volunteers to help. Documentation, coding and general feedback.
+
+![Screenshot of Hydro in Godot Engine](https://raw.githubusercontent.com/godot-extended-libraries/hydro/master/docs/hydro_splash.png)
