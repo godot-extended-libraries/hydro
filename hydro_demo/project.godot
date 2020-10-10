@@ -15,7 +15,7 @@ _global_script_class_icons={
 [application]
 
 config/name="HydroSimpleDemo"
-run/main_scene="res://Ocean3D.tscn"
+run/main_scene="res://hydro/scenes/Ocean3D.tscn"
 config/icon="res://icon.png"
 
 [editor_plugins]
@@ -52,4 +52,4 @@ toggle_mouse={
 
 [rendering]
 
-environment/default_environment="res://default_env.tres"
+environment/default_environment="res://hydro/art/hydro_env.tres"
