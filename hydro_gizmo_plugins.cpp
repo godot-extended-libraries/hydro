@@ -26,7 +26,6 @@
 #include "watercraft_propulsion.h"
 #include "watercraft_rudder.h"
 
-
 WatercraftBallastSpatialGizmoPlugin::WatercraftBallastSpatialGizmoPlugin() {
 
 	Color gizmo_color = EDITOR_DEF("editors/3d_gizmos/gizmo_colors/shape", Color(0.5, 0.7, 1));
@@ -62,7 +61,7 @@ void WatercraftBallastSpatialGizmoPlugin::redraw(EditorSpatialGizmo *p_gizmo) {
 	Vector3 bottom2 = origin + Vector3(bottom_offset, -height, -bottom_offset);
 	Vector3 bottom3 = origin + Vector3(-bottom_offset, -height, -bottom_offset);
 	Vector3 bottom4 = origin + Vector3(-bottom_offset, -height, bottom_offset);
-	
+
 	Vector<Vector3> points;
 	points.push_back(top1);
 	points.push_back(top2);
@@ -72,7 +71,7 @@ void WatercraftBallastSpatialGizmoPlugin::redraw(EditorSpatialGizmo *p_gizmo) {
 	points.push_back(top4);
 	points.push_back(top4);
 	points.push_back(top1);
-	
+
 	points.push_back(bottom1);
 	points.push_back(bottom2);
 	points.push_back(bottom2);
@@ -81,7 +80,7 @@ void WatercraftBallastSpatialGizmoPlugin::redraw(EditorSpatialGizmo *p_gizmo) {
 	points.push_back(bottom4);
 	points.push_back(bottom4);
 	points.push_back(bottom1);
-	
+
 	points.push_back(top1);
 	points.push_back(bottom1);
 	points.push_back(top2);
@@ -90,7 +89,7 @@ void WatercraftBallastSpatialGizmoPlugin::redraw(EditorSpatialGizmo *p_gizmo) {
 	points.push_back(bottom3);
 	points.push_back(top4);
 	points.push_back(bottom4);
-		
+
 	Ref<Material> material = get_material("shape_material", p_gizmo);
 	p_gizmo->clear();
 	p_gizmo->add_lines(points, material);
@@ -135,10 +134,9 @@ void WatercraftPropulsionSpatialGizmoPlugin::redraw(EditorSpatialGizmo *p_gizmo)
 	points.push_back(origin + direction * 0.8 + side * 0.2);
 	points.push_back(thrust_end);
 	points.push_back(origin + direction * 0.8 - side * 0.2);
-	
+
 	//propeller
-	for (int i = 0; i < 6; i++)
-	{
+	for (int i = 0; i < 6; i++) {
 		points.push_back(origin);
 		points.push_back(origin + blade1.rotated(direction, i * 1.047f));
 		points.push_back(origin + blade1.rotated(direction, i * 1.047f));
@@ -146,7 +144,7 @@ void WatercraftPropulsionSpatialGizmoPlugin::redraw(EditorSpatialGizmo *p_gizmo)
 		points.push_back(origin + blade2.rotated(direction, i * 1.047f));
 		points.push_back(origin);
 	}
-	
+
 	Ref<Material> material = get_material("shape_material", p_gizmo);
 	p_gizmo->clear();
 	p_gizmo->add_lines(points, material);
@@ -180,7 +178,7 @@ void WatercraftRudderSpatialGizmoPlugin::redraw(EditorSpatialGizmo *p_gizmo) {
 	const Vector3 &p2 = faces[0].vertex[1];
 	const Vector3 &p3 = faces[0].vertex[2];
 	const Vector3 &p4 = faces[1].vertex[1];
-	
+
 	Vector<Vector3> points;
 	points.push_back(p1);
 	points.push_back(p2);
@@ -190,7 +188,7 @@ void WatercraftRudderSpatialGizmoPlugin::redraw(EditorSpatialGizmo *p_gizmo) {
 	points.push_back(p3);
 	points.push_back(p3);
 	points.push_back(p1);
-	
+
 	Ref<Material> material = get_material("shape_material", p_gizmo);
 	p_gizmo->clear();
 	p_gizmo->add_lines(points, material);
@@ -198,8 +196,7 @@ void WatercraftRudderSpatialGizmoPlugin::redraw(EditorSpatialGizmo *p_gizmo) {
 
 ///////////////////////////////////////
 
-EditorPluginHydro::EditorPluginHydro(EditorNode *p_editor)
-{
+EditorPluginHydro::EditorPluginHydro(EditorNode *p_editor) {
 	Ref<WatercraftBallastSpatialGizmoPlugin> ballast_gizmo_plugin = Ref<WatercraftBallastSpatialGizmoPlugin>(memnew(WatercraftBallastSpatialGizmoPlugin));
 	Ref<WatercraftPropulsionSpatialGizmoPlugin> prop_gizmo_plugin = Ref<WatercraftPropulsionSpatialGizmoPlugin>(memnew(WatercraftPropulsionSpatialGizmoPlugin));
 	Ref<WatercraftRudderSpatialGizmoPlugin> rudder_gizmo_plugin = Ref<WatercraftRudderSpatialGizmoPlugin>(memnew(WatercraftRudderSpatialGizmoPlugin));

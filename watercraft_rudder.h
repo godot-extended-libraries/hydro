@@ -31,13 +31,25 @@ class WatercraftRudder : public Spatial {
 
 public:
 	WatercraftRudder();
-	void set_origin(Vector3 origin) { m_origin = origin; update_gizmo(); }
+	void set_origin(Vector3 origin) {
+		m_origin = origin;
+		update_gizmo();
+	}
 	Vector3 get_origin() const { return m_origin; }
-	void set_direction(Vector3 dir) { m_direction = dir; update_gizmo(); }
+	void set_direction(Vector3 dir) {
+		m_direction = dir;
+		update_gizmo();
+	}
 	Vector3 get_direction() const { return m_direction; }
-	void set_length(float value) { m_length = value; update_gizmo(); }
+	void set_length(float value) {
+		m_length = value;
+		update_gizmo();
+	}
 	float get_length() const { return m_length; }
-	void set_depth(float value) { m_depth = value; update_gizmo(); }
+	void set_depth(float value) {
+		m_depth = value;
+		update_gizmo();
+	}
 	float get_depth() const { return m_depth; }
 
 	PoolVector<Face3> get_faces();

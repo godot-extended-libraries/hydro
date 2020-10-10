@@ -37,7 +37,6 @@ public:
 	WatercraftBallastSpatialGizmoPlugin();
 };
 
-
 class WatercraftPropulsionSpatialGizmoPlugin : public EditorSpatialGizmoPlugin {
 	GDCLASS(WatercraftPropulsionSpatialGizmoPlugin, EditorSpatialGizmoPlugin)
 public:

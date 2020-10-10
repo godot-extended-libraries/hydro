@@ -36,7 +36,7 @@ void register_hydro_types() {
 	ClassDB::register_class<WatercraftBallast>();
 	ClassDB::register_class<WatercraftPropulsion>();
 	ClassDB::register_class<WatercraftRudder>();
-	
+
 #ifdef TOOLS_ENABLED
 	EditorPlugins::add_by_type<EditorPluginHydro>();
 #endif
