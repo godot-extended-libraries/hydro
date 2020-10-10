@@ -18,6 +18,10 @@ config/name="HydroSimpleDemo"
 run/main_scene="res://Ocean3D.tscn"
 config/icon="res://icon.png"
 
+[display]
+
+window/size/fullscreen=true
+
 [editor_plugins]
 
 enabled=PoolStringArray(  )

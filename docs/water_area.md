@@ -25,16 +25,10 @@ Finally, the WaterArea acts as a standard Area node.  It can be used to trigger 
 Property Descriptions
 ---------------------
 
-
-- float **density**
-
-     
+* float **density**
 
 Sets the density of the water in this area.  Freshwater is 1000 kg/m^3, and seawater ranges from 1020 - 1029 kg/m^3.
 
-
-- float **water_height**
-    
+* float **water_height**
 
 Sets a constant global-space water height.  This value is not used if you create a custom wave height function instead.
-

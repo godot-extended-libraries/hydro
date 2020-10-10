@@ -4,7 +4,7 @@ WatercraftRudder
 Brief Description
 -----------------
 
-Adds a steerable rudder to a `HydroRigidBody`.
+Adds a steerable rudder to a `HydroRigidBody` .
 
 Properties
 ----------
@@ -25,18 +25,18 @@ This will generate a rudder of a given size and calculate the forces along with 
 Property Descriptions
 ---------------------
 
-- float **depth**
+* float **depth**
 
 The extent of the rudder below the origin.
 
-- Vector3 **direction**
+* Vector3 **direction**
 
 The direction the rudder will face.  Change the direction to steer the rudder.
 
-- float **length**
+* float **length**
 
 The length of the rudder in the specified direction.
 
-- Vector3 **origin**
+* Vector3 **origin**
 
 The location of the rudder.
