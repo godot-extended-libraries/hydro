@@ -13,6 +13,8 @@ const FLY_ACCEL = 4
 
 var mouse_captured = true
 
+signal free_look_toggled
+
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
@@ -26,9 +28,11 @@ func _physics_process(delta):
 		if mouse_captured:
 			mouse_captured = false
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
+			emit_signal("free_look_toggled", false)
 		else:
 			mouse_captured = true
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+			emit_signal("free_look_toggled", true)
 
 func _input(event):
 	if event is InputEventMouseMotion:

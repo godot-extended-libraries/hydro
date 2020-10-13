@@ -19,3 +19,11 @@ func _process(delta):
 			"NoiseAmp": ocean.set_noise_amplitude($Settings/NoiseAmp/HSlider.value)
 			"NoiseFreq": ocean.set_noise_frequency($Settings/NoiseFreq/HSlider.value)
 			"NoiseSpeed": ocean.set_noise_speed($Settings/NoiseSpeed/HSlider.value)
+
+func set_free_look(status):
+	if status:
+		$EditMode.hide()
+		$FreeLook.show()
+	else:
+		$FreeLook.hide()
+		$EditMode.show()

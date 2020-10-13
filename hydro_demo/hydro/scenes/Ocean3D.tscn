@@ -139,3 +139,4 @@ direction = Vector3( 0.174, 0, 0.985 )
 [node name="WatercraftBallast" type="WatercraftBallast" parent="Boat 2"]
 origin = Vector3( 0, 0, -6 )
 mass = 10000.0
+[connection signal="free_look_toggled" from="FirstPerson" to="Panel" method="set_free_look"]
