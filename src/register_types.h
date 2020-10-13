@@ -1,5 +1,5 @@
 /*************************************************************************/
-/* Copyright (c) 2020 Jon Ring                                           */
+/* Copyright (c) 2019 Jon Ring                                           */
 /*                                                                       */
 /* Permission is hereby granted, free of charge, to any person obtaining */
 /* a copy of this software and associated documentation files (the       */
@@ -21,4 +21,5 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                */
 /*************************************************************************/
 
-#include "src/register_types.h"
+void register_hydro_types();
+void unregister_hydro_types();

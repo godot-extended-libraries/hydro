@@ -4,18 +4,18 @@ Import('env')
 Import('env_modules')
 
 sources = [
-	"clippable_mesh.cpp",
-	"hydro_rigid_body.cpp",
-	"register_types.cpp",
-	"water_area.cpp",
-	"watercraft_ballast.cpp",
-	"watercraft_propulsion.cpp",
-	"watercraft_rudder.cpp",
+	"src/clippable_mesh.cpp",
+	"src/hydro_rigid_body.cpp",
+	"src/register_types.cpp",
+	"src/water_area.cpp",
+	"src/watercraft_ballast.cpp",
+	"src/watercraft_propulsion.cpp",
+	"src/watercraft_rudder.cpp",
 ]
 
 if env['tools']:
 	sources +=  [
-		"hydro_gizmo_plugins.cpp",
+		"src/hydro_gizmo_plugins.cpp",
 	]
 
 env_hydro = env_modules.Clone()
