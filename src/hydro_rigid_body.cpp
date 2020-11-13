@@ -39,7 +39,6 @@
 
 HydroRigidBody::HydroRigidBody() :
 		RigidBody() {
-	m_hull_mesh = nullptr;
 	m_debug_mesh = nullptr;
 	m_water_area = nullptr;
 	m_volume = 0;
@@ -52,15 +51,17 @@ void HydroRigidBody::_bind_methods() {
 void HydroRigidBody::_notification(int p_what) {
 	if (p_what == NOTIFICATION_READY) {
 		for (int i = 0; i < get_child_count(); i++) {
-			if (!m_hull_mesh)
-				m_hull_mesh = Object::cast_to<MeshInstance>(get_child(i));
+			if (m_hull_mesh.is_empty()) {
+				MeshInstance *mesh = Object::cast_to<MeshInstance>(get_child(i));
+				if (mesh) {
+					m_hull_mesh.load(mesh);
+					m_density = get_mass() / m_hull_mesh.get_volume();
+				}
+			}
 			if (!m_debug_mesh)
 				m_debug_mesh = Object::cast_to<ImmediateGeometry>(get_child(i));
 		}
-		if (m_hull_mesh) {
-			ClippableMesh tmp_mesh_data = ClippableMesh(m_hull_mesh);
-			m_density = get_mass() / tmp_mesh_data.get_volume();
-		} else {
+		if (m_hull_mesh.is_empty()) {
 			print_error("HydroRigidBody has no hull mesh!");
 		}
 	}
@@ -73,9 +74,9 @@ void HydroRigidBody::_direct_state_changed(Object *p_state) {
 	RigidBody::_direct_state_changed(p_state);
 	state = Object::cast_to<PhysicsDirectBodyState>(p_state);
 
-	Vector3 origin = get_global_transform().get_origin();
 	Transform global_transform = get_global_transform();
 	Transform local_transform = global_transform.affine_inverse();
+	Vector3 origin = global_transform.get_origin();
 
 	//Apply ballast weight
 	for (int i = 0; i < m_ballast.size(); i++) {
@@ -88,49 +89,50 @@ void HydroRigidBody::_direct_state_changed(Object *p_state) {
 	}
 
 	//Shortcut out if we aren't in the water
-	if (!m_water_area || !m_hull_mesh)
+	if (!m_water_area || m_hull_mesh.is_empty())
 		return;
 
-	//Generate hull data
-	ClippableMesh hull_mesh_data(m_hull_mesh);
-	ClippableMesh under_mesh_data(hull_mesh_data);
-
 	//Add rudders
+	PoolVector<Face3> rudder_faces;
 	for (int i = 0; i < m_rudders.size(); i++) {
 		WatercraftRudder *rudder = m_rudders[i];
-		PoolVector<Face3> faces = rudder->get_faces();
-		for (int j = 0; j < faces.size(); j++)
-			under_mesh_data.add_face(faces[j], global_transform);
+		rudder_faces.append_array(rudder->get_faces());
 	}
+	m_hull_mesh.add_rudder_faces(rudder_faces);
 
 	//Generate water planes
-	PoolVector3Array wave_samples;
-	AABB aabb = global_transform.xform(m_hull_mesh->get_aabb());
+	AABB aabb = global_transform.xform(m_hull_mesh.get_aabb());
 	float half_x = aabb.size.x / 2;
 	float half_z = aabb.size.z / 2;
 	Vector3 wave_center = aabb.get_position() + Vector3(half_x, 0, half_z);
-	wave_samples.append(Vector3(wave_center.x, 0, wave_center.z));
-	wave_samples.append(Vector3(wave_center.x + half_x, 0, wave_center.z));
-	wave_samples.append(Vector3(wave_center.x, 0, wave_center.z + half_z));
-	wave_samples.append(Vector3(wave_center.x - half_x, 0, wave_center.z));
-	wave_samples.append(Vector3(wave_center.x, 0, wave_center.z - half_z));
+
+	PoolVector3Array wave_samples;
+	wave_samples.resize(5);
+	{
+		PoolVector3Array::Write wave_samples_writer = wave_samples.write();
+		wave_samples_writer[0] = Vector3(wave_center.x, 0, wave_center.z);
+		wave_samples_writer[1] = Vector3(wave_center.x + half_x, 0, wave_center.z);
+		wave_samples_writer[2] = Vector3(wave_center.x, 0, wave_center.z + half_z);
+		wave_samples_writer[3] = Vector3(wave_center.x - half_x, 0, wave_center.z);
+		wave_samples_writer[4] = Vector3(wave_center.x, 0, wave_center.z - half_z);
+	}
 	m_water_area->update_water_heights(wave_samples);
 
-	PoolVector<Plane> wave_planes;
-	wave_planes.append(Plane(wave_samples[0], wave_samples[1], wave_samples[2]));
-	wave_planes.append(Plane(wave_samples[0], wave_samples[2], wave_samples[3]));
-	wave_planes.append(Plane(wave_samples[0], wave_samples[3], wave_samples[4]));
-	wave_planes.append(Plane(wave_samples[0], wave_samples[4], wave_samples[1]));
+	Plane wave_planes[4];
+	wave_planes[0] = Plane(wave_samples[0], wave_samples[1], wave_samples[2]);
+	wave_planes[1] = Plane(wave_samples[0], wave_samples[2], wave_samples[3]);
+	wave_planes[2] = Plane(wave_samples[0], wave_samples[3], wave_samples[4]);
+	wave_planes[3] = Plane(wave_samples[0], wave_samples[4], wave_samples[1]);
 
 	//Clip hull to water planes
-	under_mesh_data.clip_to_plane_quadrant(wave_center, wave_planes);
+	m_hull_mesh.clip_to_plane_quadrant(wave_center, wave_planes, global_transform);
 
 	//are we underwater?
-	if (under_mesh_data.face_count() == 0)
+	if (m_hull_mesh.clipped_face_count() == 0)
 		return;
 
 	if (m_debug_mesh) {
-		draw_debug_mesh(under_mesh_data, local_transform);
+		draw_debug_mesh(m_hull_mesh, local_transform);
 		draw_debug_face(Face3(wave_samples[0], wave_samples[1], wave_samples[2]), local_transform);
 		draw_debug_face(Face3(wave_samples[0], wave_samples[2], wave_samples[3]), local_transform);
 		draw_debug_face(Face3(wave_samples[0], wave_samples[3], wave_samples[4]), local_transform);
@@ -158,11 +160,12 @@ void HydroRigidBody::_direct_state_changed(Object *p_state) {
 
 	//Calculate buoyancy, drag, and lift per-face
 	Vector3 base_velocity = get_linear_velocity() - m_water_area->get_flow_direction();
-	for (int i = 0; i < under_mesh_data.face_count(); i++) {
-		const Face3 &f = under_mesh_data.get_face(i);
+	for (int i = 0; i < m_hull_mesh.clipped_face_count(); i++) {
+		const Face3 &f = m_hull_mesh.get_clipped_face(i);
 		Vector3 center_tri = f.get_median_point();
 		Vector3 normal = f.get_plane().normal;
 		int q = under_mesh_data.get_quadrant(wave_center, center_tri);
+		int q = m_hull_mesh.get_quadrant(wave_center, center_tri);
 
 		//Buoyant force
 		float depth = fabsf(wave_planes[q].distance_to(center_tri));
@@ -203,8 +206,8 @@ void HydroRigidBody::draw_debug_face(const Face3 &face, const Transform &transfo
 
 void HydroRigidBody::draw_debug_mesh(const ClippableMesh &mesh, const Transform &transform) {
 	const float scale = 1.001;
-	for (int i = 0; i < mesh.face_count(); i++) {
-		const Face3 &f = mesh.get_face(i);
+	for (int i = 0; i < mesh.clipped_face_count(); i++) {
+		const Face3 &f = mesh.get_clipped_face(i);
 		draw_debug_face(f, transform);
 		m_debug_mesh->begin(Mesh::PRIMITIVE_LINE_LOOP);
 		m_debug_mesh->set_color(Color(1, 1, 0));
