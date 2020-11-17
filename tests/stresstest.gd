@@ -34,7 +34,7 @@ func generate_water_area():
 
 func generate_cube(density, size, num_faces):
 	var rb = HydroRigidBody.new()
-	rb.mass = size * size * size * 2000 * density
+	rb.mass = size * size * size * 1000 * density
 	
 	var rb_shape = CollisionShape.new()
 	rb_shape.shape = BoxShape.new()

@@ -37,6 +37,14 @@
 #include "scene/3d/immediate_geometry.h"
 #include "scene/3d/mesh_instance.h"
 
+// Face3::get_area() currently (3.2.3) returns twice the area that it should.
+// Issue: https://github.com/godotengine/godot/issues/37048
+// PR: https://github.com/godotengine/godot/pull/37064
+// Use the below macro to work around the issue.  If the PR gets merged,
+// use version checking to choose between the fix and a no-op.
+#define FACE3_AREA_FIX(x) ((x)*0.5)
+//#define FACE3_AREA_FIX(x) (x)
+
 HydroRigidBody::HydroRigidBody() :
 		RigidBody() {
 	m_debug_mesh = nullptr;
@@ -164,7 +172,7 @@ void HydroRigidBody::_direct_state_changed(Object *p_state) {
 		const Face3 &f = m_hull_mesh.get_clipped_face(i);
 		Vector3 center_tri = f.get_median_point();
 		Vector3 normal = f.get_plane().normal;
-		int q = under_mesh_data.get_quadrant(wave_center, center_tri);
+		float area = FACE3_AREA_FIX(f.get_area());
 		int q = m_hull_mesh.get_quadrant(wave_center, center_tri);
 
 		//Buoyant force
