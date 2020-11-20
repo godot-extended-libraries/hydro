@@ -32,6 +32,8 @@ public:
 	WaterArea();
 	void set_density(float density) { m_density = density; }
 	float get_density() { return m_density; }
+	void set_viscosity(float viscosity) { m_viscosity = viscosity; }
+	float get_viscosity() { return m_viscosity; }
 	void set_water_height(float water_height) { m_water_height = water_height; }
 	float get_water_height() { return m_water_height; }
 	void set_flow_direction(const Vector3 &direction) { m_flow_direction = direction; }
@@ -41,6 +43,7 @@ public:
 
 protected:
 	float m_density;
+	float m_viscosity;
 	float m_water_height;
 	Vector3 m_flow_direction;
 

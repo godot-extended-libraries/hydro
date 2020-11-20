@@ -27,6 +27,7 @@
 
 WaterArea::WaterArea() {
 	m_density = 1000;
+	m_viscosity = 1.0f;
 	m_water_height = 0;
 }
 
@@ -44,6 +45,8 @@ void WaterArea::update_water_heights(PoolVector3Array &points) {
 void WaterArea::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("set_density", "density"), &WaterArea::set_density);
 	ClassDB::bind_method(D_METHOD("get_density"), &WaterArea::get_density);
+	ClassDB::bind_method(D_METHOD("set_viscosity", "viscosity"), &WaterArea::set_viscosity);
+	ClassDB::bind_method(D_METHOD("get_viscosity"), &WaterArea::get_viscosity);
 	ClassDB::bind_method(D_METHOD("set_water_height", "water_height"), &WaterArea::set_water_height);
 	ClassDB::bind_method(D_METHOD("get_water_height"), &WaterArea::get_water_height);
 	ClassDB::bind_method(D_METHOD("set_flow_direction", "flow_direction"), &WaterArea::set_flow_direction);
@@ -52,6 +55,7 @@ void WaterArea::_bind_methods() {
 	ClassDB::bind_method(D_METHOD("_body_exited", "node"), &WaterArea::_body_exited);
 
 	ADD_PROPERTY(PropertyInfo(Variant::REAL, "density"), "set_density", "get_density");
+	ADD_PROPERTY(PropertyInfo(Variant::REAL, "viscosity"), "set_viscosity", "get_viscosity");
 	ADD_PROPERTY(PropertyInfo(Variant::REAL, "water_height"), "set_water_height", "get_water_height");
 	ADD_PROPERTY(PropertyInfo(Variant::VECTOR3, "flow_direction"), "set_flow_direction", "get_flow_direction");
 }

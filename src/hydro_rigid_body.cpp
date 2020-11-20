@@ -164,6 +164,7 @@ void HydroRigidBody::_direct_state_changed(Object *p_state) {
 	}
 
 	float fluid_density = m_water_area->get_density();
+	float fluid_viscosity = m_water_area->get_viscosity();
 	float gravity = -state->get_total_gravity().length();
 
 	//Calculate buoyancy, drag, and lift per-face
@@ -177,7 +178,7 @@ void HydroRigidBody::_direct_state_changed(Object *p_state) {
 
 		//Buoyant force
 		float depth = fabsf(wave_planes[q].distance_to(center_tri));
-		Vector3 buoyancy_force = fluid_density * gravity * depth * f.get_area() * normal;
+		Vector3 buoyancy_force = fluid_density * gravity * depth * area * normal;
 		buoyancy_force.x = 0;
 		buoyancy_force.z = 0;
 		state->add_force(buoyancy_force, center_tri - origin);
@@ -189,8 +190,7 @@ void HydroRigidBody::_direct_state_changed(Object *p_state) {
 		Vector3 vel_dir = vel.normalized();
 		float drag_coef = vel_dir.dot(normal);
 		if (drag_coef > 0) {
-			float area = f.get_area();
-			float mag = area * m_density * vel.length_squared();
+			float mag = area * fluid_density * fluid_viscosity * vel.length_squared();
 			Vector3 drag_lift = -vel_dir * drag_coef * mag;
 
 			float c = vel_dir.cross(normal).length();
