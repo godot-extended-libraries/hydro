@@ -16,6 +16,12 @@
 		<member name="density" type="float" setter="set_density" getter="get_density">
 			Sets the density of the water in this area.  Freshwater is 1000 kg/m^3, and seawater ranges from 1020 - 1029 kg/m^3.
 		</member>
+		<member name="flow_direction" type="Vector3" setter="set_flow_direction" getter="get_flow_direction">
+			Creates a uniform current running through the area in the specified direction.  Any object submerged in this area will be pushed in the direction of the current.
+		</member>
+		<member name="viscosity" type="float" setter="set_viscosity" getter="get_viscosity">
+			Adjusts the viscosity of the water in this area.  This value changes the resistance to motion through the fluid without affecting buoyancy.  The default value of 1.0 is a good starting point for water; for thicker substances such as maple syrup or lava try increasing the value.
+		</member>
 		<member name="water_height" type="float" setter="set_water_height" getter="get_water_height">
 			Sets a constant global-space water height.  This value is not used if you create a custom wave height function instead.
 		</member>
