@@ -34,16 +34,17 @@
 #include "core/os/os.h"
 #include "core/pool_vector.h"
 #include "core/variant.h"
+#include "core/version.h"
 #include "scene/3d/immediate_geometry.h"
 #include "scene/3d/mesh_instance.h"
 
-// Face3::get_area() currently (3.2.3) returns twice the area that it should.
+// Prior to 3.4.0, Face3::get_area() returned twice the area that it should.
 // Issue: https://github.com/godotengine/godot/issues/37048
-// PR: https://github.com/godotengine/godot/pull/37064
-// Use the below macro to work around the issue.  If the PR gets merged,
-// use version checking to choose between the fix and a no-op.
+#if VERSION_HEX < 0x030400
 #define FACE3_AREA_FIX(x) ((x)*0.5)
-//#define FACE3_AREA_FIX(x) (x)
+#else
+#define FACE3_AREA_FIX(x) (x)
+#endif
 
 HydroRigidBody::HydroRigidBody() :
 		RigidBody() {
