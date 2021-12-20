@@ -43,17 +43,17 @@ func fly(delta):
 	direction = Vector3()
 	
 	# get the rotation of the camera
-	var aim = $Head/Camera.get_global_transform().basis
+	var _aim = $Head/Camera.get_global_transform().basis
 	
 	# check input and change direction
 	if Input.is_action_pressed("move_forward"):
-		direction -= aim.z
+		direction -= _aim.z
 	if Input.is_action_pressed("move_backward"):
-		direction += aim.z
+		direction += _aim.z
 	if Input.is_action_pressed("move_left"):
-		direction -= aim.x
+		direction -= _aim.x
 	if Input.is_action_pressed("move_right"):
-		direction += aim.x
+		direction += _aim.x
 	
 	direction = direction.normalized()
 	

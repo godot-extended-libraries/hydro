@@ -4,7 +4,7 @@ extends Panel
 
 var wind_direction = Vector2()
 
-func _process(delta):
+func _process(_delta):
 	for i in $Settings.get_children():
 		match i.name:
 			"Seed": ocean.set_seed(hash($Settings/Seed/LineEdit.text))

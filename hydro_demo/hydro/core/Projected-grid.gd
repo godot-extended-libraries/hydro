@@ -15,7 +15,6 @@ const NUMBER_OF_WAVES = 10;
 	set = set_wind_align
 @export var speed = 10.0: 
 	set = set_speed
-
 @export var noise_enabled = true:
 	set = set_noise_enabled
 @export var noise_amplitude = 0.28:
