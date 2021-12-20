@@ -11,8 +11,12 @@ __meta__ = {
 }
 
 [node name="FreeLook" type="Label" parent="."]
-anchor_left = 0.5
-anchor_right = 0.5
+anchor_left = 2.05017
+anchor_right = 2.05017
+offset_left = -123.04
+offset_top = 3.0
+offset_right = 128.96
+offset_bottom = 29.0
 theme_override_font_sizes/font_size = 16
 text = "Free look mode - press 'Q' to edit"
 __meta__ = {

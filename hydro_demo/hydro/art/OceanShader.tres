@@ -152,9 +152,9 @@ void fragment() {
 	ALBEDO = mix(refract_global, reflect_global, reflectiveness);
 }"
 
-[sub_resource type="Cubemap" id="Cubemap_pb41m"]
+[sub_resource type="Cubemap" id="Cubemap_fy020"]
 
-[sub_resource type="Image" id="Image_6h35f"]
+[sub_resource type="Image" id="Image_u5kfo"]
 data = {
 "data": PackedByteArray(181, 137, 164, 61, 21, 86, 221, 58, 190, 52, 125, 191, 25, 224, 22, 62, 148, 119, 231, 61, 159, 72, 57, 62, 117, 59, 68, 57, 40, 75, 131, 62, 157, 112, 119, 63, 175, 60, 154, 61, 172, 161, 173, 61, 194, 196, 208, 59, 208, 7, 119, 63, 122, 87, 134, 62, 4, 83, 225, 61, 86, 172, 43, 62, 162, 172, 13, 60, 78, 120, 61, 63, 136, 39, 44, 63, 8, 60, 160, 61, 40, 152, 23, 62, 213, 177, 152, 59, 227, 242, 42, 63, 246, 142, 62, 191, 40, 132, 170, 61, 157, 140, 250, 61, 112, 127, 225, 57, 163, 211, 99, 191, 240, 128, 233, 190, 72, 147, 187, 61, 115, 3, 67, 62, 217, 117, 145, 59, 10, 146, 115, 63, 143, 153, 157, 62, 20, 87, 150, 61, 192, 199, 156, 61, 83, 184, 228, 59, 113, 220, 127, 63, 51, 234, 6, 61, 228, 31, 237, 61, 111, 199, 11, 62, 13, 97, 226, 59, 163, 42, 24, 191, 7, 222, 77, 191, 170, 147, 177, 61, 58, 205, 43, 62, 5, 239, 201, 59, 253, 93, 83, 191, 255, 109, 16, 191, 177, 44, 160, 61),
 "format": "RFloat",
@@ -163,8 +163,8 @@ data = {
 "width": 5
 }
 
-[sub_resource type="ImageTexture" id="ImageTexture_35y2h"]
-image = SubResource( "Image_6h35f" )
+[sub_resource type="ImageTexture" id="ImageTexture_03a3s"]
+image = SubResource( "Image_u5kfo" )
 size = Vector2(5, 10)
 
 [resource]
@@ -173,7 +173,7 @@ shader = SubResource( "1" )
 shader_param/noise_params = Plane(0.286, 0.065, 0.48, 1)
 shader_param/water_color = Color(0, 0.153839, 0.277344, 1)
 shader_param/project_bias = 1.121
-shader_param/time_offset = 490.14
-shader_param/waves = SubResource( "ImageTexture_35y2h" )
+shader_param/time_offset = 1299.8
+shader_param/waves = SubResource( "ImageTexture_03a3s" )
 shader_param/noise = ExtResource( "1" )
-shader_param/environment = SubResource( "Cubemap_pb41m" )
+shader_param/environment = SubResource( "Cubemap_fy020" )
