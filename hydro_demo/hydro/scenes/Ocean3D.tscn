@@ -9,7 +9,7 @@
 [sub_resource type="ImmediateMesh" id="ImmediateMesh_60os3"]
 
 [sub_resource type="BoxShape3D" id="1"]
-size = Vector3(8192, 128, 8192)
+size = Vector3(4096, 64, 4096)
 
 [sub_resource type="BoxMesh" id="2"]
 
