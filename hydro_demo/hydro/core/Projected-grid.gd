@@ -136,14 +136,14 @@ func set_noise_speed(value):
 	old_noise_params.z = value
 	material_override.set_shader_param('noise_params', old_noise_params)
 
-func get_displace(position):
+func get_displace(p_position):
 	
 	var new_p;
-	if typeof(position) == TYPE_VECTOR3:
-		new_p = Vector3(position.x, 0.0, position.z)
-		position = Vector2(position.x, position.z)
-	elif typeof(position) == TYPE_VECTOR2:
-		new_p = Vector3(position.x, 0.0, position.y)
+	if typeof(p_position) == TYPE_VECTOR3:
+		new_p = Vector3(p_position.x, 0.0, p_position.z)
+		p_position = Vector2(p_position.x, p_position.z)
+	elif typeof(p_position) == TYPE_VECTOR2:
+		new_p = Vector3(p_position.x, 0.0, p_position.y)
 	else:
 		printerr('Position is not a vector3!')
 		breakpoint
@@ -158,7 +158,7 @@ func get_displace(position):
 		steep = i['steepness'] / (w*amp)
 		phase = 2.0 * w
 		
-		var W = position.dot(w*dir) + phase * OS.get_ticks_msec()/1000.0 * speed
+		var W = p_position.dot(w*dir) + phase * Time.get_ticks_msec()/1000.0 * speed
 		
 		new_p.x += steep*amp * dir.x * cos(W)
 		new_p.z += steep*amp * dir.y * cos(W)
