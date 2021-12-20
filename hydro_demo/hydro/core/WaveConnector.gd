@@ -1,3 +1,4 @@
+@tool
 extends WaterArea3D
 
 @onready var ocean = $"../Ocean"
