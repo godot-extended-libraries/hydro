@@ -64,7 +64,7 @@ func _ready():
 	waves_in_tex = ImageTexture.new()
 	update_waves()
 	
-	cube_cam_inst = cube_cam.instance()
+	cube_cam_inst = cube_cam.instantiate()
 	add_child(cube_cam_inst)
 
 
@@ -184,14 +184,12 @@ func update_waves():
 	#Put Waves in Texture..
 	var img = Image.new()
 	img.create(5, NUMBER_OF_WAVES, false, Image.FORMAT_RF)
-	img.lock()
 	for i in range(NUMBER_OF_WAVES):
 		img.set_pixel(0, i, Color(waves[i]['amplitude'], 0,0,0))
 		img.set_pixel(1, i, Color(waves[i]['steepness'], 0,0,0))
 		img.set_pixel(2, i, Color(waves[i]['wind_directionX'], 0,0,0))
 		img.set_pixel(3, i, Color(waves[i]['wind_directionY'], 0,0,0))
 		img.set_pixel(4, i, Color(waves[i]['frequency'], 0,0,0))
-	img.unlock()
 	waves_in_tex.create_from_image(img)
 	
 	material_override.set_shader_param('waves', waves_in_tex)
