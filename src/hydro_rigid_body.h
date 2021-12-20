@@ -43,7 +43,7 @@ public:
 protected:
 	NodePath m_hull_path;
 	ClippableMesh m_hull_mesh;
-	ImmediateMesh *m_debug_mesh;
+	Ref<ImmediateMesh> m_debug_mesh;
 	Vector3 m_thrust_origin;
 	Vector3 m_thrust_direction;
 	float m_thrust_rotation;

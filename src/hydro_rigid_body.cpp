@@ -39,7 +39,6 @@
 
 HydroRigidDynamicBody::HydroRigidDynamicBody() :
 		RigidDynamicBody3D() {
-	m_debug_mesh = nullptr;
 	m_water_area = nullptr;
 	m_volume = 0;
 	m_density = 0;
@@ -57,8 +56,17 @@ void HydroRigidDynamicBody::_notification(int p_what) {
 					m_density = get_mass() / m_hull_mesh.get_volume();
 				}
 			}
-			if (!m_debug_mesh)
-				m_debug_mesh = Object::cast_to<ImmediateMesh>(get_child(i));
+			if (m_debug_mesh.is_valid()) {
+				continue;
+			}
+			MeshInstance3D *mesh_instance = Object::cast_to<MeshInstance3D>(get_child(i));
+			if (!mesh_instance) {
+				continue;
+			}
+			Ref<Mesh> immediate_mesh = mesh_instance->get_mesh();
+			if (immediate_mesh.is_valid() && immediate_mesh->is_class("ImmediateMesh")) {
+				m_debug_mesh = immediate_mesh;
+			}
 		}
 		if (m_hull_mesh.is_empty()) {
 			print_error("HydroRigidDynamicBody has no hull mesh!");
@@ -67,7 +75,7 @@ void HydroRigidDynamicBody::_notification(int p_what) {
 }
 
 void HydroRigidDynamicBody::_body_state_changed(PhysicsDirectBodyState3D *p_state) {
-	if (m_debug_mesh) {
+	if (m_debug_mesh.is_valid()) {
 		m_debug_mesh->clear_surfaces();
 	}
 
@@ -81,8 +89,9 @@ void HydroRigidDynamicBody::_body_state_changed(PhysicsDirectBodyState3D *p_stat
 		Vector3 start = global_transform.xform(ballast->m_origin);
 		Vector3 weight = p_state->get_total_gravity() * ballast->m_mass;
 		p_state->apply_force(weight, start - origin);
-		if (m_debug_mesh)
+		if (m_debug_mesh.is_valid()) {
 			draw_debug_vector(weight, start, local_transform);
+		}
 	}
 
 	// Shortcut out if we aren't in the water
@@ -128,7 +137,7 @@ void HydroRigidDynamicBody::_body_state_changed(PhysicsDirectBodyState3D *p_stat
 	if (m_hull_mesh.clipped_face_count() == 0)
 		return;
 
-	if (m_debug_mesh) {
+	if (m_debug_mesh.is_valid()) {
 		draw_debug_mesh(m_hull_mesh, local_transform);
 		draw_debug_face(Face3(wave_samples[0], wave_samples[1], wave_samples[2]),
 				local_transform);
@@ -151,8 +160,9 @@ void HydroRigidDynamicBody::_body_state_changed(PhysicsDirectBodyState3D *p_stat
 				Basis b = global_transform.get_basis();
 				Vector3 thrust = b.xform(prop->m_direction * prop->m_value);
 				p_state->apply_force(thrust, start - origin);
-				if (m_debug_mesh)
+				if (m_debug_mesh.is_valid()) {
 					draw_debug_vector(thrust, start, local_transform);
+				}
 			}
 		}
 	}
@@ -177,8 +187,9 @@ void HydroRigidDynamicBody::_body_state_changed(PhysicsDirectBodyState3D *p_stat
 		buoyancy_force.x = 0;
 		buoyancy_force.z = 0;
 		p_state->apply_force(buoyancy_force, center_tri - origin);
-		if (m_debug_mesh)
+		if (m_debug_mesh.is_valid()) {
 			draw_debug_vector(buoyancy_force, center_tri, local_transform);
+		}
 
 		// Drag and lift forces
 		Vector3 vel =
@@ -194,8 +205,9 @@ void HydroRigidDynamicBody::_body_state_changed(PhysicsDirectBodyState3D *p_stat
 			Vector3 lift_dir = vel_dir.cross(normal).cross(vel_dir).normalized();
 			drag_lift += -lift_dir * lift_coef * mag;
 			p_state->apply_force(drag_lift, center_tri - origin);
-			if (m_debug_mesh)
+			if (m_debug_mesh.is_valid()) {
 				draw_debug_vector(drag_lift, center_tri, local_transform);
+			}
 		}
 	}
 }
