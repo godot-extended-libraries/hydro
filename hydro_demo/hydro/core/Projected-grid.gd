@@ -39,8 +39,8 @@ var waves = []
 var waves_in_tex = ImageTexture.new()
 
 func _ready():
-	if not mesh:
-		mesh = ImmediateMesh.new()
+	mesh = ImmediateMesh.new()
+	material_override = load("res://hydro/art/OceanShader.tres")
 	for j in range(res):
 		var y = j/res - 0.5
 		var n_y = (j+1)/res - 0.5
@@ -75,7 +75,7 @@ func _process(delta):
 		material_override.set_shader_param('environment', cube_map)
 		counter = INF
 	
-	material_override.set_shader_param('time_offset', OS.get_ticks_msec()/1000.0 * speed)
+	material_override.set_shader_param('time_offset', Time.get_ticks_msec() / 1000.0 * speed)
 	initialized = true
 
 func set_wavelength(value):
