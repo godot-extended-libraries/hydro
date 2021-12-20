@@ -24,37 +24,37 @@
 #ifndef HYDRO_GIZMO_PLUGINS_H
 #define HYDRO_GIZMO_PLUGINS_H
 
-#include "editor/plugins/spatial_editor_plugin.h"
+#include "editor/plugins/node_3d_editor_plugin.h"
 
-class WatercraftBallastSpatialGizmoPlugin : public EditorSpatialGizmoPlugin {
-	GDCLASS(WatercraftBallastSpatialGizmoPlugin, EditorSpatialGizmoPlugin)
+class WatercraftBallastNode3DGizmoPlugin : public EditorNode3DGizmoPlugin {
+	GDCLASS(WatercraftBallastNode3DGizmoPlugin, EditorNode3DGizmoPlugin)
 public:
-	bool has_gizmo(Spatial *p_spatial);
+	bool has_gizmo(Node3D *p_spatial) override;
 	String get_name() const;
-	int get_priority() const;
-	void redraw(EditorSpatialGizmo *p_gizmo);
+	int get_priority() const override;
+	void redraw(EditorNode3DGizmo *p_gizmo) override;
 
-	WatercraftBallastSpatialGizmoPlugin();
+	WatercraftBallastNode3DGizmoPlugin();
 };
 
-class WatercraftPropulsionSpatialGizmoPlugin : public EditorSpatialGizmoPlugin {
-	GDCLASS(WatercraftPropulsionSpatialGizmoPlugin, EditorSpatialGizmoPlugin)
+class WatercraftPropulsionSpatialGizmoPlugin : public EditorNode3DGizmoPlugin {
+	GDCLASS(WatercraftPropulsionSpatialGizmoPlugin, EditorNode3DGizmoPlugin)
 public:
-	bool has_gizmo(Spatial *p_spatial);
+	bool has_gizmo(Node3D *p_spatial) override;
 	String get_name() const;
-	int get_priority() const;
-	void redraw(EditorSpatialGizmo *p_gizmo);
+	int get_priority() const override;
+	void redraw(EditorNode3DGizmo *p_gizmo) override;
 
 	WatercraftPropulsionSpatialGizmoPlugin();
 };
 
-class WatercraftRudderSpatialGizmoPlugin : public EditorSpatialGizmoPlugin {
-	GDCLASS(WatercraftRudderSpatialGizmoPlugin, EditorSpatialGizmoPlugin)
+class WatercraftRudderSpatialGizmoPlugin : public EditorNode3DGizmoPlugin {
+	GDCLASS(WatercraftRudderSpatialGizmoPlugin, EditorNode3DGizmoPlugin)
 public:
-	bool has_gizmo(Spatial *p_spatial);
+	bool has_gizmo(Node3D *p_spatial) override;
 	String get_name() const;
-	int get_priority() const;
-	void redraw(EditorSpatialGizmo *p_gizmo);
+	int get_priority() const override;
+	void redraw(EditorNode3DGizmo *p_gizmo) override;
 
 	WatercraftRudderSpatialGizmoPlugin();
 };

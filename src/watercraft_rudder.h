@@ -24,35 +24,35 @@
 #ifndef WATERCRAFT_RUDDER_H
 #define WATERCRAFT_RUDDER_H
 
-#include "scene/3d/spatial.h"
+#include "scene/3d/node_3d.h"
 
-class WatercraftRudder : public Spatial {
-	GDCLASS(WatercraftRudder, Spatial)
+class WatercraftRudder : public Node3D {
+	GDCLASS(WatercraftRudder, Node3D)
 
 public:
 	WatercraftRudder();
 	void set_origin(Vector3 origin) {
 		m_origin = origin;
-		update_gizmo();
+		update_gizmos();
 	}
 	Vector3 get_origin() const { return m_origin; }
 	void set_direction(Vector3 dir) {
 		m_direction = dir;
-		update_gizmo();
+		update_gizmos();
 	}
 	Vector3 get_direction() const { return m_direction; }
 	void set_length(float value) {
 		m_length = value;
-		update_gizmo();
+		update_gizmos();
 	}
 	float get_length() const { return m_length; }
 	void set_depth(float value) {
 		m_depth = value;
-		update_gizmo();
+		update_gizmos();
 	}
 	float get_depth() const { return m_depth; }
 
-	PoolVector<Face3> get_faces();
+	Vector<Face3> get_faces();
 	String get_configuration_warning() const;
 
 protected:
@@ -64,7 +64,7 @@ protected:
 	static void _bind_methods();
 	void _notification(int p_what);
 
-	friend class HydroRigidBody;
+	friend class HydroRigidDynamicBody;
 };
 
 #endif // WATERCRAFT_RUDDER_H

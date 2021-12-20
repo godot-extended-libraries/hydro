@@ -24,10 +24,10 @@
 #ifndef WATERCRAFT_BALLAST_H
 #define WATERCRAFT_BALLAST_H
 
-#include "scene/3d/spatial.h"
+#include "scene/3d/node_3d.h"
 
-class WatercraftBallast : public Spatial {
-	GDCLASS(WatercraftBallast, Spatial)
+class WatercraftBallast : public Node3D {
+	GDCLASS(WatercraftBallast, Node3D)
 
 public:
 	WatercraftBallast();
@@ -44,7 +44,7 @@ protected:
 	static void _bind_methods();
 	void _notification(int p_what);
 
-	friend class HydroRigidBody;
+	friend class HydroRigidDynamicBody;
 };
 
 #endif // WATERCRAFT_BALLAST_H

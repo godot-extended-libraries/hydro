@@ -25,57 +25,70 @@
 #include "hydro_rigid_body.h"
 #include "scene/scene_string_names.h"
 
-WaterArea::WaterArea() {
+WaterArea3D::WaterArea3D() {
 	m_density = 1000;
 	m_viscosity = 1.0f;
 	m_water_height = 0;
 }
 
-void WaterArea::update_water_heights(PoolVector3Array &points) {
+void WaterArea3D::update_water_heights(PackedVector3Array &points) {
 	ScriptInstance *script = get_script_instance();
 	if (script && script->has_method("_get_water_heights")) {
 		points = get_script_instance()->call("_get_water_heights", points);
 	} else {
-		PoolVector3Array::Write write_points = points.write();
 		for (int i = 0; i < points.size(); i++)
-			write_points[i].y = m_water_height;
+			points.write[i].y = m_water_height;
 	}
 }
 
-void WaterArea::_bind_methods() {
-	ClassDB::bind_method(D_METHOD("set_density", "density"), &WaterArea::set_density);
-	ClassDB::bind_method(D_METHOD("get_density"), &WaterArea::get_density);
-	ClassDB::bind_method(D_METHOD("set_viscosity", "viscosity"), &WaterArea::set_viscosity);
-	ClassDB::bind_method(D_METHOD("get_viscosity"), &WaterArea::get_viscosity);
-	ClassDB::bind_method(D_METHOD("set_water_height", "water_height"), &WaterArea::set_water_height);
-	ClassDB::bind_method(D_METHOD("get_water_height"), &WaterArea::get_water_height);
-	ClassDB::bind_method(D_METHOD("set_flow_direction", "flow_direction"), &WaterArea::set_flow_direction);
-	ClassDB::bind_method(D_METHOD("get_flow_direction"), &WaterArea::get_flow_direction);
-	ClassDB::bind_method(D_METHOD("_body_entered", "node"), &WaterArea::_body_entered);
-	ClassDB::bind_method(D_METHOD("_body_exited", "node"), &WaterArea::_body_exited);
+void WaterArea3D::_bind_methods() {
+	ClassDB::bind_method(D_METHOD("set_density", "density"),
+			&WaterArea3D::set_density);
+	ClassDB::bind_method(D_METHOD("get_density"), &WaterArea3D::get_density);
+	ClassDB::bind_method(D_METHOD("set_viscosity", "viscosity"),
+			&WaterArea3D::set_viscosity);
+	ClassDB::bind_method(D_METHOD("get_viscosity"), &WaterArea3D::get_viscosity);
+	ClassDB::bind_method(D_METHOD("set_water_height", "water_height"),
+			&WaterArea3D::set_water_height);
+	ClassDB::bind_method(D_METHOD("get_water_height"),
+			&WaterArea3D::get_water_height);
+	ClassDB::bind_method(D_METHOD("set_flow_direction", "flow_direction"),
+			&WaterArea3D::set_flow_direction);
+	ClassDB::bind_method(D_METHOD("get_flow_direction"),
+			&WaterArea3D::get_flow_direction);
+	ClassDB::bind_method(D_METHOD("_body_entered", "node"),
+			&WaterArea3D::_body_entered);
+	ClassDB::bind_method(D_METHOD("_body_exited", "node"),
+			&WaterArea3D::_body_exited);
 
-	ADD_PROPERTY(PropertyInfo(Variant::REAL, "density"), "set_density", "get_density");
-	ADD_PROPERTY(PropertyInfo(Variant::REAL, "viscosity"), "set_viscosity", "get_viscosity");
-	ADD_PROPERTY(PropertyInfo(Variant::REAL, "water_height"), "set_water_height", "get_water_height");
-	ADD_PROPERTY(PropertyInfo(Variant::VECTOR3, "flow_direction"), "set_flow_direction", "get_flow_direction");
+	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "density"), "set_density",
+			"get_density");
+	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "viscosity"), "set_viscosity",
+			"get_viscosity");
+	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "water_height"), "set_water_height",
+			"get_water_height");
+	ADD_PROPERTY(PropertyInfo(Variant::VECTOR3, "flow_direction"),
+			"set_flow_direction", "get_flow_direction");
 }
 
-void WaterArea::_notification(int p_what) {
+void WaterArea3D::_notification(int p_what) {
 	if (p_what == NOTIFICATION_READY) {
-		connect(SceneStringNames::get_singleton()->body_entered, this, "_body_entered");
-		connect(SceneStringNames::get_singleton()->body_exited, this, "_body_exited");
+		connect(SceneStringNames::get_singleton()->body_entered,
+				callable_mp(this, &WaterArea3D::_body_entered));
+		connect(SceneStringNames::get_singleton()->body_exited,
+				callable_mp(this, &WaterArea3D::_body_exited));
 	}
 }
 
-void WaterArea::_body_entered(Node *node) {
-	HydroRigidBody *body = Object::cast_to<HydroRigidBody>(node);
+void WaterArea3D::_body_entered(Node *node) {
+	HydroRigidDynamicBody *body = Object::cast_to<HydroRigidDynamicBody>(node);
 	if (body) {
 		body->m_water_area = this;
 	}
 }
 
-void WaterArea::_body_exited(Node *node) {
-	HydroRigidBody *body = Object::cast_to<HydroRigidBody>(node);
+void WaterArea3D::_body_exited(Node *node) {
+	HydroRigidDynamicBody *body = Object::cast_to<HydroRigidDynamicBody>(node);
 	if (body && body->m_water_area == this) {
 		body->m_water_area = nullptr;
 	}

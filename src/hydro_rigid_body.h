@@ -25,33 +25,32 @@
 #define WATERCRAFT_BODY_H
 
 #include "clippable_mesh.h"
-#include "scene/3d/physics_body.h"
+#include "scene/3d/physics_body_3d.h"
 
-class ImmediateGeometry;
+class ImmediateMesh;
 class MeshInstance;
-class WaterArea;
+class WaterArea3D;
 class WatercraftBallast;
 class WatercraftPropulsion;
 class WatercraftRudder;
 
-class HydroRigidBody : public RigidBody {
-
-	GDCLASS(HydroRigidBody, RigidBody)
+class HydroRigidDynamicBody : public RigidDynamicBody3D {
+	GDCLASS(HydroRigidDynamicBody, RigidDynamicBody3D)
 
 public:
-	HydroRigidBody();
+	HydroRigidDynamicBody();
 
 protected:
 	NodePath m_hull_path;
 	ClippableMesh m_hull_mesh;
-	ImmediateGeometry *m_debug_mesh;
+	ImmediateMesh *m_debug_mesh;
 	Vector3 m_thrust_origin;
 	Vector3 m_thrust_direction;
 	float m_thrust_rotation;
 	float m_thrust_value;
 	float m_density;
 	float m_volume;
-	WaterArea *m_water_area;
+	WaterArea3D *m_water_area;
 
 	Vector<WatercraftBallast *> m_ballast;
 	Vector<WatercraftPropulsion *> m_propulsion;
@@ -59,15 +58,16 @@ protected:
 
 	static void _bind_methods();
 	void _notification(int p_what);
-	void _direct_state_changed(Object *p_state);
+	void _body_state_changed(PhysicsDirectBodyState3D *p_state) override;
 
 private:
 	void update_hull();
-	void draw_debug_face(const Face3 &face, const Transform &transform);
-	void draw_debug_mesh(const ClippableMesh &mesh, const Transform &transform);
-	void draw_debug_vector(const Vector3 &dir, const Vector3 &origin, const Transform &transform);
+	void draw_debug_face(const Face3 &face, const Transform3D &transform);
+	void draw_debug_mesh(const ClippableMesh &mesh, const Transform3D &transform);
+	void draw_debug_vector(const Vector3 &dir, const Vector3 &origin,
+			const Transform3D &transform);
 
-	friend class WaterArea;
+	friend class WaterArea3D;
 	friend class WatercraftBallast;
 	friend class WatercraftPropulsion;
 	friend class WatercraftRudder;

@@ -22,7 +22,7 @@
 /*************************************************************************/
 
 #include "register_types.h"
-#include "core/class_db.h"
+#include "core/object/class_db.h"
 #include "hydro_gizmo_plugins.h"
 #include "hydro_rigid_body.h"
 #include "water_area.h"
@@ -31,8 +31,8 @@
 #include "watercraft_rudder.h"
 
 void register_hydro_types() {
-	ClassDB::register_class<HydroRigidBody>();
-	ClassDB::register_class<WaterArea>();
+	ClassDB::register_class<HydroRigidDynamicBody>();
+	ClassDB::register_class<WaterArea3D>();
 	ClassDB::register_class<WatercraftBallast>();
 	ClassDB::register_class<WatercraftPropulsion>();
 	ClassDB::register_class<WatercraftRudder>();
@@ -42,5 +42,4 @@ void register_hydro_types() {
 #endif
 }
 
-void unregister_hydro_types() {
-}
+void unregister_hydro_types() {}

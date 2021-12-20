@@ -28,7 +28,7 @@
 #include "core/math/face3.h"
 #include "core/math/plane.h"
 #include "core/math/vector3.h"
-#include "core/pool_vector.h"
+#include "scene/3d/mesh_instance_3d.h"
 
 class MeshInstance;
 class Transform;
@@ -38,15 +38,18 @@ public:
 	ClippableMesh();
 	~ClippableMesh();
 
-	void load(const MeshInstance *mesh);
-	void add_rudder_faces(const PoolVector<Face3> &rudder_faces);
+	void load(const MeshInstance3D *mesh);
+	void add_rudder_faces(const Vector<Face3> &rudder_faces);
 	int clipped_face_count() const { return m_clipped_face_count; }
-	const Face3 &get_clipped_face(int index) const { return m_clipped_faces[index]; }
+	const Face3 &get_clipped_face(int index) const {
+		return m_clipped_faces[index];
+	}
 	float get_volume() const;
 	AABB get_aabb() const { return m_aabb; }
 	bool is_empty() const { return m_model_face_count == 0; }
 
-	void clip_to_plane_quadrant(const Vector3 &center, const Plane planes[4], const Transform &global_transform);
+	void clip_to_plane_quadrant(const Vector3 &center, const Plane planes[4],
+			const Transform3D &global_transform);
 
 	static int get_quadrant(const Vector3 &center, const Vector3 &point) {
 		if (point.z > center.z)
@@ -56,7 +59,7 @@ public:
 	}
 
 private:
-	PoolVector<Face3> m_hull_faces;
+	Vector<Face3> m_hull_faces;
 	Face3 *m_clipped_faces;
 	int m_model_face_count;
 	int m_rudder_face_count;

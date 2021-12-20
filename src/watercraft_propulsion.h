@@ -24,21 +24,21 @@
 #ifndef WATERCRAFT_PROPULSION_H
 #define WATERCRAFT_PROPULSION_H
 
-#include "scene/3d/spatial.h"
+#include "scene/3d/node_3d.h"
 
-class WatercraftPropulsion : public Spatial {
-	GDCLASS(WatercraftPropulsion, Spatial)
+class WatercraftPropulsion : public Node3D {
+	GDCLASS(WatercraftPropulsion, Node3D)
 
 public:
 	WatercraftPropulsion();
 	void set_origin(Vector3 origin) {
 		m_origin = origin;
-		update_gizmo();
+		update_gizmos();
 	}
 	Vector3 get_origin() const { return m_origin; }
 	void set_direction(Vector3 dir) {
 		m_direction = dir;
-		update_gizmo();
+		update_gizmos();
 	}
 	Vector3 get_direction() const { return m_direction; }
 	void set_value(float value) { m_value = value; }
@@ -53,7 +53,7 @@ protected:
 	static void _bind_methods();
 	void _notification(int p_what);
 
-	friend class HydroRigidBody;
+	friend class HydroRigidDynamicBody;
 };
 
 #endif // WATERCRAFT_PROPULSION_H

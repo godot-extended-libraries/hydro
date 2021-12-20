@@ -12,14 +12,14 @@ extents = Vector3( 4096, 64, 4096 )
 [sub_resource type="CubeMesh" id=2]
 
 [sub_resource type="ConvexPolygonShape" id=3]
-points = PoolVector3Array( -1, 1, 1, 1, 1, -1, 1, 1, 1, -1, 1, -1, -1, -1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, -1, 1, 1, -1, -1, 1, 1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, 1, 1, 1, -1, -1, 1, -1, 1, 1, 1, -1, 1, 1, 1, -1, -1, -1, -1, -1, 1, -1, 1, -1, -1 )
+points = Vector3Array( -1, 1, 1, 1, 1, -1, 1, 1, 1, -1, 1, -1, -1, -1, 1, 1, -1, -1, 1, -1, 1, -1, -1, -1, 1, 1, 1, -1, 1, -1, 1, 1, -1, -1, 1, 1, 1, -1, 1, -1, -1, -1, 1, -1, -1, -1, -1, 1, 1, 1, 1, -1, -1, 1, -1, 1, 1, 1, -1, 1, 1, 1, -1, -1, -1, -1, -1, 1, -1, 1, -1, -1 )
 
 [sub_resource type="PrismMesh" id=4]
 flip_faces = true
 size = Vector3( 6, -2, 12 )
 
 [sub_resource type="ConvexPolygonShape" id=5]
-points = PoolVector3Array( 0, -1, 6, 0, -1, -6, 0, -1, 6, 0, -1, -6, -3, 1, 6, 3, 1, -6, 3, 1, 6, -3, 1, -6, 0, -1, 6, 0, -1, -6, 0, -1, -6, 0, -1, 6, 3, 1, 6, -3, 1, -6, 3, 1, -6, -3, 1, 6, -3, 1, 6, 3, 1, 6, -3, 1, -6, 3, 1, -6 )
+points = Vector3Array( 0, -1, 6, 0, -1, -6, 0, -1, 6, 0, -1, -6, -3, 1, 6, 3, 1, -6, 3, 1, 6, -3, 1, -6, 0, -1, 6, 0, -1, -6, 0, -1, -6, 0, -1, 6, 3, 1, 6, -3, 1, -6, 3, 1, -6, -3, 1, 6, -3, 1, 6, 3, 1, 6, -3, 1, -6, 3, 1, -6 )
 
 [sub_resource type="SpatialMaterial" id=6]
 vertex_color_use_as_albedo = true
@@ -47,11 +47,11 @@ noise_frequency = 0.065
 noise_speed = 0.48
 seed_value = 0
 
-[node name="WaterArea" type="WaterArea" parent="."]
+[node name="WaterArea3D" type="WaterArea3D" parent="."]
 transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -60, 0 )
 script = ExtResource( 4 )
 
-[node name="CollisionShape" type="CollisionShape" parent="WaterArea"]
+[node name="CollisionShape" type="CollisionShape" parent="WaterArea3D"]
 shape = SubResource( 1 )
 
 [node name="Panel" parent="." instance=ExtResource( 5 )]

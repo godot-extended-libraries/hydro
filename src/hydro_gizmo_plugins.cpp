@@ -26,27 +26,27 @@
 #include "watercraft_propulsion.h"
 #include "watercraft_rudder.h"
 
-WatercraftBallastSpatialGizmoPlugin::WatercraftBallastSpatialGizmoPlugin() {
-
-	Color gizmo_color = EDITOR_DEF("editors/3d_gizmos/gizmo_colors/shape", Color(0.5, 0.7, 1));
+WatercraftBallastNode3DGizmoPlugin::WatercraftBallastNode3DGizmoPlugin() {
+	Color gizmo_color =
+			EDITOR_DEF("editors/3d_gizmos/gizmo_colors/shape", Color(0.5, 0.7, 1));
 	create_material("shape_material", gizmo_color);
 }
 
-bool WatercraftBallastSpatialGizmoPlugin::has_gizmo(Spatial *p_spatial) {
+bool WatercraftBallastNode3DGizmoPlugin::has_gizmo(Node3D *p_spatial) {
 	return Object::cast_to<WatercraftBallast>(p_spatial) != nullptr;
 }
 
-String WatercraftBallastSpatialGizmoPlugin::get_name() const {
+String WatercraftBallastNode3DGizmoPlugin::get_name() const {
 	return "WatercraftBallast";
 }
 
-int WatercraftBallastSpatialGizmoPlugin::get_priority() const {
+int WatercraftBallastNode3DGizmoPlugin::get_priority() const {
 	return -1;
 }
 
-void WatercraftBallastSpatialGizmoPlugin::redraw(EditorSpatialGizmo *p_gizmo) {
-
-	WatercraftBallast *ballast = Object::cast_to<WatercraftBallast>(p_gizmo->get_spatial_node());
+void WatercraftBallastNode3DGizmoPlugin::redraw(EditorNode3DGizmo *p_gizmo) {
+	WatercraftBallast *ballast =
+			Object::cast_to<WatercraftBallast>(p_gizmo->get_spatial_node());
 	Vector3 origin = ballast->get_origin();
 
 	const real_t top_offset = 0.15f;
@@ -97,13 +97,14 @@ void WatercraftBallastSpatialGizmoPlugin::redraw(EditorSpatialGizmo *p_gizmo) {
 
 ///////////////////////////////////////
 
-WatercraftPropulsionSpatialGizmoPlugin::WatercraftPropulsionSpatialGizmoPlugin() {
-
-	Color gizmo_color = EDITOR_DEF("editors/3d_gizmos/gizmo_colors/shape", Color(0.5, 0.7, 1));
+WatercraftPropulsionSpatialGizmoPlugin::
+		WatercraftPropulsionSpatialGizmoPlugin() {
+	Color gizmo_color =
+			EDITOR_DEF("editors/3d_gizmos/gizmo_colors/shape", Color(0.5, 0.7, 1));
 	create_material("shape_material", gizmo_color);
 }
 
-bool WatercraftPropulsionSpatialGizmoPlugin::has_gizmo(Spatial *p_spatial) {
+bool WatercraftPropulsionSpatialGizmoPlugin::has_gizmo(Node3D *p_spatial) {
 	return Object::cast_to<WatercraftPropulsion>(p_spatial) != nullptr;
 }
 
@@ -115,9 +116,10 @@ int WatercraftPropulsionSpatialGizmoPlugin::get_priority() const {
 	return -1;
 }
 
-void WatercraftPropulsionSpatialGizmoPlugin::redraw(EditorSpatialGizmo *p_gizmo) {
-
-	WatercraftPropulsion *prop = Object::cast_to<WatercraftPropulsion>(p_gizmo->get_spatial_node());
+void WatercraftPropulsionSpatialGizmoPlugin::redraw(
+		EditorNode3DGizmo *p_gizmo) {
+	WatercraftPropulsion *prop =
+			Object::cast_to<WatercraftPropulsion>(p_gizmo->get_spatial_node());
 	Vector3 origin = prop->get_origin();
 	Vector3 direction = prop->get_direction().normalized();
 	Vector3 thrust_end = origin + direction;
@@ -127,7 +129,7 @@ void WatercraftPropulsionSpatialGizmoPlugin::redraw(EditorSpatialGizmo *p_gizmo)
 	Vector3 blade1 = up * 0.25 + side * 0.075 + direction * 0.025;
 	Vector3 blade2 = up * 0.25 - side * 0.075 - direction * 0.025;
 
-	//thrust arrow
+	// thrust arrow
 	points.push_back(origin);
 	points.push_back(thrust_end);
 	points.push_back(thrust_end);
@@ -135,7 +137,7 @@ void WatercraftPropulsionSpatialGizmoPlugin::redraw(EditorSpatialGizmo *p_gizmo)
 	points.push_back(thrust_end);
 	points.push_back(origin + direction * 0.8 - side * 0.2);
 
-	//propeller
+	// propeller
 	for (int i = 0; i < 6; i++) {
 		points.push_back(origin);
 		points.push_back(origin + blade1.rotated(direction, i * 1.047f));
@@ -153,12 +155,12 @@ void WatercraftPropulsionSpatialGizmoPlugin::redraw(EditorSpatialGizmo *p_gizmo)
 ///////////////////////////////////////
 
 WatercraftRudderSpatialGizmoPlugin::WatercraftRudderSpatialGizmoPlugin() {
-
-	Color gizmo_color = EDITOR_DEF("editors/3d_gizmos/gizmo_colors/shape", Color(0.5, 0.7, 1));
+	Color gizmo_color =
+			EDITOR_DEF("editors/3d_gizmos/gizmo_colors/shape", Color(0.5, 0.7, 1));
 	create_material("shape_material", gizmo_color);
 }
 
-bool WatercraftRudderSpatialGizmoPlugin::has_gizmo(Spatial *p_spatial) {
+bool WatercraftRudderSpatialGizmoPlugin::has_gizmo(Node3D *p_spatial) {
 	return Object::cast_to<WatercraftRudder>(p_spatial) != nullptr;
 }
 
@@ -170,10 +172,10 @@ int WatercraftRudderSpatialGizmoPlugin::get_priority() const {
 	return -1;
 }
 
-void WatercraftRudderSpatialGizmoPlugin::redraw(EditorSpatialGizmo *p_gizmo) {
-
-	WatercraftRudder *rudder = Object::cast_to<WatercraftRudder>(p_gizmo->get_spatial_node());
-	PoolVector<Face3> faces = rudder->get_faces();
+void WatercraftRudderSpatialGizmoPlugin::redraw(EditorNode3DGizmo *p_gizmo) {
+	WatercraftRudder *rudder =
+			Object::cast_to<WatercraftRudder>(p_gizmo->get_spatial_node());
+	Vector<Face3> faces = rudder->get_faces();
 	const Vector3 &p1 = faces[0].vertex[0];
 	const Vector3 &p2 = faces[0].vertex[1];
 	const Vector3 &p3 = faces[0].vertex[2];
@@ -197,10 +199,16 @@ void WatercraftRudderSpatialGizmoPlugin::redraw(EditorSpatialGizmo *p_gizmo) {
 ///////////////////////////////////////
 
 EditorPluginHydro::EditorPluginHydro(EditorNode *p_editor) {
-	Ref<WatercraftBallastSpatialGizmoPlugin> ballast_gizmo_plugin = Ref<WatercraftBallastSpatialGizmoPlugin>(memnew(WatercraftBallastSpatialGizmoPlugin));
-	Ref<WatercraftPropulsionSpatialGizmoPlugin> prop_gizmo_plugin = Ref<WatercraftPropulsionSpatialGizmoPlugin>(memnew(WatercraftPropulsionSpatialGizmoPlugin));
-	Ref<WatercraftRudderSpatialGizmoPlugin> rudder_gizmo_plugin = Ref<WatercraftRudderSpatialGizmoPlugin>(memnew(WatercraftRudderSpatialGizmoPlugin));
-	SpatialEditor::get_singleton()->add_gizmo_plugin(ballast_gizmo_plugin);
-	SpatialEditor::get_singleton()->add_gizmo_plugin(prop_gizmo_plugin);
-	SpatialEditor::get_singleton()->add_gizmo_plugin(rudder_gizmo_plugin);
+	Ref<WatercraftBallastNode3DGizmoPlugin> ballast_gizmo_plugin =
+			Ref<WatercraftBallastNode3DGizmoPlugin>(
+					memnew(WatercraftBallastNode3DGizmoPlugin));
+	Ref<WatercraftPropulsionSpatialGizmoPlugin> prop_gizmo_plugin =
+			Ref<WatercraftPropulsionSpatialGizmoPlugin>(
+					memnew(WatercraftPropulsionSpatialGizmoPlugin));
+	Ref<WatercraftRudderSpatialGizmoPlugin> rudder_gizmo_plugin =
+			Ref<WatercraftRudderSpatialGizmoPlugin>(
+					memnew(WatercraftRudderSpatialGizmoPlugin));
+	Node3DEditor::get_singleton()->add_gizmo_plugin(ballast_gizmo_plugin);
+	Node3DEditor::get_singleton()->add_gizmo_plugin(prop_gizmo_plugin);
+	Node3DEditor::get_singleton()->add_gizmo_plugin(rudder_gizmo_plugin);
 }

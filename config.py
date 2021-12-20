@@ -7,7 +7,7 @@ def configure(env):
 def get_doc_classes():
 	return [
 		"HydroRigidBody",
-		"WaterArea",
+		"WaterArea3D",
 		"WatercraftBallast",
 		"WatercraftPropulsion",
 		"WatercraftRudder",
