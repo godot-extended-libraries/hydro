@@ -171,12 +171,12 @@ func update_waves():
 	var amp_length_ratio = amplitude / wavelength
 	waves.clear()
 	for i in range(NUMBER_OF_WAVES):
-		var _wavelength = rand_range(wavelength/2.0, wavelength*2.0)
-		var _wind_direction = wind_direction.rotated(rand_range(-PI, PI)*(1-wind_align))
+		var _wavelength = randf_range(wavelength/2.0, wavelength*2.0)
+		var _wind_direction = wind_direction.rotated(randf_range(-PI, PI)*(1-wind_align))
 		
 		waves.append({
 			'amplitude': amp_length_ratio * _wavelength,
-			'steepness': rand_range(0, steepness),
+			'steepness': randf_range(0, steepness),
 			'wind_directionX': _wind_direction.x,
 			'wind_directionY': _wind_direction.y,
 			'frequency': sqrt(0.098 * TAU/_wavelength)
@@ -192,6 +192,6 @@ func update_waves():
 		img.set_pixel(3, i, Color(waves[i]['wind_directionY'], 0,0,0))
 		img.set_pixel(4, i, Color(waves[i]['frequency'], 0,0,0))
 	img.unlock()
-	waves_in_tex.create_from_image(img, 0)
+	waves_in_tex.create_from_image(img)
 	
 	material_override.set_shader_param('waves', waves_in_tex)

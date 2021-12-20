@@ -1,4 +1,4 @@
-extends AnimatableBody3D
+extends CharacterBody3D
 
 var camera_angle = 0
 var mouse_sensitivity = 0.3
@@ -64,7 +64,7 @@ func fly(delta):
 	velocity = velocity.linear_interpolate(target, FLY_ACCEL * delta)
 	
 	# move
-	move_and_slide(velocity)
+	move_and_slide()
 	
 func aim():
 	if camera_change.length() > 0:

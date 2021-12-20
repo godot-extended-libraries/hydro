@@ -1,9 +1,11 @@
-[gd_scene load_steps=10 format=3 uid="uid://pwxs71hvfl2v"]
+[gd_scene load_steps=11 format=3 uid="uid://pwxs71hvfl2v"]
 
 [ext_resource type="PackedScene" uid="uid://dk8mbhuscqv0y" path="res://hydro/core/Gary.tscn" id="1"]
 [ext_resource type="Script" path="res://hydro/core/Projected-grid.gd" id="3"]
 [ext_resource type="Script" path="res://hydro/core/WaveConnector.gd" id="4"]
 [ext_resource type="PackedScene" path="res://hydro/uiux/Panel.tscn" id="5"]
+
+[sub_resource type="ImmediateMesh" id="ImmediateMesh_1x2cg"]
 
 [sub_resource type="BoxShape3D" id="1"]
 size = Vector3(8192, 128, 8192)
@@ -28,19 +30,110 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0363367, 4.44376, 14.9742)
 [node name="DirectionalLight" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 46.4912, 0)
 
-[node name="Ocean" type="Node" parent="."]
+[node name="Ocean" type="MeshInstance3D" parent="."]
+mesh = SubResource( "ImmediateMesh_1x2cg" )
+surface_material_override/0 = null
+surface_material_override/1 = null
+surface_material_override/2 = null
+surface_material_override/3 = null
+surface_material_override/4 = null
+surface_material_override/5 = null
+surface_material_override/6 = null
+surface_material_override/7 = null
+surface_material_override/8 = null
+surface_material_override/9 = null
+surface_material_override/10 = null
+surface_material_override/11 = null
+surface_material_override/12 = null
+surface_material_override/13 = null
+surface_material_override/14 = null
+surface_material_override/15 = null
+surface_material_override/16 = null
+surface_material_override/17 = null
+surface_material_override/18 = null
+surface_material_override/19 = null
+surface_material_override/20 = null
+surface_material_override/21 = null
+surface_material_override/22 = null
+surface_material_override/23 = null
+surface_material_override/24 = null
+surface_material_override/25 = null
+surface_material_override/26 = null
+surface_material_override/27 = null
+surface_material_override/28 = null
+surface_material_override/29 = null
+surface_material_override/30 = null
+surface_material_override/31 = null
+surface_material_override/32 = null
+surface_material_override/33 = null
+surface_material_override/34 = null
+surface_material_override/35 = null
+surface_material_override/36 = null
+surface_material_override/37 = null
+surface_material_override/38 = null
+surface_material_override/39 = null
+surface_material_override/40 = null
+surface_material_override/41 = null
+surface_material_override/42 = null
+surface_material_override/43 = null
+surface_material_override/44 = null
+surface_material_override/45 = null
+surface_material_override/46 = null
+surface_material_override/47 = null
+surface_material_override/48 = null
+surface_material_override/49 = null
+surface_material_override/50 = null
+surface_material_override/51 = null
+surface_material_override/52 = null
+surface_material_override/53 = null
+surface_material_override/54 = null
+surface_material_override/55 = null
+surface_material_override/56 = null
+surface_material_override/57 = null
+surface_material_override/58 = null
+surface_material_override/59 = null
+surface_material_override/60 = null
+surface_material_override/61 = null
+surface_material_override/62 = null
+surface_material_override/63 = null
+surface_material_override/64 = null
+surface_material_override/65 = null
+surface_material_override/66 = null
+surface_material_override/67 = null
+surface_material_override/68 = null
+surface_material_override/69 = null
+surface_material_override/70 = null
+surface_material_override/71 = null
+surface_material_override/72 = null
+surface_material_override/73 = null
+surface_material_override/74 = null
+surface_material_override/75 = null
+surface_material_override/76 = null
+surface_material_override/77 = null
+surface_material_override/78 = null
+surface_material_override/79 = null
+surface_material_override/80 = null
+surface_material_override/81 = null
+surface_material_override/82 = null
+surface_material_override/83 = null
+surface_material_override/84 = null
+surface_material_override/85 = null
+surface_material_override/86 = null
+surface_material_override/87 = null
+surface_material_override/88 = null
+surface_material_override/89 = null
+surface_material_override/90 = null
+surface_material_override/91 = null
+surface_material_override/92 = null
+surface_material_override/93 = null
+surface_material_override/94 = null
+surface_material_override/95 = null
+surface_material_override/96 = null
+surface_material_override/97 = null
+surface_material_override/98 = null
+surface_material_override/99 = null
+surface_material_override/100 = null
 script = ExtResource( "3" )
-wavelength = 50.0
-steepness = 0.01
-amplitude = 0.1
-wind_direction = Vector2(1, 0)
-wind_align = 0.0
-speed = 10.0
-noise_enabled = true
-noise_amplitude = 0.286
-noise_frequency = 0.065
-noise_speed = 0.48
-seed_value = 0
 
 [node name="WaterArea3D" type="WaterArea3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -60, 0)
@@ -51,7 +144,7 @@ shape = SubResource( "1" )
 
 [node name="Panel" parent="." instance=ExtResource( "5" )]
 
-[node name="Cube 1" type="Node" parent="."]
+[node name="Cube 1" type="HydroRigidDynamicBody" parent="."]
 
 [node name="MeshInstance" type="MeshInstance3D" parent="Cube 1"]
 mesh = SubResource( "2" )
@@ -60,7 +153,7 @@ surface_material_override/0 = null
 [node name="CollisionShape" type="CollisionShape3D" parent="Cube 1"]
 shape = SubResource( "3" )
 
-[node name="Cube 2" type="Node" parent="."]
+[node name="Cube 2" type="HydroRigidDynamicBody" parent="."]
 
 [node name="MeshInstance" type="MeshInstance3D" parent="Cube 2"]
 mesh = SubResource( "2" )
@@ -69,7 +162,7 @@ surface_material_override/0 = null
 [node name="CollisionShape" type="CollisionShape3D" parent="Cube 2"]
 shape = SubResource( "3" )
 
-[node name="Cube 3" type="Node" parent="."]
+[node name="Cube 3" type="HydroRigidDynamicBody" parent="."]
 
 [node name="MeshInstance" type="MeshInstance3D" parent="Cube 3"]
 mesh = SubResource( "2" )
@@ -78,7 +171,7 @@ surface_material_override/0 = null
 [node name="CollisionShape" type="CollisionShape3D" parent="Cube 3"]
 shape = SubResource( "3" )
 
-[node name="Boat 1" type="Node" parent="."]
+[node name="Boat 1" type="HydroRigidDynamicBody" parent="."]
 
 [node name="MeshInstance" type="MeshInstance3D" parent="Boat 1"]
 mesh = SubResource( "4" )
@@ -100,9 +193,9 @@ direction = Vector3(-0.174, 0, 0.985)
 origin = Vector3(0, 0, 6)
 mass = 10000.0
 
-[node name="Boat 2" type="Node" parent="."]
+[node name="Boat 2" type="HydroRigidDynamicBody" parent="."]
 
-[node name="Debug" type="Node" parent="Boat 2"]
+[node name="Debug" type="Node3D" parent="Boat 2"]
 
 [node name="MeshInstance" type="MeshInstance3D" parent="Boat 2"]
 mesh = SubResource( "4" )

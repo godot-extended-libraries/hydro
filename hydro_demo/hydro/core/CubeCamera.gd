@@ -1,21 +1,21 @@
-tool
-extends Spatial
+@tool
+extends Node3D
 
-func ready():
+func _ready():
 	for i in get_children():
 		i.size = Vector2(256, 256)
 		i.own_world = true
 
 func update_cube_map():
 	var images = {
-		'left': CubeMap.SIDE_LEFT,
-		'right': CubeMap.SIDE_RIGHT,
-		'front': CubeMap.SIDE_FRONT,
-		'back': CubeMap.SIDE_BACK,
-		'top': CubeMap.SIDE_TOP,
-		'bottom': CubeMap.SIDE_BOTTOM
+		'left': Cubemap.SIDE_LEFT,
+		'right': Cubemap.SIDE_RIGHT,
+		'front': Cubemap.SIDE_FRONT,
+		'back': Cubemap.SIDE_BACK,
+		'top': Cubemap.SIDE_TOP,
+		'bottom': Cubemap.SIDE_BOTTOM
 	}
-	var cube_map = CubeMap.new()
+	var cube_map = Cubemap.new()
 	
 	for i in get_children():
 		if i.name in images:
