@@ -147,6 +147,8 @@ shape = SubResource( "1" )
 [node name="Panel" parent="." instance=ExtResource( "5" )]
 
 [node name="Cube 1" type="HydroRigidDynamicBody" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1, 0)
+mass = 3000.0
 
 [node name="MeshInstance" type="MeshInstance3D" parent="Cube 1"]
 mesh = SubResource( "2" )
@@ -156,6 +158,7 @@ surface_material_override/0 = null
 shape = SubResource( "3" )
 
 [node name="Cube 2" type="HydroRigidDynamicBody" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 
 [node name="MeshInstance" type="MeshInstance3D" parent="Cube 2"]
 mesh = SubResource( "2" )
@@ -165,6 +168,7 @@ surface_material_override/0 = null
 shape = SubResource( "3" )
 
 [node name="Cube 3" type="HydroRigidDynamicBody" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1, 0)
 
 [node name="MeshInstance" type="MeshInstance3D" parent="Cube 3"]
 mesh = SubResource( "2" )
@@ -174,6 +178,8 @@ surface_material_override/0 = null
 shape = SubResource( "3" )
 
 [node name="Boat 1" type="HydroRigidDynamicBody" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1, -20)
+mass = 20000.0
 
 [node name="MeshInstance" type="MeshInstance3D" parent="Boat 1"]
 mesh = SubResource( "4" )
@@ -196,6 +202,7 @@ origin = Vector3(0, 0, 6)
 mass = 10000.0
 
 [node name="Boat 2" type="HydroRigidDynamicBody" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1, -20)
 
 [node name="Debug" type="Node3D" parent="Boat 2"]
 
