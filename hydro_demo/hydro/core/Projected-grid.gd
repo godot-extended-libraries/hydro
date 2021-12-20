@@ -1,21 +1,32 @@
-tool
-extends ImmediateGeometry
+@tool
+extends MeshInstance3D
 
 const NUMBER_OF_WAVES = 10;
 
-export(float, 0, 10000) var wavelength = 60.0 setget set_wavelength
-export(float, 0, 1) var steepness = 0.01 setget set_steepness
-export(float, 0, 10000) var amplitude = 0.1 setget set_amplitude
-export(Vector2) var wind_direction = Vector2(1, 0) setget set_wind_direction
-export(float, 0, 1) var wind_align = 0.0 setget set_wind_align
-export(float) var speed = 10.0 setget set_speed
+@export_range(0, 10000) var wavelength = 60.0:
+	set = set_wavelength
+@export_range(0, 1) var steepness = 0.01:
+	set = set_steepness
+@export_range(0, 10000) var amplitude = 0.1:
+	set = set_amplitude
+@export var wind_direction = Vector2(1, 0):
+	set = set_wind_direction
+@export_range(0, 1) var wind_align = 0.0:
+	set = set_wind_align
+@export var speed = 10.0: 
+	set = set_speed
 
-export(bool) var noise_enabled = true setget set_noise_enabled
-export(float) var noise_amplitude = 0.28 setget set_noise_amplitude
-export(float) var noise_frequency = 0.065 setget set_noise_frequency
-export(float) var noise_speed = 0.48 setget set_noise_speed
+@export var noise_enabled = true:
+	set = set_noise_enabled
+@export var noise_amplitude = 0.28:
+	set = set_noise_amplitude
+@export var noise_frequency = 0.065:
+	set = set_noise_frequency
+@export var noise_speed = 0.48:
+	set = set_noise_speed
 
-export(int) var seed_value = 0 setget set_seed
+@export var seed_value = 0:
+	set = set_seed
 
 var res = 100.0
 var initialized = false
@@ -28,26 +39,27 @@ var waves = []
 var waves_in_tex = ImageTexture.new()
 
 func _ready():
-	
+	if not mesh:
+		mesh = ImmediateMesh.new()
 	for j in range(res):
 		var y = j/res - 0.5
 		var n_y = (j+1)/res - 0.5
-		begin(Mesh.PRIMITIVE_TRIANGLE_STRIP)
+		mesh.surface_begin(Mesh.PRIMITIVE_TRIANGLE_STRIP)
 		for i in range(res):
 			var x = i/res - 0.5
 			
 			var new_x = x 
 			var new_y = y
 			
-			add_vertex(Vector3(x*2, 0, -y*2))
+			mesh.surface_add_vertex(Vector3(x*2, 0, -y*2))
 			
-			new_y = n_y - translation.z
-			add_vertex(Vector3(x*2, 0, -n_y*2))
-		end()
-	begin(Mesh.PRIMITIVE_POINTS)
-	add_vertex(-Vector3(1,1,1)*pow(2,32))
-	add_vertex(Vector3(1,1,1)*pow(2,32))
-	end()
+			new_y = n_y - position.z
+			mesh.surface_add_vertex(Vector3(x*2, 0, -n_y*2))
+		mesh.surface_end()
+	mesh.surface_begin(Mesh.PRIMITIVE_POINTS)
+	mesh.surface_add_vertex(-Vector3(1,1,1)*pow(2,32))
+	mesh.surface_add_vertex(Vector3(1,1,1)*pow(2,32))
+	mesh.surface_end()
 	
 	waves_in_tex = ImageTexture.new()
 	update_waves()

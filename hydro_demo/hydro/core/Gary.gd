@@ -1,4 +1,4 @@
-extends KinematicBody
+extends AnimatableBody3D
 
 var camera_angle = 0
 var mouse_sensitivity = 0.3
