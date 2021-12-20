@@ -45,14 +45,8 @@ func _ready():
 		var n_y = (j+1)/res - 0.5
 		mesh.surface_begin(Mesh.PRIMITIVE_TRIANGLE_STRIP)
 		for i in range(res):
-			var x = i/res - 0.5
-			
-			var new_x = x 
-			var new_y = y
-			
+			var x = i/res - 0.5						
 			mesh.surface_add_vertex(Vector3(x*2, 0, -y*2))
-			
-			new_y = n_y - position.z
 			mesh.surface_add_vertex(Vector3(x*2, 0, -n_y*2))
 		mesh.surface_end()
 	mesh.surface_begin(Mesh.PRIMITIVE_POINTS)
