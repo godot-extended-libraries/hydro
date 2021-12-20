@@ -4,7 +4,6 @@ var camera_angle = 0
 var mouse_sensitivity = 0.3
 var camera_change = Vector2()
 
-var velocity = Vector3()
 var direction = Vector3()
 
 #fly variables
@@ -61,7 +60,7 @@ func fly(delta):
 	var target = direction * FLY_SPEED
 	
 	# calculate a portion of the distance to go
-	velocity = velocity.lerp(target, FLY_ACCEL * delta)
+	motion_velocity = motion_velocity.lerp(target, FLY_ACCEL * delta)
 	
 	# move
 	move_and_slide()
