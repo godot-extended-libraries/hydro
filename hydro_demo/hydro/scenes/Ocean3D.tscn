@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://dk8mbhuscqv0y" path="res://hydro/core/Gary.tscn" id="1"]
 [ext_resource type="Script" path="res://hydro/core/Projected-grid.gd" id="3"]
 [ext_resource type="Script" path="res://hydro/core/WaveConnector.gd" id="4"]
-[ext_resource type="PackedScene" path="res://hydro/uiux/Panel.tscn" id="5"]
+[ext_resource type="PackedScene" uid="uid://crtva4iecvr22" path="res://hydro/uiux/Panel.tscn" id="5"]
 
 [sub_resource type="ImmediateMesh" id="ImmediateMesh_1x2cg"]
 

@@ -1,6 +1,6 @@
 extends Panel
 
-onready var ocean = $"../Ocean"
+@onready var ocean = $"../Ocean"
 
 var wind_direction = Vector2()
 
