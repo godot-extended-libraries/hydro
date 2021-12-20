@@ -61,7 +61,7 @@ func fly(delta):
 	var target = direction * FLY_SPEED
 	
 	# calculate a portion of the distance to go
-	velocity = velocity.linear_interpolate(target, FLY_ACCEL * delta)
+	velocity = velocity.lerp(target, FLY_ACCEL * delta)
 	
 	# move
 	move_and_slide()
