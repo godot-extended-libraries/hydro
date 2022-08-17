@@ -21,25 +21,28 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                */
 /*************************************************************************/
 
-#include "register_types.h"
-#include "core/object/class_db.h"
+#include "modules/register_module_types.h"
+
 #include "hydro_gizmo_plugins.h"
 #include "hydro_rigid_body.h"
+#include "register_types.h"
 #include "water_area.h"
 #include "watercraft_ballast.h"
 #include "watercraft_propulsion.h"
 #include "watercraft_rudder.h"
 
-void register_hydro_types() {
-	ClassDB::register_class<HydroRigidDynamicBody>();
-	ClassDB::register_class<WaterArea3D>();
-	ClassDB::register_class<WatercraftBallast>();
-	ClassDB::register_class<WatercraftPropulsion>();
-	ClassDB::register_class<WatercraftRudder>();
+void initialize_hydro_module(ModuleInitializationLevel p_level) {
+	if (p_level == MODULE_INITIALIZATION_LEVEL_CORE) {
+		ClassDB::register_class<HydroRigidDynamicBody>();
+		ClassDB::register_class<WaterArea3D>();
+		ClassDB::register_class<WatercraftBallast>();
+		ClassDB::register_class<WatercraftPropulsion>();
+		ClassDB::register_class<WatercraftRudder>();
+	}
 
 #ifdef TOOLS_ENABLED
 	EditorPlugins::add_by_type<EditorPluginHydro>();
 #endif
 }
 
-void unregister_hydro_types() {}
+void uninitialize_hydro_module(ModuleInitializationLevel p_level) {}
