@@ -58,7 +58,7 @@ void ClippableMesh::load(const MeshInstance3D *mesh) {
 	m_model_face_count = m_hull_faces.size();
 	m_hull_faces.resize(m_model_face_count + MAX_RUDDER_FACES);
 
-	int new_clipped_face_count = m_hull_faces.size() * 2;
+	int new_clipped_face_count = m_model_face_count * 2;
 	if (new_clipped_face_count > m_clipped_face_count) {
 		if (m_clipped_faces)
 			memdelete_arr(m_clipped_faces);
@@ -97,23 +97,32 @@ void ClippableMesh::clip_to_plane_quadrant(
 	m_clipped_face_count = 0;
 	int total_faces = m_model_face_count + m_rudder_face_count;
 
+	if (!m_hull_faces.size()) {
+		return;
+	}
+
 	for (int i = 0; i < total_faces; i++) {
 		const Face3 &local_face = m_hull_faces[i];
+		if (local_face.get_area() == 0) {
+			continue;
+		}
 
 		Face3 current_face;
-		for (int j = 0; j < 3; j++)
+		for (int j = 0; j < 3; j++) {
 			current_face.vertex[j] = global_transform.xform(local_face.vertex[j]);
+		}
 
 		int quadrant = get_quadrant(center, current_face.get_median_point());
 		const Plane &plane = planes[quadrant];
 
 		bool over[3];
-		for (int j = 0; j < 3; j++)
+		for (int j = 0; j < 3; j++) {
 			over[j] = plane.is_point_over(current_face.vertex[j]);
+		}
 
 		if (over[0] && over[1] && over[2]) {
 			// face is over the plane, discard it
-		} else if (!(over[0] || over[1] || over[2])) {
+		} else if (!over[0] && !over[1] && !over[2]) {
 			// Face is under the plane, keep it
 			m_clipped_faces[m_clipped_face_count++] = current_face;
 		} else {
