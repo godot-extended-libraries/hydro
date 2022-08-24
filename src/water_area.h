@@ -23,6 +23,7 @@
 #ifndef WATER_AREA_H
 #define WATER_AREA_H
 
+#include "core/object/object.h"
 #include "scene/3d/area_3d.h"
 
 class WaterArea3D : public Area3D {
@@ -42,6 +43,9 @@ public:
 	Vector3 get_flow_direction() { return m_flow_direction; }
 
 	void update_water_heights(PackedVector3Array &points);
+
+	void _validate_property(PropertyInfo &p_property) const {
+	}
 
 protected:
 	float m_density;

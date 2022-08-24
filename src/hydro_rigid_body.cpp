@@ -78,8 +78,6 @@ void HydroRigidDynamicBody::_notification(int p_what) {
 }
 
 void HydroRigidDynamicBody::_body_state_changed(PhysicsDirectBodyState3D *p_state) {
-	float orig_gravity_scale = get_gravity_scale();
-	set_gravity_scale(0.0);
 	if (m_debug_mesh.is_valid()) {
 		m_debug_mesh->clear_surfaces();
 	}
@@ -93,7 +91,7 @@ void HydroRigidDynamicBody::_body_state_changed(PhysicsDirectBodyState3D *p_stat
 		WatercraftBallast *ballast = m_ballast[i];
 		Vector3 start = global_transform.xform(ballast->m_origin);
 		Vector3 gravity = p_state->get_total_gravity();
-		Vector3 weight = gravity * (ballast->m_mass) * orig_gravity_scale;
+		Vector3 weight = gravity * (ballast->m_mass);
 		p_state->apply_force(weight, start - origin);
 		if (m_debug_mesh.is_valid()) {
 			draw_debug_vector(weight, start, local_transform);
@@ -103,7 +101,6 @@ void HydroRigidDynamicBody::_body_state_changed(PhysicsDirectBodyState3D *p_stat
 	// Shortcut out if we aren't in the water
 	if (!m_water_area || m_hull_mesh.is_empty()) {
 		RigidDynamicBody3D::_body_state_changed(p_state);
-		set_gravity_scale(orig_gravity_scale);
 		return;
 	}
 
@@ -144,6 +141,7 @@ void HydroRigidDynamicBody::_body_state_changed(PhysicsDirectBodyState3D *p_stat
 
 	// are we underwater?
 	if (m_hull_mesh.clipped_face_count() == 0) {
+		RigidDynamicBody3D::_body_state_changed(p_state);
 		return;
 	}
 
@@ -221,7 +219,6 @@ void HydroRigidDynamicBody::_body_state_changed(PhysicsDirectBodyState3D *p_stat
 		}
 	}
 	RigidDynamicBody3D::_body_state_changed(p_state);
-	set_gravity_scale(orig_gravity_scale);
 }
 
 void HydroRigidDynamicBody::draw_debug_face(const Face3 &face,
