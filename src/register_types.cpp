@@ -32,7 +32,7 @@
 #include "watercraft_rudder.h"
 
 void initialize_hydro_module(ModuleInitializationLevel p_level) {
-	if (p_level == MODULE_INITIALIZATION_LEVEL_CORE) {
+	if (p_level == MODULE_INITIALIZATION_LEVEL_SCENE) {
 		ClassDB::register_class<HydroRigidDynamicBody>();
 		ClassDB::register_class<WaterArea3D>();
 		ClassDB::register_class<WatercraftBallast>();
@@ -41,7 +41,9 @@ void initialize_hydro_module(ModuleInitializationLevel p_level) {
 	}
 
 #ifdef TOOLS_ENABLED
-	EditorPlugins::add_by_type<EditorPluginHydro>();
+	if (p_level == MODULE_INITIALIZATION_LEVEL_EDITOR) {
+		EditorPlugins::add_by_type<EditorPluginHydro>();
+	}
 #endif
 }
 

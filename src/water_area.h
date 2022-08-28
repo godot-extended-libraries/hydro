@@ -23,7 +23,6 @@
 #ifndef WATER_AREA_H
 #define WATER_AREA_H
 
-#include "core/object/object.h"
 #include "scene/3d/area_3d.h"
 
 class WaterArea3D : public Area3D {
