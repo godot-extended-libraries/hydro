@@ -21,5 +21,5 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                */
 /*************************************************************************/
 
-void register_hydro_types();
-void unregister_hydro_types();
+void initialize_hydro_module(ModuleInitializationLevel p_level);
+void uninitialize_hydro_module(ModuleInitializationLevel p_level);

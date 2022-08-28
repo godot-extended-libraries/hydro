@@ -79,6 +79,7 @@ void HydroRigidDynamicBody::_body_state_changed(PhysicsDirectBodyState3D *p_stat
 		m_debug_mesh->clear_surfaces();
 	}
 
+	RigidDynamicBody3D::_body_state_changed(p_state);
 	Transform3D global_transform = get_global_transform();
 	Transform3D local_transform = global_transform.affine_inverse();
 	Vector3 origin = global_transform.get_origin();
@@ -95,8 +96,9 @@ void HydroRigidDynamicBody::_body_state_changed(PhysicsDirectBodyState3D *p_stat
 	}
 
 	// Shortcut out if we aren't in the water
-	if (!m_water_area || m_hull_mesh.is_empty())
+	if (!m_water_area || m_hull_mesh.is_empty()) {
 		return;
+	}
 
 	// Add rudders
 	Vector<Face3> rudder_faces;
@@ -134,8 +136,9 @@ void HydroRigidDynamicBody::_body_state_changed(PhysicsDirectBodyState3D *p_stat
 			global_transform);
 
 	// are we underwater?
-	if (m_hull_mesh.clipped_face_count() == 0)
+	if (m_hull_mesh.clipped_face_count() == 0) {
 		return;
+	}
 
 	if (m_debug_mesh.is_valid()) {
 		draw_debug_mesh(m_hull_mesh, local_transform);

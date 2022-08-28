@@ -43,6 +43,9 @@ public:
 
 	void update_water_heights(PackedVector3Array &points);
 
+	void _validate_property(PropertyInfo &p_property) const {
+	}
+
 protected:
 	float m_density;
 	float m_viscosity;

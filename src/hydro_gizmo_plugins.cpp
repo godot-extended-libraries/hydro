@@ -21,6 +21,9 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                */
 /*************************************************************************/
 
+#include "editor/editor_node.h"
+#include "editor/editor_settings.h"
+
 #include "hydro_gizmo_plugins.h"
 #include "watercraft_ballast.h"
 #include "watercraft_propulsion.h"
@@ -198,7 +201,7 @@ void WatercraftRudderSpatialGizmoPlugin::redraw(EditorNode3DGizmo *p_gizmo) {
 
 ///////////////////////////////////////
 
-EditorPluginHydro::EditorPluginHydro(EditorNode *p_editor) {
+EditorPluginHydro::EditorPluginHydro() {
 	Ref<WatercraftBallastNode3DGizmoPlugin> ballast_gizmo_plugin =
 			Ref<WatercraftBallastNode3DGizmoPlugin>(
 					memnew(WatercraftBallastNode3DGizmoPlugin));

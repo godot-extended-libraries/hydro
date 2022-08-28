@@ -24,6 +24,7 @@
 #ifndef HYDRO_GIZMO_PLUGINS_H
 #define HYDRO_GIZMO_PLUGINS_H
 
+#include "editor/editor_node.h"
 #include "editor/plugins/node_3d_editor_plugin.h"
 
 class WatercraftBallastNode3DGizmoPlugin : public EditorNode3DGizmoPlugin {
@@ -62,7 +63,7 @@ public:
 class EditorPluginHydro : public EditorPlugin {
 	GDCLASS(EditorPluginHydro, EditorPlugin)
 public:
-	EditorPluginHydro(EditorNode *p_editor);
+	EditorPluginHydro();
 };
 
 #endif
