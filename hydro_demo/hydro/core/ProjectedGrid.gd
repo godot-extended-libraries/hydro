@@ -67,10 +67,10 @@ func _process(delta):
 	counter -= delta
 	if counter <= 0 && cube_cam_inst:
 		var cube_map = cube_cam_inst.update_cube_map()
-		material_override.set_shader_uniform('environment', cube_map)
+		material_override.set_shader_parameter('environment', cube_map)
 		counter = INF
 	
-	material_override.set_shader_uniform('time_offset', Time.get_ticks_msec() / 1000.0 * speed)
+	material_override.set_shader_parameter('time_offset', Time.get_ticks_msec() / 1000.0 * speed)
 	initialized = true
 
 func set_wavelength(value):
@@ -105,31 +105,31 @@ func set_seed(value):
 
 func set_speed(value):
 	speed = value
-	material_override.set_shader_uniform('speed', value)
+	material_override.set_shader_parameter('speed', value)
 
 func set_noise_enabled(value):
 	noise_enabled = value
 	var old_noise_params = material_override.get_shader_uniform('noise_params')
 	old_noise_params.d = 1 if value else 0
-	material_override.set_shader_uniform('noise_params', old_noise_params)
+	material_override.set_shader_parameter('noise_params', old_noise_params)
 
 func set_noise_amplitude(value):
 	noise_amplitude = value
 	var old_noise_params = material_override.get_shader_uniform('noise_params')
 	old_noise_params.x = value
-	material_override.set_shader_uniform('noise_params', old_noise_params)
+	material_override.set_shader_parameter('noise_params', old_noise_params)
 
 func set_noise_frequency(value):
 	noise_frequency = value
 	var old_noise_params = material_override.get_shader_uniform('noise_params')
 	old_noise_params.y = value
-	material_override.set_shader_uniform('noise_params', old_noise_params)
+	material_override.set_shader_parameter('noise_params', old_noise_params)
 
 func set_noise_speed(value):
 	noise_speed = value
 	var old_noise_params = material_override.get_shader_uniform('noise_params')
 	old_noise_params.z = value
-	material_override.set_shader_uniform('noise_params', old_noise_params)
+	material_override.set_shader_parameter('noise_params', old_noise_params)
 
 func get_displace(p_position):
 	
@@ -187,4 +187,4 @@ func update_waves():
 		img.set_pixel(4, i, Color(waves[i]['frequency'], 0,0,0))
 	waves_in_tex.create_from_image(img)
 	
-	material_override.set_shader_uniform('waves', waves_in_tex)
+	material_override.set_shader_parameter('waves', waves_in_tex)

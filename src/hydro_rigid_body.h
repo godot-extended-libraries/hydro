@@ -34,8 +34,8 @@ class WatercraftBallast;
 class WatercraftPropulsion;
 class WatercraftRudder;
 
-class HydroRigidDynamicBody : public RigidDynamicBody3D {
-	GDCLASS(HydroRigidDynamicBody, RigidDynamicBody3D)
+class HydroRigidDynamicBody : public RigidBody3D {
+	GDCLASS(HydroRigidDynamicBody, RigidBody3D)
 
 public:
 	HydroRigidDynamicBody();
@@ -58,7 +58,7 @@ protected:
 
 	static void _bind_methods();
 	void _notification(int p_what);
-	void _body_state_changed(PhysicsDirectBodyState3D *p_state) override;
+	void _body_state_changed(PhysicsDirectBodyState3D *p_state);
 
 private:
 	void update_hull();

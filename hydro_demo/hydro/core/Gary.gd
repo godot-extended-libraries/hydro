@@ -67,10 +67,10 @@ func fly(delta):
 	
 func aim():
 	if camera_change.length() > 0:
-		$Head.rotate_y(deg2rad(-camera_change.x * mouse_sensitivity))
+		$Head.rotate_y(deg_to_rad(-camera_change.x * mouse_sensitivity))
 
 		var change = -camera_change.y * mouse_sensitivity
 		if change + camera_angle < 90 and change + camera_angle > -90:
-			$Head/Camera.rotate_x(deg2rad(change))
+			$Head/Camera.rotate_x(deg_to_rad(change))
 			camera_angle += change
 		camera_change = Vector2()

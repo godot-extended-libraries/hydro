@@ -38,7 +38,7 @@
 #include "scene/resources/immediate_mesh.h"
 
 HydroRigidDynamicBody::HydroRigidDynamicBody() :
-		RigidDynamicBody3D() {
+		RigidBody3D() {
 	m_water_area = nullptr;
 	m_volume = 0;
 	m_density = 0;
@@ -79,7 +79,7 @@ void HydroRigidDynamicBody::_body_state_changed(PhysicsDirectBodyState3D *p_stat
 		m_debug_mesh->clear_surfaces();
 	}
 
-	RigidDynamicBody3D::_body_state_changed(p_state);
+	RigidBody3D::_body_state_changed(p_state);
 	Transform3D global_transform = get_global_transform();
 	Transform3D local_transform = global_transform.affine_inverse();
 	Vector3 origin = global_transform.get_origin();
