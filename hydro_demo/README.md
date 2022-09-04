@@ -2,20 +2,22 @@
 
 Simple Godot 3.1+ project to demonstrate the HydroRigidBody node from https://gitlab.com/ringtechsolutions/godot-tools/hydro/hydro
 
-Contains three cubes of various weights, and two very simple boats that will automatically drive in a circle.  One has debugging enabled, so you can see the forces acting upon the 
+Contains three cubes of various weights, and two very simple boats that will automatically drive in a circle. One has debugging enabled, so you can see the forces acting upon the
 boat.
 
-The ocean was shamelessly stolen from https://github.com/SIsilicon/Godot-Ocean-Demo and you can adjust the wave parameters to see the effect on the objects.  You can also collide 
+The ocean was shamelessly stolen from https://github.com/SIsilicon/Godot-Ocean-Demo and you can adjust the wave parameters to see the effect on the objects. You can also collide
 with the objects to push them around, attempt to sink them, or play water polo.
 
 Ocean demo readme follows below:
 
 # Godot-Ocean-Demo
+
 An ocean demo in Godot 3.0.
 I am very proud of this demo and I want to thank you for trying it out.
 
 ## How to customize the ocean
-The ocean demo uses what's known as Gerstner waves. A constant collection of them is used to create that *wavy* feel of the waters. It also uses a lil bit of noise to really sell the effect. Both of these features are customizable with almost self-explanatory parameters.
+
+The ocean demo uses what's known as Gerstner waves. A constant collection of them is used to create that _wavy_ feel of the waters. It also uses a lil bit of noise to really sell the effect. Both of these features are customizable with almost self-explanatory parameters.
 
 ### Main wave parameters
 
@@ -27,7 +29,7 @@ The ocean demo uses what's known as Gerstner waves. A constant collection of the
 
 -**Wind Direction** controls the direction the overall waves would go.
 
--**Wind Align** also determines each wave's individual direction. A value of *one* means they all go in the exact same direction. A value of *zero* means waves go in completely random directions.
+-**Wind Align** also determines each wave's individual direction. A value of _one_ means they all go in the exact same direction. A value of _zero_ means waves go in completely random directions.
 
 -**Speed** controls how fast the waves propagates.
 

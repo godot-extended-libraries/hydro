@@ -14,16 +14,17 @@ var mouse_captured = true
 
 signal free_look_toggled
 
+
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 
+
 func _physics_process(delta):
-	
 	if mouse_captured:
 		aim()
 		fly(delta)
-	
-	if Input.is_action_just_pressed('toggle_mouse'):
+
+	if Input.is_action_just_pressed("toggle_mouse"):
 		if mouse_captured:
 			mouse_captured = false
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
@@ -33,17 +34,19 @@ func _physics_process(delta):
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 			emit_signal("free_look_toggled", true)
 
+
 func _input(event):
 	if event is InputEventMouseMotion:
 		camera_change = event.relative
 
+
 func fly(delta):
 	# reset the direction of the player
 	direction = Vector3()
-	
+
 	# get the rotation of the camera
 	var _aim = $Head/Camera.get_global_transform().basis
-	
+
 	# check input and change direction
 	if Input.is_action_pressed("move_forward"):
 		direction -= _aim.z
@@ -53,18 +56,19 @@ func fly(delta):
 		direction -= _aim.x
 	if Input.is_action_pressed("move_right"):
 		direction += _aim.x
-	
+
 	direction = direction.normalized()
-	
+
 	# where would the player go at max speed
 	var target = direction * FLY_SPEED
-	
+
 	# calculate a portion of the distance to go
 	velocity = velocity.lerp(target, FLY_ACCEL * delta)
-	
+
 	# move
 	move_and_slide()
-	
+
+
 func aim():
 	if camera_change.length() > 0:
 		$Head.rotate_y(deg_to_rad(-camera_change.x * mouse_sensitivity))

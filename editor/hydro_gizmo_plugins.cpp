@@ -24,10 +24,11 @@
 #include "editor/editor_node.h"
 #include "editor/editor_settings.h"
 
-#include "hydro_gizmo_plugins.h"
 #include "../src/watercraft_ballast.h"
 #include "../src/watercraft_propulsion.h"
 #include "../src/watercraft_rudder.h"
+#include "hydro_gizmo_plugins.h"
+
 
 WatercraftBallastNode3DGizmoPlugin::WatercraftBallastNode3DGizmoPlugin() {
 	Color gizmo_color =

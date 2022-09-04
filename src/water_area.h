@@ -36,10 +36,8 @@ public:
 	float get_viscosity() { return m_viscosity; }
 	void set_water_height(float water_height) { m_water_height = water_height; }
 	float get_water_height() { return m_water_height; }
-	void set_flow_direction(const Vector3 &direction) {
-		m_flow_direction = direction;
-	}
-	Vector3 get_flow_direction() { return m_flow_direction; }
+	void set_flow_direction(const Vector3 &direction) { m_flow_direction = direction; }
+	Vector3 get_flow_direction(const Vector3 &point);
 
 	void update_water_heights(PackedVector3Array &points);
 

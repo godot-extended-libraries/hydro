@@ -174,9 +174,8 @@ void HydroRigidBody::_body_state_changed(PhysicsDirectBodyState3D *p_state) {
 	real_t fluid_viscosity = m_water_area->get_viscosity();
 	real_t gravity = -p_state->get_total_gravity().length();
 
-	// Calculate buoyancy, drag, and lift per-face
-	Vector3 base_velocity =
-			get_linear_velocity() - m_water_area->get_flow_direction();
+	//Calculate buoyancy, drag, and lift per-face
+	Vector3 base_velocity = get_linear_velocity() - m_water_area->get_flow_direction(global_transform.get_origin());
 	for (int i = 0; i < m_hull_mesh.clipped_face_count(); i++) {
 		const Face3 &f = m_hull_mesh.get_clipped_face(i);
 		Vector3 center_tri = (f.vertex[0] + f.vertex[1] + f.vertex[2]) / 3.0f;
