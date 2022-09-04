@@ -31,25 +31,25 @@ WaterArea3D::WaterArea3D() {
 	m_water_height = 0;
 }
 
-Vector3 WaterArea3D::get_flow_direction(const Vector3 &position) {
+Vector3 WaterArea::get_flow_direction(const Vector3 &position) {
 	PackedVector3Array points;
-	points.append(position);
-	ScriptInstance *current_script_instance = get_script_instance();
-	if (current_script_instance && current_script_instance->has_method("_get_water_flow")) {
-		points = get_script_instance()->call("_get_water_flow", points);
-	} else {
-		for (int i = 0; i < points.size(); i++) {
-			points.write[i] = m_flow_direction;
-		}
-	}
-	if (points.size() > 0) {
-		print_verbose(vformat("Flow vector at %f, %f, %f = %f, %f, %f\n", position.x, position.y, position.z, points[0].x, points[0].y, points[0].z));
-		return points[0];
-	}
-	return Vector3();
+    points.append(position);
+    ScriptInstance *current_script_instance = get_script_instance();
+    if (current_script_instance && current_script_instance->has_method("_get_water_flow")) {
+        points = get_script_instance()->call("_get_water_flow", points);
+    } else {
+        for (int i = 0; i < points.size(); i++) {
+            points.write[i] = m_flow_direction;
+        }
+    }
+    if (points.size() > 0) {
+        printf("Flow vector at %f, %f, %f = %f, %f, %f\n", position.x, position.y, position.z, points[0].x, points[0].y, points[0].z);
+        return points[0];
+    } else
+        return Vector3();
 }
 
-void WaterArea3D::update_water_heights(PackedVector3Array &points) {
+void WaterArea::update_water_heights(PoolVector3Array &points) {
 	ScriptInstance *current_script_instance = get_script_instance();
 	if (current_script_instance && current_script_instance->has_method("_get_water_heights")) {
 		points = get_script_instance()->call("_get_water_heights", points);
