@@ -31,7 +31,7 @@ WatercraftRudder::WatercraftRudder() {
 
 String WatercraftRudder::get_configuration_warning() const {
 	if (!Object::cast_to<HydroRigidDynamicBody>(get_parent())) {
-		return TTR("WatercraftRudder serves to provide a rudder for a "
+		return RTR("WatercraftRudder serves to provide a rudder for a "
 				   "HydroRigidDynamicBody. Please use it as a child of a "
 				   "HydroRigidDynamicBody.");
 	}

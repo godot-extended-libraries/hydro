@@ -58,7 +58,7 @@ protected:
 
 	static void _bind_methods();
 	void _notification(int p_what);
-	void _body_state_changed(PhysicsDirectBodyState3D *p_state);
+	void _body_state_changed(PhysicsDirectBodyState3D *p_state) override;
 
 private:
 	void update_hull();
