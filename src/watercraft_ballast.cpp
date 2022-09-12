@@ -30,7 +30,7 @@ WatercraftBallast::WatercraftBallast() {
 
 String WatercraftBallast::get_configuration_warning() const {
 	if (!Object::cast_to<HydroRigidDynamicBody>(get_parent())) {
-		return TTR("WatercraftBallast serves to provide custom weight distribution "
+		return RTR("WatercraftBallast serves to provide custom weight distribution "
 				   "to a HydroRigidDynamicBody. Please use it as a child of a "
 				   "HydroRigidDynamicBody.");
 	}

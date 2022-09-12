@@ -30,7 +30,7 @@ WatercraftPropulsion::WatercraftPropulsion() {
 
 String WatercraftPropulsion::get_configuration_warning() const {
 	if (!Object::cast_to<HydroRigidDynamicBody>(get_parent())) {
-		return TTR("WatercraftPropulsion serves to provide a propulsion system to "
+		return RTR("WatercraftPropulsion serves to provide a propulsion system to "
 				   "a HydroRigidDynamicBody. Please use it as a child of a "
 				   "HydroRigidDynamicBody.");
 	}
