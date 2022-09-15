@@ -30,10 +30,10 @@ WatercraftRudder::WatercraftRudder() {
 }
 
 String WatercraftRudder::get_configuration_warning() const {
-	if (!Object::cast_to<HydroRigidDynamicBody>(get_parent())) {
+	if (!Object::cast_to<HydroRigidBody>(get_parent())) {
 		return RTR("WatercraftRudder serves to provide a rudder for a "
-				   "HydroRigidDynamicBody. Please use it as a child of a "
-				   "HydroRigidDynamicBody.");
+				   "HydroRigidBody. Please use it as a child of a "
+				   "HydroRigidBody.");
 	}
 
 	return String();
@@ -80,8 +80,8 @@ Vector<Face3> WatercraftRudder::get_faces() {
 }
 
 void WatercraftRudder::_notification(int p_what) {
-	HydroRigidDynamicBody *parent =
-			Object::cast_to<HydroRigidDynamicBody>(get_parent());
+	HydroRigidBody *parent =
+			Object::cast_to<HydroRigidBody>(get_parent());
 	if (!parent)
 		return;
 

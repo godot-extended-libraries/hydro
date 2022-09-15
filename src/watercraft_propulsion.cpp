@@ -29,10 +29,10 @@ WatercraftPropulsion::WatercraftPropulsion() {
 }
 
 String WatercraftPropulsion::get_configuration_warning() const {
-	if (!Object::cast_to<HydroRigidDynamicBody>(get_parent())) {
+	if (!Object::cast_to<HydroRigidBody>(get_parent())) {
 		return RTR("WatercraftPropulsion serves to provide a propulsion system to "
-				   "a HydroRigidDynamicBody. Please use it as a child of a "
-				   "HydroRigidDynamicBody.");
+				   "a HydroRigidBody. Please use it as a child of a "
+				   "HydroRigidBody.");
 	}
 
 	return String();
@@ -60,16 +60,16 @@ void WatercraftPropulsion::_bind_methods() {
 
 void WatercraftPropulsion::_notification(int p_what) {
 	if (p_what == NOTIFICATION_ENTER_TREE) {
-		HydroRigidDynamicBody *parent =
-				Object::cast_to<HydroRigidDynamicBody>(get_parent());
+		HydroRigidBody *parent =
+				Object::cast_to<HydroRigidBody>(get_parent());
 		if (!parent)
 			return;
 
 		parent->m_propulsion.push_back(this);
 	}
 	if (p_what == NOTIFICATION_EXIT_TREE) {
-		HydroRigidDynamicBody *parent =
-				Object::cast_to<HydroRigidDynamicBody>(get_parent());
+		HydroRigidBody *parent =
+				Object::cast_to<HydroRigidBody>(get_parent());
 		if (!parent)
 			return;
 

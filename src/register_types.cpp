@@ -33,7 +33,7 @@
 
 void initialize_hydro_module(ModuleInitializationLevel p_level) {
 	if (p_level == MODULE_INITIALIZATION_LEVEL_SCENE) {
-		ClassDB::register_class<HydroRigidDynamicBody>();
+		ClassDB::register_class<HydroRigidBody>();
 		ClassDB::register_class<WaterArea3D>();
 		ClassDB::register_class<WatercraftBallast>();
 		ClassDB::register_class<WatercraftPropulsion>();

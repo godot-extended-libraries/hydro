@@ -29,10 +29,10 @@ WatercraftBallast::WatercraftBallast() {
 }
 
 String WatercraftBallast::get_configuration_warning() const {
-	if (!Object::cast_to<HydroRigidDynamicBody>(get_parent())) {
+	if (!Object::cast_to<HydroRigidBody>(get_parent())) {
 		return RTR("WatercraftBallast serves to provide custom weight distribution "
-				   "to a HydroRigidDynamicBody. Please use it as a child of a "
-				   "HydroRigidDynamicBody.");
+				   "to a HydroRigidBody. Please use it as a child of a "
+				   "HydroRigidBody.");
 	}
 
 	return String();
@@ -53,16 +53,16 @@ void WatercraftBallast::_bind_methods() {
 
 void WatercraftBallast::_notification(int p_what) {
 	if (p_what == NOTIFICATION_ENTER_TREE) {
-		HydroRigidDynamicBody *parent =
-				Object::cast_to<HydroRigidDynamicBody>(get_parent());
+		HydroRigidBody *parent =
+				Object::cast_to<HydroRigidBody>(get_parent());
 		if (!parent)
 			return;
 
 		parent->m_ballast.push_back(this);
 	}
 	if (p_what == NOTIFICATION_EXIT_TREE) {
-		HydroRigidDynamicBody *parent =
-				Object::cast_to<HydroRigidDynamicBody>(get_parent());
+		HydroRigidBody *parent =
+				Object::cast_to<HydroRigidBody>(get_parent());
 		if (!parent)
 			return;
 

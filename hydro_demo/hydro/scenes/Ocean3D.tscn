@@ -65,10 +65,9 @@ script = ExtResource("4")
 shape = SubResource("1")
 
 [node name="Panel" parent="." instance=ExtResource("5")]
-anchors_preset = 9
 grow_vertical = 2
 
-[node name="Cube 1" type="HydroRigidDynamicBody" parent="."]
+[node name="Cube 1" type="HydroRigidBody" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1, 0)
 mass = 3000.0
 
@@ -78,7 +77,7 @@ mesh = SubResource("2")
 [node name="CollisionShape" type="CollisionShape3D" parent="Cube 1"]
 shape = SubResource("3")
 
-[node name="Cube 2" type="HydroRigidDynamicBody" parent="."]
+[node name="Cube 2" type="HydroRigidBody" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 mass = 1000.0
 
@@ -88,7 +87,7 @@ mesh = SubResource("2")
 [node name="CollisionShape" type="CollisionShape3D" parent="Cube 2"]
 shape = SubResource("3")
 
-[node name="Cube 3" type="HydroRigidDynamicBody" parent="."]
+[node name="Cube 3" type="HydroRigidBody" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1, 0)
 mass = 500.0
 
@@ -98,7 +97,7 @@ mesh = SubResource("2")
 [node name="CollisionShape" type="CollisionShape3D" parent="Cube 3"]
 shape = SubResource("3")
 
-[node name="Boat 1" type="HydroRigidDynamicBody" parent="."]
+[node name="Boat 1" type="HydroRigidBody" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1, -20)
 mass = 20000.0
 
@@ -121,7 +120,7 @@ direction = Vector3(-0.174, 0, 0.985)
 origin = Vector3(0, 0, 6)
 mass = 10000.0
 
-[node name="Boat 2" type="HydroRigidDynamicBody" parent="."]
+[node name="Boat 2" type="HydroRigidBody" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 1, -20)
 mass = 20000.0
 

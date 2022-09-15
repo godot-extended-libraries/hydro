@@ -37,16 +37,16 @@
 #include "scene/3d/mesh_instance_3d.h"
 #include "scene/resources/immediate_mesh.h"
 
-HydroRigidDynamicBody::HydroRigidDynamicBody() :
+HydroRigidBody::HydroRigidBody() :
 		RigidBody3D() {
 	m_water_area = nullptr;
 	m_volume = 0;
 	m_density = 0;
 }
 
-void HydroRigidDynamicBody::_bind_methods() {}
+void HydroRigidBody::_bind_methods() {}
 
-void HydroRigidDynamicBody::_notification(int p_what) {
+void HydroRigidBody::_notification(int p_what) {
 	if (p_what == NOTIFICATION_READY) {
 		for (int i = 0; i < get_child_count(); i++) {
 			if (m_hull_mesh.is_empty()) {
@@ -69,12 +69,12 @@ void HydroRigidDynamicBody::_notification(int p_what) {
 			}
 		}
 		if (m_hull_mesh.is_empty()) {
-			print_error("HydroRigidDynamicBody has no hull mesh!");
+			print_error("HydroRigidBody has no hull mesh!");
 		}
 	}
 }
 
-void HydroRigidDynamicBody::_body_state_changed(PhysicsDirectBodyState3D *p_state) {
+void HydroRigidBody::_body_state_changed(PhysicsDirectBodyState3D *p_state) {
 	if (m_debug_mesh.is_valid()) {
 		m_debug_mesh->clear_surfaces();
 	}
@@ -215,7 +215,7 @@ void HydroRigidDynamicBody::_body_state_changed(PhysicsDirectBodyState3D *p_stat
 	}
 }
 
-void HydroRigidDynamicBody::draw_debug_face(const Face3 &face,
+void HydroRigidBody::draw_debug_face(const Face3 &face,
 		const Transform3D &transform) {
 	// TODO: fire 2021-19-12
 	// m_debug_mesh->surface_begin(Mesh::PRIMITIVE_LINE_LOOP);
@@ -226,7 +226,7 @@ void HydroRigidDynamicBody::draw_debug_face(const Face3 &face,
 	// m_debug_mesh->surface_end();
 }
 
-void HydroRigidDynamicBody::draw_debug_mesh(const ClippableMesh &mesh,
+void HydroRigidBody::draw_debug_mesh(const ClippableMesh &mesh,
 		const Transform3D &transform) {
 	// TODO: fire 2021-19-12
 	// const float scale = 1.001;
@@ -241,7 +241,7 @@ void HydroRigidDynamicBody::draw_debug_mesh(const ClippableMesh &mesh,
 	// }
 }
 
-void HydroRigidDynamicBody::draw_debug_vector(const Vector3 &dir,
+void HydroRigidBody::draw_debug_vector(const Vector3 &dir,
 		const Vector3 &origin,
 		const Transform3D &transform) {
 	m_debug_mesh->surface_begin(Mesh::PRIMITIVE_LINES);

@@ -1,6 +1,6 @@
 [gd_resource type="ShaderMaterial" load_steps=4 format=3 uid="uid://bxeqrusqusk2b"]
 
-[sub_resource type="Cubemap" id="Cubemap_s5q6m"]
+[sub_resource type="Cubemap" id="Cubemap_6pgqq"]
 
 [sub_resource type="Shader" id="1"]
 code = "shader_type spatial;
@@ -152,14 +152,14 @@ void fragment() {
 	ALBEDO = mix(refract_global, reflect_global, reflectiveness);
 }"
 
-[sub_resource type="ImageTexture" id="ImageTexture_bq7xi"]
+[sub_resource type="ImageTexture" id="ImageTexture_v5tkn"]
 
 [resource]
 render_priority = 0
 shader = SubResource("1")
-environment = SubResource("Cubemap_s5q6m")
+environment = SubResource("Cubemap_6pgqq")
 noise_params = null
 project_bias = 1.2
-time_offset = 245.52
+time_offset = 160.57
 water_color = Color(0.14902, 0.32549, 0.501961, 1)
-waves = SubResource("ImageTexture_bq7xi")
+waves = SubResource("ImageTexture_v5tkn")

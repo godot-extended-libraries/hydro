@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<class name="WaterArea3D" inherits="Area" category="Core" version="3.2">
+<class name="WaterArea3D" inherits="Area3D" version="4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd">
 	<brief_description>
 		Defines an area in which a [HydroRigidBody] will be affected by buoyancy and related forces.
 	</brief_description>
@@ -10,22 +10,18 @@
 	</description>
 	<tutorials>
 	</tutorials>
-	<methods>
-	</methods>
 	<members>
-		<member name="density" type="float" setter="set_density" getter="get_density">
+		<member name="density" type="float" setter="set_density" getter="get_density" default="1000.0">
 			Sets the density of the water in this area.  Freshwater is 1000 kg/m^3, and seawater ranges from 1020 - 1029 kg/m^3.
 		</member>
-		<member name="flow_direction" type="Vector3" setter="set_flow_direction" getter="get_flow_direction">
+		<member name="flow_direction" type="Vector3" setter="set_flow_direction" getter="get_flow_direction" default="Vector3(0, 0, 0)">
 			Creates a uniform current running through the area in the specified direction.  Any object submerged in this area will be pushed in the direction of the current.
 		</member>
-		<member name="viscosity" type="float" setter="set_viscosity" getter="get_viscosity">
+		<member name="viscosity" type="float" setter="set_viscosity" getter="get_viscosity" default="1.0">
 			Adjusts the viscosity of the water in this area.  This value changes the resistance to motion through the fluid without affecting buoyancy.  The default value of 1.0 is a good starting point for water; for thicker substances such as maple syrup or lava try increasing the value.
 		</member>
-		<member name="water_height" type="float" setter="set_water_height" getter="get_water_height">
+		<member name="water_height" type="float" setter="set_water_height" getter="get_water_height" default="0.0">
 			Sets a constant global-space water height.  This value is not used if you create a custom wave height function instead.
 		</member>
 	</members>
-	<constants>
-	</constants>
 </class>

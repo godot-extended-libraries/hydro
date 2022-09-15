@@ -34,11 +34,11 @@ class WatercraftBallast;
 class WatercraftPropulsion;
 class WatercraftRudder;
 
-class HydroRigidDynamicBody : public RigidBody3D {
-	GDCLASS(HydroRigidDynamicBody, RigidBody3D)
+class HydroRigidBody : public RigidBody3D {
+	GDCLASS(HydroRigidBody, RigidBody3D)
 
 public:
-	HydroRigidDynamicBody();
+	HydroRigidBody();
 
 protected:
 	NodePath m_hull_path;

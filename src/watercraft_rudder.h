@@ -64,7 +64,7 @@ protected:
 	static void _bind_methods();
 	void _notification(int p_what);
 
-	friend class HydroRigidDynamicBody;
+	friend class HydroRigidBody;
 };
 
 #endif // WATERCRAFT_RUDDER_H

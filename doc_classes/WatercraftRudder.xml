@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<class name="WatercraftRudder" inherits="Spatial" category="Core" version="3.2">
+<class name="WatercraftRudder" inherits="Node3D" version="4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd">
 	<brief_description>
 		Adds a steerable rudder to a [HydroRigidBody].
 	</brief_description>
@@ -8,22 +8,18 @@
 	</description>
 	<tutorials>
 	</tutorials>
-	<methods>
-	</methods>
 	<members>
-		<member name="depth" type="float" setter="set_depth" getter="get_depth">
-		The extent of the rudder below the origin.
+		<member name="depth" type="float" setter="set_depth" getter="get_depth" default="1.0">
+			The extent of the rudder below the origin.
 		</member>
-		<member name="direction" type="Vector3" setter="set_direction" getter="get_direction">
-		The direction the rudder will face.  Change the direction to steer the rudder.
+		<member name="direction" type="Vector3" setter="set_direction" getter="get_direction" default="Vector3(0, 0, 0)">
+			The direction the rudder will face.  Change the direction to steer the rudder.
 		</member>
-		<member name="length" type="float" setter="set_length" getter="get_length">
-		The length of the rudder in the specified direction.
+		<member name="length" type="float" setter="set_length" getter="get_length" default="1.0">
+			The length of the rudder in the specified direction.
 		</member>
-		<member name="origin" type="Vector3" setter="set_origin" getter="get_origin">
-		The location of the rudder.
+		<member name="origin" type="Vector3" setter="set_origin" getter="get_origin" default="Vector3(0, 0, 0)">
+			The location of the rudder.
 		</member>
 	</members>
-	<constants>
-	</constants>
 </class>

@@ -81,14 +81,14 @@ void WaterArea3D::_notification(int p_what) {
 }
 
 void WaterArea3D::_body_entered(Node *node) {
-	HydroRigidDynamicBody *body = Object::cast_to<HydroRigidDynamicBody>(node);
+	HydroRigidBody *body = Object::cast_to<HydroRigidBody>(node);
 	if (body) {
 		body->m_water_area = this;
 	}
 }
 
 void WaterArea3D::_body_exited(Node *node) {
-	HydroRigidDynamicBody *body = Object::cast_to<HydroRigidDynamicBody>(node);
+	HydroRigidBody *body = Object::cast_to<HydroRigidBody>(node);
 	if (body && body->m_water_area == this) {
 		body->m_water_area = nullptr;
 	}
