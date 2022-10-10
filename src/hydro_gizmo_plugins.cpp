@@ -49,7 +49,7 @@ int WatercraftBallastNode3DGizmoPlugin::get_priority() const {
 
 void WatercraftBallastNode3DGizmoPlugin::redraw(EditorNode3DGizmo *p_gizmo) {
 	WatercraftBallast *ballast =
-			Object::cast_to<WatercraftBallast>(p_gizmo->get_spatial_node());
+			Object::cast_to<WatercraftBallast>(p_gizmo->get_node_3d());
 	Vector3 origin = ballast->get_origin();
 
 	const real_t top_offset = 0.15f;
@@ -122,7 +122,7 @@ int WatercraftPropulsionSpatialGizmoPlugin::get_priority() const {
 void WatercraftPropulsionSpatialGizmoPlugin::redraw(
 		EditorNode3DGizmo *p_gizmo) {
 	WatercraftPropulsion *prop =
-			Object::cast_to<WatercraftPropulsion>(p_gizmo->get_spatial_node());
+			Object::cast_to<WatercraftPropulsion>(p_gizmo->get_node_3d());
 	Vector3 origin = prop->get_origin();
 	Vector3 direction = prop->get_direction().normalized();
 	Vector3 thrust_end = origin + direction;
@@ -177,7 +177,7 @@ int WatercraftRudderSpatialGizmoPlugin::get_priority() const {
 
 void WatercraftRudderSpatialGizmoPlugin::redraw(EditorNode3DGizmo *p_gizmo) {
 	WatercraftRudder *rudder =
-			Object::cast_to<WatercraftRudder>(p_gizmo->get_spatial_node());
+			Object::cast_to<WatercraftRudder>(p_gizmo->get_node_3d());
 	Vector<Face3> faces = rudder->get_faces();
 	const Vector3 &p1 = faces[0].vertex[0];
 	const Vector3 &p2 = faces[0].vertex[1];
