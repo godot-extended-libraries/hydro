@@ -31,7 +31,7 @@ class WatercraftBallastNode3DGizmoPlugin : public EditorNode3DGizmoPlugin {
 	GDCLASS(WatercraftBallastNode3DGizmoPlugin, EditorNode3DGizmoPlugin)
 public:
 	bool has_gizmo(Node3D *p_spatial) override;
-	String get_name() const;
+	String get_gizmo_name() const override;
 	int get_priority() const override;
 	void redraw(EditorNode3DGizmo *p_gizmo) override;
 
@@ -42,7 +42,7 @@ class WatercraftPropulsionSpatialGizmoPlugin : public EditorNode3DGizmoPlugin {
 	GDCLASS(WatercraftPropulsionSpatialGizmoPlugin, EditorNode3DGizmoPlugin)
 public:
 	bool has_gizmo(Node3D *p_spatial) override;
-	String get_name() const;
+	String get_gizmo_name() const override;
 	int get_priority() const override;
 	void redraw(EditorNode3DGizmo *p_gizmo) override;
 
@@ -53,7 +53,7 @@ class WatercraftRudderSpatialGizmoPlugin : public EditorNode3DGizmoPlugin {
 	GDCLASS(WatercraftRudderSpatialGizmoPlugin, EditorNode3DGizmoPlugin)
 public:
 	bool has_gizmo(Node3D *p_spatial) override;
-	String get_name() const;
+	String get_gizmo_name() const override;
 	int get_priority() const override;
 	void redraw(EditorNode3DGizmo *p_gizmo) override;
 

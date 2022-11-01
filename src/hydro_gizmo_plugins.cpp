@@ -39,7 +39,7 @@ bool WatercraftBallastNode3DGizmoPlugin::has_gizmo(Node3D *p_spatial) {
 	return Object::cast_to<WatercraftBallast>(p_spatial) != nullptr;
 }
 
-String WatercraftBallastNode3DGizmoPlugin::get_name() const {
+String WatercraftBallastNode3DGizmoPlugin::get_gizmo_name() const {
 	return "WatercraftBallast";
 }
 
@@ -111,7 +111,7 @@ bool WatercraftPropulsionSpatialGizmoPlugin::has_gizmo(Node3D *p_spatial) {
 	return Object::cast_to<WatercraftPropulsion>(p_spatial) != nullptr;
 }
 
-String WatercraftPropulsionSpatialGizmoPlugin::get_name() const {
+String WatercraftPropulsionSpatialGizmoPlugin::get_gizmo_name() const {
 	return "WatercraftPropulsion";
 }
 
@@ -167,7 +167,7 @@ bool WatercraftRudderSpatialGizmoPlugin::has_gizmo(Node3D *p_spatial) {
 	return Object::cast_to<WatercraftRudder>(p_spatial) != nullptr;
 }
 
-String WatercraftRudderSpatialGizmoPlugin::get_name() const {
+String WatercraftRudderSpatialGizmoPlugin::get_gizmo_name() const {
 	return "WatercraftRudder";
 }
 
