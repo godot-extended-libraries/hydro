@@ -25,7 +25,7 @@ func display_help():
 	""")
 
 func generate_water_area():
-	var area = WaterArea.new()
+	var area = WaterArea3D.new()
 	var area_shape = CollisionShape.new()
 	area_shape.shape = BoxShape.new()
 	area_shape.shape.extents = Vector3(AREA_EXTENT, AREA_EXTENT, AREA_EXTENT)

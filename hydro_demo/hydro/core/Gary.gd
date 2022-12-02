@@ -1,10 +1,9 @@
-extends KinematicBody
+extends CharacterBody3D
 
 var camera_angle = 0
 var mouse_sensitivity = 0.3
 var camera_change = Vector2()
 
-var velocity = Vector3()
 var direction = Vector3()
 
 #fly variables
@@ -43,17 +42,17 @@ func fly(delta):
 	direction = Vector3()
 	
 	# get the rotation of the camera
-	var aim = $Head/Camera.get_global_transform().basis
+	var _aim = $Head/Camera.get_global_transform().basis
 	
 	# check input and change direction
 	if Input.is_action_pressed("move_forward"):
-		direction -= aim.z
+		direction -= _aim.z
 	if Input.is_action_pressed("move_backward"):
-		direction += aim.z
+		direction += _aim.z
 	if Input.is_action_pressed("move_left"):
-		direction -= aim.x
+		direction -= _aim.x
 	if Input.is_action_pressed("move_right"):
-		direction += aim.x
+		direction += _aim.x
 	
 	direction = direction.normalized()
 	
@@ -61,17 +60,17 @@ func fly(delta):
 	var target = direction * FLY_SPEED
 	
 	# calculate a portion of the distance to go
-	velocity = velocity.linear_interpolate(target, FLY_ACCEL * delta)
+	velocity = velocity.lerp(target, FLY_ACCEL * delta)
 	
 	# move
-	move_and_slide(velocity)
+	move_and_slide()
 	
 func aim():
 	if camera_change.length() > 0:
-		$Head.rotate_y(deg2rad(-camera_change.x * mouse_sensitivity))
+		$Head.rotate_y(deg_to_rad(-camera_change.x * mouse_sensitivity))
 
 		var change = -camera_change.y * mouse_sensitivity
 		if change + camera_angle < 90 and change + camera_angle > -90:
-			$Head/Camera.rotate_x(deg2rad(change))
+			$Head/Camera.rotate_x(deg_to_rad(change))
 			camera_angle += change
 		camera_change = Vector2()

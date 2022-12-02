@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<class name="HydroRigidBody" inherits="RigidBody" category="Core" version="3.2">
+<class name="HydroRigidBody" inherits="RigidBody3D" version="4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd">
 	<brief_description>
-		A RigidBody with buoyancy and other related forces when it is inside a [WaterArea].
+		A RigidBody3D with buoyancy and other related forces when it is inside a [WaterArea3D].
 	</brief_description>
 	<description>
 		When an object enters the water, three forces will be calculated:
@@ -13,8 +13,4 @@
 	</description>
 	<tutorials>
 	</tutorials>
-	<methods>
-	</methods>
-	<constants>
-	</constants>
 </class>

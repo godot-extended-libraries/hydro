@@ -31,36 +31,46 @@ WatercraftRudder::WatercraftRudder() {
 
 String WatercraftRudder::get_configuration_warning() const {
 	if (!Object::cast_to<HydroRigidBody>(get_parent())) {
-		return TTR("WatercraftRudder serves to provide a rudder for a HydroRigidBody. Please use it as a child of a HydroRigidBody.");
+		return RTR("WatercraftRudder serves to provide a rudder for a "
+				   "HydroRigidBody. Please use it as a child of a "
+				   "HydroRigidBody.");
 	}
 
 	return String();
 }
 
 void WatercraftRudder::_bind_methods() {
-	ClassDB::bind_method(D_METHOD("set_origin", "origin"), &WatercraftRudder::set_origin);
+	ClassDB::bind_method(D_METHOD("set_origin", "origin"),
+			&WatercraftRudder::set_origin);
 	ClassDB::bind_method(D_METHOD("get_origin"), &WatercraftRudder::get_origin);
-	ClassDB::bind_method(D_METHOD("set_direction", "direction"), &WatercraftRudder::set_direction);
-	ClassDB::bind_method(D_METHOD("get_direction"), &WatercraftRudder::get_direction);
-	ClassDB::bind_method(D_METHOD("set_length", "length"), &WatercraftRudder::set_length);
+	ClassDB::bind_method(D_METHOD("set_direction", "direction"),
+			&WatercraftRudder::set_direction);
+	ClassDB::bind_method(D_METHOD("get_direction"),
+			&WatercraftRudder::get_direction);
+	ClassDB::bind_method(D_METHOD("set_length", "length"),
+			&WatercraftRudder::set_length);
 	ClassDB::bind_method(D_METHOD("get_length"), &WatercraftRudder::get_length);
-	ClassDB::bind_method(D_METHOD("set_depth", "length"), &WatercraftRudder::set_depth);
+	ClassDB::bind_method(D_METHOD("set_depth", "length"),
+			&WatercraftRudder::set_depth);
 	ClassDB::bind_method(D_METHOD("get_depth"), &WatercraftRudder::get_depth);
 
-	ADD_PROPERTY(PropertyInfo(Variant::VECTOR3, "origin"), "set_origin", "get_origin");
-	ADD_PROPERTY(PropertyInfo(Variant::VECTOR3, "direction"), "set_direction", "get_direction");
-	ADD_PROPERTY(PropertyInfo(Variant::REAL, "length"), "set_length", "get_length");
-	ADD_PROPERTY(PropertyInfo(Variant::REAL, "depth"), "set_depth", "get_depth");
+	ADD_PROPERTY(PropertyInfo(Variant::VECTOR3, "origin"), "set_origin",
+			"get_origin");
+	ADD_PROPERTY(PropertyInfo(Variant::VECTOR3, "direction"), "set_direction",
+			"get_direction");
+	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "length"), "set_length",
+			"get_length");
+	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "depth"), "set_depth", "get_depth");
 }
 
-PoolVector<Face3> WatercraftRudder::get_faces() {
+Vector<Face3> WatercraftRudder::get_faces() {
 	Vector3 depth = Vector3(0, m_depth, 0);
 	Vector3 p1 = m_origin;
 	Vector3 p2 = p1 + m_direction * m_length;
 	Vector3 p3 = p1 - depth;
 	Vector3 p4 = p2 - depth;
 
-	PoolVector<Face3> faces;
+	Vector<Face3> faces;
 	faces.append(Face3(p1, p2, p3));
 	faces.append(Face3(p2, p4, p3));
 	faces.append(Face3(p3, p2, p1));
@@ -70,7 +80,8 @@ PoolVector<Face3> WatercraftRudder::get_faces() {
 }
 
 void WatercraftRudder::_notification(int p_what) {
-	HydroRigidBody *parent = Object::cast_to<HydroRigidBody>(get_parent());
+	HydroRigidBody *parent =
+			Object::cast_to<HydroRigidBody>(get_parent());
 	if (!parent)
 		return;
 

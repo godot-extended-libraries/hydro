@@ -30,34 +30,39 @@ WatercraftBallast::WatercraftBallast() {
 
 String WatercraftBallast::get_configuration_warning() const {
 	if (!Object::cast_to<HydroRigidBody>(get_parent())) {
-		return TTR("WatercraftBallast serves to provide custom weight distribution to a HydroRigidBody. Please use it as a child of a HydroRigidBody.");
+		return RTR("WatercraftBallast serves to provide custom weight distribution "
+				   "to a HydroRigidBody. Please use it as a child of a "
+				   "HydroRigidBody.");
 	}
 
 	return String();
 }
 
 void WatercraftBallast::_bind_methods() {
-	ClassDB::bind_method(D_METHOD("set_origin", "origin"), &WatercraftBallast::set_origin);
+	ClassDB::bind_method(D_METHOD("set_origin", "origin"),
+			&WatercraftBallast::set_origin);
 	ClassDB::bind_method(D_METHOD("get_origin"), &WatercraftBallast::get_origin);
-	ClassDB::bind_method(D_METHOD("set_mass", "mass"), &WatercraftBallast::set_mass);
+	ClassDB::bind_method(D_METHOD("set_mass", "mass"),
+			&WatercraftBallast::set_mass);
 	ClassDB::bind_method(D_METHOD("get_mass"), &WatercraftBallast::get_mass);
 
-	ADD_PROPERTY(PropertyInfo(Variant::VECTOR3, "origin"), "set_origin", "get_origin");
-	ADD_PROPERTY(PropertyInfo(Variant::REAL, "mass"), "set_mass", "get_mass");
+	ADD_PROPERTY(PropertyInfo(Variant::VECTOR3, "origin"), "set_origin",
+			"get_origin");
+	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "mass"), "set_mass", "get_mass");
 }
 
 void WatercraftBallast::_notification(int p_what) {
-
 	if (p_what == NOTIFICATION_ENTER_TREE) {
-
-		HydroRigidBody *parent = Object::cast_to<HydroRigidBody>(get_parent());
+		HydroRigidBody *parent =
+				Object::cast_to<HydroRigidBody>(get_parent());
 		if (!parent)
 			return;
 
 		parent->m_ballast.push_back(this);
 	}
 	if (p_what == NOTIFICATION_EXIT_TREE) {
-		HydroRigidBody *parent = Object::cast_to<HydroRigidBody>(get_parent());
+		HydroRigidBody *parent =
+				Object::cast_to<HydroRigidBody>(get_parent());
 		if (!parent)
 			return;
 

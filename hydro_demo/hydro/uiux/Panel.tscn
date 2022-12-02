@@ -1,287 +1,296 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=2 format=3 uid="uid://crtva4iecvr22"]
 
-[ext_resource path="res://hydro/core/OceanEditor.gd" type="Script" id=1]
+[ext_resource type="Script" path="res://hydro/core/OceanEditor.gd" id="1"]
 
 [node name="Panel" type="Panel"]
+anchors_preset = 9
 anchor_bottom = 1.0
-margin_right = 240.0
-margin_bottom = -300.0
-rect_min_size = Vector2( 240, 170 )
-script = ExtResource( 1 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+script = ExtResource("1")
 
-[node name="FreeLook" type="Label" parent="."]
-anchor_left = 0.5
-anchor_right = 0.5
-margin_left = -107.5
-margin_top = 12.0
-margin_right = 107.5
-margin_bottom = 26.0
+[node name="HFlowContainer" type="HFlowContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="FreeLook" type="Label" parent="HFlowContainer"]
+layout_mode = 2
+offset_right = 254.0
+offset_bottom = 26.0
+theme_override_font_sizes/font_size = 16
 text = "Free look mode - press 'Q' to edit"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="EditMode" type="Label" parent="."]
+[node name="EditMode" type="Label" parent="HFlowContainer"]
 visible = false
+layout_mode = 2
+anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-margin_left = -107.5
-margin_top = 12.0
-margin_right = 107.5
-margin_bottom = 26.0
+offset_left = 103.0
+offset_right = 354.0
+offset_bottom = 26.0
 text = "Edit mode - press 'Q' to free look"
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
 
-[node name="Settings" type="VBoxContainer" parent="."]
-anchor_bottom = 1.0
-margin_left = 20.0
-margin_top = 40.0
-margin_right = 200.0
-margin_bottom = -10.0
-rect_min_size = Vector2( 200, 0 )
-__meta__ = {
-"_edit_use_anchors_": false
-}
+[node name="Settings" type="VBoxContainer" parent="HFlowContainer"]
+layout_mode = 2
+offset_top = 30.0
+offset_right = 138.0
+offset_bottom = 391.0
 
-[node name="Seed" type="HBoxContainer" parent="Settings"]
-margin_right = 200.0
-margin_bottom = 24.0
+[node name="Seed" type="HBoxContainer" parent="HFlowContainer/Settings"]
+layout_mode = 2
+offset_right = 138.0
+offset_bottom = 31.0
 
-[node name="Label" type="Label" parent="Settings/Seed"]
-margin_top = 5.0
-margin_right = 31.0
-margin_bottom = 19.0
+[node name="Label" type="Label" parent="HFlowContainer/Settings/Seed"]
+layout_mode = 2
+offset_top = 2.0
+offset_right = 38.0
+offset_bottom = 28.0
 text = "Seed"
 
-[node name="LineEdit" type="LineEdit" parent="Settings/Seed"]
-margin_left = 35.0
-margin_right = 200.0
-margin_bottom = 24.0
+[node name="LineEdit" type="LineEdit" parent="HFlowContainer/Settings/Seed"]
+layout_mode = 2
+offset_left = 42.0
+offset_right = 138.0
+offset_bottom = 31.0
 size_flags_horizontal = 3
 placeholder_text = "0"
-placeholder_alpha = 1.0
 caret_blink = true
 
-[node name="Amplitude" type="HBoxContainer" parent="Settings"]
-margin_top = 28.0
-margin_right = 200.0
-margin_bottom = 44.0
+[node name="Amplitude" type="HBoxContainer" parent="HFlowContainer/Settings"]
+layout_mode = 2
+offset_top = 35.0
+offset_right = 138.0
+offset_bottom = 61.0
 
-[node name="Label" type="Label" parent="Settings/Amplitude"]
-margin_top = 1.0
-margin_right = 67.0
-margin_bottom = 15.0
+[node name="Label" type="Label" parent="HFlowContainer/Settings/Amplitude"]
+layout_mode = 2
+offset_right = 81.0
+offset_bottom = 26.0
 text = "Amplitude"
 
-[node name="HSlider" type="HSlider" parent="Settings/Amplitude"]
-margin_left = 71.0
-margin_right = 200.0
-margin_bottom = 16.0
+[node name="HSlider" type="HSlider" parent="HFlowContainer/Settings/Amplitude"]
+layout_mode = 2
+offset_left = 85.0
+offset_right = 138.0
+offset_bottom = 16.0
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.001
 value = 0.25
 
-[node name="Wavelength" type="HBoxContainer" parent="Settings"]
-margin_top = 48.0
-margin_right = 200.0
-margin_bottom = 64.0
+[node name="Wavelength" type="HBoxContainer" parent="HFlowContainer/Settings"]
+layout_mode = 2
+offset_top = 65.0
+offset_right = 138.0
+offset_bottom = 91.0
 
-[node name="Label" type="Label" parent="Settings/Wavelength"]
-margin_top = 1.0
-margin_right = 75.0
-margin_bottom = 15.0
+[node name="Label" type="Label" parent="HFlowContainer/Settings/Wavelength"]
+layout_mode = 2
+offset_right = 92.0
+offset_bottom = 26.0
 text = "Wavelength"
 
-[node name="HSlider" type="HSlider" parent="Settings/Wavelength"]
-margin_left = 79.0
-margin_right = 200.0
-margin_bottom = 16.0
+[node name="HSlider" type="HSlider" parent="HFlowContainer/Settings/Wavelength"]
+layout_mode = 2
+offset_left = 96.0
+offset_right = 138.0
+offset_bottom = 16.0
 size_flags_horizontal = 3
 min_value = 20.0
 max_value = 128.0
 step = 0.01
 value = 60.0
 
-[node name="Steepness" type="HBoxContainer" parent="Settings"]
-margin_top = 68.0
-margin_right = 200.0
-margin_bottom = 84.0
+[node name="Steepness" type="HBoxContainer" parent="HFlowContainer/Settings"]
+layout_mode = 2
+offset_top = 95.0
+offset_right = 138.0
+offset_bottom = 121.0
 
-[node name="Label" type="Label" parent="Settings/Steepness"]
-margin_top = 1.0
-margin_right = 66.0
-margin_bottom = 15.0
+[node name="Label" type="Label" parent="HFlowContainer/Settings/Steepness"]
+layout_mode = 2
+offset_right = 79.0
+offset_bottom = 26.0
 text = "Steepness"
 
-[node name="HSlider" type="HSlider" parent="Settings/Steepness"]
-margin_left = 70.0
-margin_right = 200.0
-margin_bottom = 16.0
+[node name="HSlider" type="HSlider" parent="HFlowContainer/Settings/Steepness"]
+layout_mode = 2
+offset_left = 83.0
+offset_right = 138.0
+offset_bottom = 16.0
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.001
 value = 0.025
 
-[node name="WindDirectionX" type="HBoxContainer" parent="Settings"]
-margin_top = 88.0
-margin_right = 200.0
-margin_bottom = 104.0
+[node name="WindDirectionX" type="HBoxContainer" parent="HFlowContainer/Settings"]
+layout_mode = 2
+offset_top = 125.0
+offset_right = 138.0
+offset_bottom = 151.0
 
-[node name="Label" type="Label" parent="Settings/WindDirectionX"]
-margin_top = 1.0
-margin_right = 100.0
-margin_bottom = 15.0
+[node name="Label" type="Label" parent="HFlowContainer/Settings/WindDirectionX"]
+layout_mode = 2
+offset_right = 121.0
+offset_bottom = 26.0
 text = "WindDirectionX"
 
-[node name="HSlider" type="HSlider" parent="Settings/WindDirectionX"]
-margin_left = 104.0
-margin_right = 200.0
-margin_bottom = 16.0
+[node name="HSlider" type="HSlider" parent="HFlowContainer/Settings/WindDirectionX"]
+layout_mode = 2
+offset_left = 125.0
+offset_right = 138.0
+offset_bottom = 16.0
 size_flags_horizontal = 3
 min_value = -1.0
 max_value = 1.0
 step = 0.001
 value = 1.0
 
-[node name="WindDirectionY" type="HBoxContainer" parent="Settings"]
-margin_top = 108.0
-margin_right = 200.0
-margin_bottom = 124.0
+[node name="WindDirectionY" type="HBoxContainer" parent="HFlowContainer/Settings"]
+layout_mode = 2
+offset_top = 155.0
+offset_right = 138.0
+offset_bottom = 181.0
 
-[node name="Label" type="Label" parent="Settings/WindDirectionY"]
-margin_top = 1.0
-margin_right = 99.0
-margin_bottom = 15.0
+[node name="Label" type="Label" parent="HFlowContainer/Settings/WindDirectionY"]
+layout_mode = 2
+offset_right = 121.0
+offset_bottom = 26.0
 text = "WindDirectionY"
 
-[node name="HSlider" type="HSlider" parent="Settings/WindDirectionY"]
-margin_left = 103.0
-margin_right = 200.0
-margin_bottom = 16.0
+[node name="HSlider" type="HSlider" parent="HFlowContainer/Settings/WindDirectionY"]
+layout_mode = 2
+offset_left = 125.0
+offset_right = 138.0
+offset_bottom = 16.0
 size_flags_horizontal = 3
 min_value = -1.0
 max_value = 1.0
 step = 0.001
 
-[node name="WindAlign" type="HBoxContainer" parent="Settings"]
-margin_top = 128.0
-margin_right = 200.0
-margin_bottom = 144.0
+[node name="WindAlign" type="HBoxContainer" parent="HFlowContainer/Settings"]
+layout_mode = 2
+offset_top = 185.0
+offset_right = 138.0
+offset_bottom = 211.0
 
-[node name="Label" type="Label" parent="Settings/WindAlign"]
-margin_top = 1.0
-margin_right = 65.0
-margin_bottom = 15.0
+[node name="Label" type="Label" parent="HFlowContainer/Settings/WindAlign"]
+layout_mode = 2
+offset_right = 79.0
+offset_bottom = 26.0
 text = "WindAlign"
 
-[node name="HSlider" type="HSlider" parent="Settings/WindAlign"]
-margin_left = 69.0
-margin_right = 200.0
-margin_bottom = 16.0
+[node name="HSlider" type="HSlider" parent="HFlowContainer/Settings/WindAlign"]
+layout_mode = 2
+offset_left = 83.0
+offset_right = 138.0
+offset_bottom = 16.0
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.001
 
-[node name="Speed" type="HBoxContainer" parent="Settings"]
-margin_top = 148.0
-margin_right = 200.0
-margin_bottom = 164.0
+[node name="Speed" type="HBoxContainer" parent="HFlowContainer/Settings"]
+layout_mode = 2
+offset_top = 215.0
+offset_right = 138.0
+offset_bottom = 241.0
 
-[node name="Label" type="Label" parent="Settings/Speed"]
-margin_top = 1.0
-margin_right = 39.0
-margin_bottom = 15.0
+[node name="Label" type="Label" parent="HFlowContainer/Settings/Speed"]
+layout_mode = 2
+offset_right = 48.0
+offset_bottom = 26.0
 text = "Speed"
 
-[node name="HSlider" type="HSlider" parent="Settings/Speed"]
-margin_left = 43.0
-margin_right = 200.0
-margin_bottom = 16.0
+[node name="HSlider" type="HSlider" parent="HFlowContainer/Settings/Speed"]
+layout_mode = 2
+offset_left = 52.0
+offset_right = 138.0
+offset_bottom = 16.0
 size_flags_horizontal = 3
 max_value = 40.0
 step = 0.001
 value = 10.0
 
-[node name="Noise" type="HBoxContainer" parent="Settings"]
-margin_top = 168.0
-margin_right = 200.0
-margin_bottom = 192.0
+[node name="Noise" type="HBoxContainer" parent="HFlowContainer/Settings"]
+layout_mode = 2
+offset_top = 245.0
+offset_right = 138.0
+offset_bottom = 271.0
 
-[node name="Label" type="Label" parent="Settings/Noise"]
-margin_top = 5.0
-margin_right = 91.0
-margin_bottom = 19.0
+[node name="Label" type="Label" parent="HFlowContainer/Settings/Noise"]
+layout_mode = 2
+offset_right = 110.0
+offset_bottom = 26.0
 text = "Noise Enabled"
 
-[node name="CheckBox" type="CheckBox" parent="Settings/Noise"]
-margin_left = 95.0
-margin_right = 119.0
-margin_bottom = 24.0
-pressed = true
+[node name="CheckBox" type="CheckBox" parent="HFlowContainer/Settings/Noise"]
+layout_mode = 2
+offset_left = 114.0
+offset_right = 138.0
+offset_bottom = 26.0
 
-[node name="NoiseAmp" type="HBoxContainer" parent="Settings"]
-margin_top = 196.0
-margin_right = 200.0
-margin_bottom = 212.0
+[node name="NoiseAmp" type="HBoxContainer" parent="HFlowContainer/Settings"]
+layout_mode = 2
+offset_top = 275.0
+offset_right = 138.0
+offset_bottom = 301.0
 
-[node name="Label" type="Label" parent="Settings/NoiseAmp"]
-margin_top = 1.0
-margin_right = 71.0
-margin_bottom = 15.0
+[node name="Label" type="Label" parent="HFlowContainer/Settings/NoiseAmp"]
+layout_mode = 2
+offset_right = 84.0
+offset_bottom = 26.0
 text = "Noise Amp"
 
-[node name="HSlider" type="HSlider" parent="Settings/NoiseAmp"]
-margin_left = 75.0
-margin_right = 200.0
-margin_bottom = 16.0
+[node name="HSlider" type="HSlider" parent="HFlowContainer/Settings/NoiseAmp"]
+layout_mode = 2
+offset_left = 88.0
+offset_right = 138.0
+offset_bottom = 16.0
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.001
 value = 0.28
 
-[node name="NoiseFreq" type="HBoxContainer" parent="Settings"]
-margin_top = 216.0
-margin_right = 200.0
-margin_bottom = 232.0
+[node name="NoiseFreq" type="HBoxContainer" parent="HFlowContainer/Settings"]
+layout_mode = 2
+offset_top = 305.0
+offset_right = 138.0
+offset_bottom = 331.0
 
-[node name="Label" type="Label" parent="Settings/NoiseFreq"]
-margin_top = 1.0
-margin_right = 69.0
-margin_bottom = 15.0
+[node name="Label" type="Label" parent="HFlowContainer/Settings/NoiseFreq"]
+layout_mode = 2
+offset_right = 83.0
+offset_bottom = 26.0
 text = "Noise Freq"
 
-[node name="HSlider" type="HSlider" parent="Settings/NoiseFreq"]
-margin_left = 73.0
-margin_right = 200.0
-margin_bottom = 16.0
+[node name="HSlider" type="HSlider" parent="HFlowContainer/Settings/NoiseFreq"]
+layout_mode = 2
+offset_left = 87.0
+offset_right = 138.0
+offset_bottom = 16.0
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
 value = 0.07
 
-[node name="NoiseSpeed" type="HBoxContainer" parent="Settings"]
-margin_top = 236.0
-margin_right = 200.0
-margin_bottom = 252.0
+[node name="NoiseSpeed" type="HBoxContainer" parent="HFlowContainer/Settings"]
+layout_mode = 2
+offset_top = 335.0
+offset_right = 138.0
+offset_bottom = 361.0
 
-[node name="Label" type="Label" parent="Settings/NoiseSpeed"]
-margin_top = 1.0
-margin_right = 80.0
-margin_bottom = 15.0
+[node name="Label" type="Label" parent="HFlowContainer/Settings/NoiseSpeed"]
+layout_mode = 2
+offset_right = 96.0
+offset_bottom = 26.0
 text = "Noise Speed"
 
-[node name="HSlider" type="HSlider" parent="Settings/NoiseSpeed"]
-margin_left = 84.0
-margin_right = 200.0
-margin_bottom = 16.0
+[node name="HSlider" type="HSlider" parent="HFlowContainer/Settings/NoiseSpeed"]
+layout_mode = 2
+offset_left = 100.0
+offset_right = 138.0
+offset_bottom = 16.0
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01

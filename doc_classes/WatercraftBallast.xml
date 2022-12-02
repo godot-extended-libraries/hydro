@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<class name="WatercraftBallast" inherits="Spatial" category="Core" version="3.2">
+<class name="WatercraftBallast" inherits="Node3D" version="4.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="../class.xsd">
 	<brief_description>
 		Allows off-center weight to be added to a [HydroRigidBody]
 	</brief_description>
@@ -11,16 +11,12 @@
 	</description>
 	<tutorials>
 	</tutorials>
-	<methods>
-	</methods>
 	<members>
-		<member name="mass" type="float" setter="set_mass" getter="get_mass">
+		<member name="mass" type="float" setter="set_mass" getter="get_mass" default="0.0">
 			The mass of the ballast.
 		</member>
-		<member name="origin" type="Vector3" setter="set_origin" getter="get_origin">
+		<member name="origin" type="Vector3" setter="set_origin" getter="get_origin" default="Vector3(0, 0, 0)">
 			The location of the ballast.
 		</member>
 	</members>
-	<constants>
-	</constants>
 </class>

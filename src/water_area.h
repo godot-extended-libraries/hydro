@@ -23,23 +23,28 @@
 #ifndef WATER_AREA_H
 #define WATER_AREA_H
 
-#include "scene/3d/area.h"
+#include "scene/3d/area_3d.h"
 
-class WaterArea : public Area {
-	GDCLASS(WaterArea, Area)
+class WaterArea3D : public Area3D {
+	GDCLASS(WaterArea3D, Area3D)
 
 public:
-	WaterArea();
+	WaterArea3D();
 	void set_density(float density) { m_density = density; }
 	float get_density() { return m_density; }
 	void set_viscosity(float viscosity) { m_viscosity = viscosity; }
 	float get_viscosity() { return m_viscosity; }
 	void set_water_height(float water_height) { m_water_height = water_height; }
 	float get_water_height() { return m_water_height; }
-	void set_flow_direction(const Vector3 &direction) { m_flow_direction = direction; }
+	void set_flow_direction(const Vector3 &direction) {
+		m_flow_direction = direction;
+	}
 	Vector3 get_flow_direction() { return m_flow_direction; }
 
-	void update_water_heights(PoolVector3Array &points);
+	void update_water_heights(PackedVector3Array &points);
+
+	void _validate_property(PropertyInfo &p_property) const {
+	}
 
 protected:
 	float m_density;
