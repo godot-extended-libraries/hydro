@@ -170,9 +170,9 @@ void HydroRigidBody::_body_state_changed(PhysicsDirectBodyState3D *p_state) {
 		}
 	}
 
-	float fluid_density = m_water_area->get_density();
-	float fluid_viscosity = m_water_area->get_viscosity();
-	float gravity = -p_state->get_total_gravity().length();
+	real_t fluid_density = m_water_area->get_density();
+	real_t fluid_viscosity = m_water_area->get_viscosity();
+	real_t gravity = -p_state->get_total_gravity().length();
 
 	// Calculate buoyancy, drag, and lift per-face
 	Vector3 base_velocity =
@@ -181,11 +181,11 @@ void HydroRigidBody::_body_state_changed(PhysicsDirectBodyState3D *p_state) {
 		const Face3 &f = m_hull_mesh.get_clipped_face(i);
 		Vector3 center_tri = f.get_median_point();
 		Vector3 normal = f.get_plane().normal;
-		float area = f.get_area();
+		real_t area = f.get_area();
 		int q = m_hull_mesh.get_quadrant(wave_center, center_tri);
 
 		// Buoyant force
-		float depth = fabsf(wave_planes[q].distance_to(center_tri));
+		real_t depth = Math::abs(wave_planes[q].distance_to(center_tri));
 		Vector3 buoyancy_force = fluid_density * gravity * depth * area * normal;
 		buoyancy_force.x = 0;
 		buoyancy_force.z = 0;
