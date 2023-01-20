@@ -179,7 +179,7 @@ void HydroRigidBody::_body_state_changed(PhysicsDirectBodyState3D *p_state) {
 			get_linear_velocity() - m_water_area->get_flow_direction();
 	for (int i = 0; i < m_hull_mesh.clipped_face_count(); i++) {
 		const Face3 &f = m_hull_mesh.get_clipped_face(i);
-		Vector3 center_tri = f.get_median_point();
+		Vector3 center_tri = (f.vertex[0] + f.vertex[1] + f.vertex[2]) / 3.0f;
 		Vector3 normal = f.get_plane().normal;
 		real_t area = f.get_area();
 		int q = m_hull_mesh.get_quadrant(wave_center, center_tri);
