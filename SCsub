@@ -30,3 +30,6 @@ if ARGUMENTS.get('hydro_shared', 'no') == 'yes':
 	env.Append(LIBPATH=['#bin'])
 else:
 	env_hydro.add_source_files(env.modules_sources, sources)
+
+if env.editor_build:
+    env_hydro.add_source_files(env.modules_sources, "editor/*.cpp")
