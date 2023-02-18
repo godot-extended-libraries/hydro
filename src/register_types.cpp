@@ -23,7 +23,10 @@
 
 #include "modules/register_module_types.h"
 
-#include "hydro_gizmo_plugins.h"
+#ifdef TOOLS_ENABLED
+#include "editor/hydro_gizmo_plugins.h"
+#endif
+
 #include "hydro_rigid_body.h"
 #include "register_types.h"
 #include "water_area.h"
