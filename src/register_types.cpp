@@ -24,7 +24,7 @@
 #include "modules/register_module_types.h"
 
 #ifdef TOOLS_ENABLED
-#include "editor/hydro_gizmo_plugins.h"
+#include "../editor/hydro_gizmo_plugins.h"
 #endif
 
 #include "hydro_rigid_body.h"
