@@ -32,12 +32,13 @@ WaterArea3D::WaterArea3D() {
 }
 
 void WaterArea3D::update_water_heights(PackedVector3Array &points) {
-	ScriptInstance *script = get_script_instance();
-	if (script && script->has_method("_get_water_heights")) {
+	ScriptInstance *current_script = get_script_instance();
+	if (current_script && current_script->has_method("_get_water_heights")) {
 		points = get_script_instance()->call("_get_water_heights", points);
 	} else {
-		for (int i = 0; i < points.size(); i++)
+		for (int i = 0; i < points.size(); i++) {
 			points.write[i].y = m_water_height;
+		}
 	}
 }
 
