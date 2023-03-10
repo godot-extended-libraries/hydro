@@ -10,7 +10,7 @@ func _process(_delta):
 			"Seed": ocean.set_seed(hash($HFlowContainer/Settings/Seed/LineEdit.text))
 			"Amplitude": ocean.set_amplitude($HFlowContainer/Settings/Amplitude/HSlider.value)
 			"Wavelength": ocean.set_wavelength($HFlowContainer/Settings/Wavelength/HSlider.value)
-			"Steepness": ocean.set_steepness($SHFlowContainer/Settings/Steepness/HSlider.value)
+			"Steepness": ocean.set_steepness($HFlowContainer/Settings/Steepness/HSlider.value)
 			"WindDirectionX": wind_direction.x = $HFlowContainer/Settings/WindDirectionX/HSlider.value
 			"WindDirectionY": wind_direction.y = $HFlowContainer/Settings/WindDirectionY/HSlider.value
 			"WindAlign": ocean.set_wind_align($HFlowContainer/Settings/WindAlign/HSlider.value)

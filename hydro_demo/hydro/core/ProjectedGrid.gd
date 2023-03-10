@@ -32,29 +32,29 @@ var initialized = false
 
 var counter = 0.5
 var cube_cam = preload("res://hydro/core/CubeCamera.tscn")
-var cube_cam_inst;
+var cube_cam_inst
 
 var waves = []
 var waves_in_tex = ImageTexture.new()
 
 func _ready():
 	material_override = load("res://hydro/art/OceanShader.tres")
-	#TODO: fix mesh generation and shader
-#	mesh = ImmediateMesh.new()
-#
-#	for j in range(res):
-#		var y = j/res - 0.5
-#		var n_y = (j+1)/res - 0.5
-#		mesh.surface_begin(Mesh.PRIMITIVE_TRIANGLE_STRIP)
-#		for i in range(res):
-#			var x = i/res - 0.5						
-#			mesh.surface_add_vertex(Vector3(x*2, 0, -y*2))
-#			mesh.surface_add_vertex(Vector3(x*2, 0, -n_y*2))
-#		mesh.surface_end()
-#	mesh.surface_begin(Mesh.PRIMITIVE_POINTS)
-#	mesh.surface_add_vertex(-Vector3(1,1,1)*pow(2,32))
-#	mesh.surface_add_vertex(Vector3(1,1,1)*pow(2,32))
-#	mesh.surface_end()
+	#TODO: fix shader
+	mesh = ImmediateMesh.new()
+
+	for j in range(res):
+		var y = j/res - 0.5
+		var n_y = (j+1)/res - 0.5
+		mesh.surface_begin(Mesh.PRIMITIVE_TRIANGLE_STRIP)
+		for i in range(res):
+			var x = i/res - 0.5						
+			mesh.surface_add_vertex(Vector3(x*2, 0, -y*2))
+			mesh.surface_add_vertex(Vector3(x*2, 0, -n_y*2))
+		mesh.surface_end()
+	mesh.surface_begin(Mesh.PRIMITIVE_POINTS)
+	mesh.surface_add_vertex(-Vector3(1,1,1)*pow(2,32))
+	mesh.surface_add_vertex(Vector3(1,1,1)*pow(2,32))
+	mesh.surface_end()
 	
 	waves_in_tex = ImageTexture.new()
 	update_waves()
@@ -109,25 +109,25 @@ func set_speed(value):
 
 func set_noise_enabled(value):
 	noise_enabled = value
-	var old_noise_params = material_override.get_shader_uniform('noise_params')
-	old_noise_params.d = 1 if value else 0
+	var old_noise_params = material_override.get_shader_parameter('noise_params')
+	old_noise_params.w = 1 if value else 0
 	material_override.set_shader_parameter('noise_params', old_noise_params)
 
 func set_noise_amplitude(value):
 	noise_amplitude = value
-	var old_noise_params = material_override.get_shader_uniform('noise_params')
+	var old_noise_params = material_override.get_shader_parameter('noise_params')
 	old_noise_params.x = value
 	material_override.set_shader_parameter('noise_params', old_noise_params)
 
 func set_noise_frequency(value):
 	noise_frequency = value
-	var old_noise_params = material_override.get_shader_uniform('noise_params')
+	var old_noise_params = material_override.get_shader_parameter('noise_params')
 	old_noise_params.y = value
 	material_override.set_shader_parameter('noise_params', old_noise_params)
 
 func set_noise_speed(value):
 	noise_speed = value
-	var old_noise_params = material_override.get_shader_uniform('noise_params')
+	var old_noise_params = material_override.get_shader_parameter('noise_params')
 	old_noise_params.z = value
 	material_override.set_shader_parameter('noise_params', old_noise_params)
 
@@ -177,14 +177,13 @@ func update_waves():
 			'frequency': sqrt(0.098 * TAU/_wavelength)
 		})
 	#Put Waves in Texture..
-	var img = Image.new()
-	img.create(5, NUMBER_OF_WAVES, false, Image.FORMAT_RF)
+	var img = Image.create(5, NUMBER_OF_WAVES, false, Image.FORMAT_RF)
 	for i in range(NUMBER_OF_WAVES):
 		img.set_pixel(0, i, Color(waves[i]['amplitude'], 0,0,0))
 		img.set_pixel(1, i, Color(waves[i]['steepness'], 0,0,0))
 		img.set_pixel(2, i, Color(waves[i]['wind_directionX'], 0,0,0))
 		img.set_pixel(3, i, Color(waves[i]['wind_directionY'], 0,0,0))
 		img.set_pixel(4, i, Color(waves[i]['frequency'], 0,0,0))
-	waves_in_tex.create_from_image(img)
+	waves_in_tex = ImageTexture.create_from_image(img)
 	
 	material_override.set_shader_parameter('waves', waves_in_tex)

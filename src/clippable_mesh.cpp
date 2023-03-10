@@ -104,7 +104,8 @@ void ClippableMesh::clip_to_plane_quadrant(
 		for (int j = 0; j < 3; j++)
 			current_face.vertex[j] = global_transform.xform(local_face.vertex[j]);
 
-		int quadrant = get_quadrant(center, (current_face.vertex[0] + current_face.vertex[1] + current_face.vertex[2]) / 3.0f);
+		Vector3 face_median = (current_face.vertex[0] + current_face.vertex[1] + current_face.vertex[2]) / 3.0f;
+		int quadrant = get_quadrant(center, face_median);
 		const Plane &plane = planes[quadrant];
 
 		bool over[3];
