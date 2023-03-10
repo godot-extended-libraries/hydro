@@ -43,18 +43,19 @@ sky = SubResource("Sky_cf5fw")
 [node name="Node" type="Node3D"]
 
 [node name="FirstPerson" parent="." instance=ExtResource("1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0363367, 0.333668, 14.9742)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 15)
 motion_mode = 1
 
 [node name="DirectionalLight" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 46.4912, 0)
 
 [node name="Ocean" type="MeshInstance3D" parent="."]
-visible = false
 material_override = ExtResource("2")
+transparency = 0.06
 script = ExtResource("3")
 
 [node name="WaterPlane" type="MeshInstance3D" parent="."]
+visible = false
 mesh = SubResource("PlaneMesh_kry3e")
 
 [node name="WaterArea3D" type="WaterArea3D" parent="."]

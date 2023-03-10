@@ -14,66 +14,39 @@ offset_bottom = 40.0
 
 [node name="FreeLook" type="Label" parent="HFlowContainer"]
 layout_mode = 2
-offset_right = 254.0
-offset_bottom = 26.0
 theme_override_font_sizes/font_size = 16
 text = "Free look mode - press 'Q' to edit"
 
 [node name="EditMode" type="Label" parent="HFlowContainer"]
 visible = false
 layout_mode = 2
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = 103.0
-offset_right = 354.0
-offset_bottom = 26.0
 text = "Edit mode - press 'Q' to free look"
 
 [node name="Settings" type="VBoxContainer" parent="HFlowContainer"]
 layout_mode = 2
-offset_top = 30.0
-offset_right = 138.0
-offset_bottom = 391.0
 
 [node name="Seed" type="HBoxContainer" parent="HFlowContainer/Settings"]
 layout_mode = 2
-offset_right = 138.0
-offset_bottom = 31.0
 
 [node name="Label" type="Label" parent="HFlowContainer/Settings/Seed"]
 layout_mode = 2
-offset_top = 2.0
-offset_right = 38.0
-offset_bottom = 28.0
 text = "Seed"
 
 [node name="LineEdit" type="LineEdit" parent="HFlowContainer/Settings/Seed"]
 layout_mode = 2
-offset_left = 42.0
-offset_right = 138.0
-offset_bottom = 31.0
 size_flags_horizontal = 3
 placeholder_text = "0"
 caret_blink = true
 
 [node name="Amplitude" type="HBoxContainer" parent="HFlowContainer/Settings"]
 layout_mode = 2
-offset_top = 35.0
-offset_right = 138.0
-offset_bottom = 61.0
 
 [node name="Label" type="Label" parent="HFlowContainer/Settings/Amplitude"]
 layout_mode = 2
-offset_right = 81.0
-offset_bottom = 26.0
 text = "Amplitude"
 
 [node name="HSlider" type="HSlider" parent="HFlowContainer/Settings/Amplitude"]
 layout_mode = 2
-offset_left = 85.0
-offset_right = 138.0
-offset_bottom = 16.0
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.001
@@ -81,21 +54,13 @@ value = 0.25
 
 [node name="Wavelength" type="HBoxContainer" parent="HFlowContainer/Settings"]
 layout_mode = 2
-offset_top = 65.0
-offset_right = 138.0
-offset_bottom = 91.0
 
 [node name="Label" type="Label" parent="HFlowContainer/Settings/Wavelength"]
 layout_mode = 2
-offset_right = 92.0
-offset_bottom = 26.0
 text = "Wavelength"
 
 [node name="HSlider" type="HSlider" parent="HFlowContainer/Settings/Wavelength"]
 layout_mode = 2
-offset_left = 96.0
-offset_right = 138.0
-offset_bottom = 16.0
 size_flags_horizontal = 3
 min_value = 20.0
 max_value = 128.0
@@ -104,21 +69,13 @@ value = 60.0
 
 [node name="Steepness" type="HBoxContainer" parent="HFlowContainer/Settings"]
 layout_mode = 2
-offset_top = 95.0
-offset_right = 138.0
-offset_bottom = 121.0
 
 [node name="Label" type="Label" parent="HFlowContainer/Settings/Steepness"]
 layout_mode = 2
-offset_right = 79.0
-offset_bottom = 26.0
 text = "Steepness"
 
 [node name="HSlider" type="HSlider" parent="HFlowContainer/Settings/Steepness"]
 layout_mode = 2
-offset_left = 83.0
-offset_right = 138.0
-offset_bottom = 16.0
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.001
@@ -126,21 +83,13 @@ value = 0.025
 
 [node name="WindDirectionX" type="HBoxContainer" parent="HFlowContainer/Settings"]
 layout_mode = 2
-offset_top = 125.0
-offset_right = 138.0
-offset_bottom = 151.0
 
 [node name="Label" type="Label" parent="HFlowContainer/Settings/WindDirectionX"]
 layout_mode = 2
-offset_right = 121.0
-offset_bottom = 26.0
 text = "WindDirectionX"
 
 [node name="HSlider" type="HSlider" parent="HFlowContainer/Settings/WindDirectionX"]
 layout_mode = 2
-offset_left = 125.0
-offset_right = 138.0
-offset_bottom = 16.0
 size_flags_horizontal = 3
 min_value = -1.0
 max_value = 1.0
@@ -149,21 +98,13 @@ value = 1.0
 
 [node name="WindDirectionY" type="HBoxContainer" parent="HFlowContainer/Settings"]
 layout_mode = 2
-offset_top = 155.0
-offset_right = 138.0
-offset_bottom = 181.0
 
 [node name="Label" type="Label" parent="HFlowContainer/Settings/WindDirectionY"]
 layout_mode = 2
-offset_right = 121.0
-offset_bottom = 26.0
 text = "WindDirectionY"
 
 [node name="HSlider" type="HSlider" parent="HFlowContainer/Settings/WindDirectionY"]
 layout_mode = 2
-offset_left = 125.0
-offset_right = 138.0
-offset_bottom = 16.0
 size_flags_horizontal = 3
 min_value = -1.0
 max_value = 1.0
@@ -171,42 +112,26 @@ step = 0.001
 
 [node name="WindAlign" type="HBoxContainer" parent="HFlowContainer/Settings"]
 layout_mode = 2
-offset_top = 185.0
-offset_right = 138.0
-offset_bottom = 211.0
 
 [node name="Label" type="Label" parent="HFlowContainer/Settings/WindAlign"]
 layout_mode = 2
-offset_right = 79.0
-offset_bottom = 26.0
 text = "WindAlign"
 
 [node name="HSlider" type="HSlider" parent="HFlowContainer/Settings/WindAlign"]
 layout_mode = 2
-offset_left = 83.0
-offset_right = 138.0
-offset_bottom = 16.0
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.001
 
 [node name="Speed" type="HBoxContainer" parent="HFlowContainer/Settings"]
 layout_mode = 2
-offset_top = 215.0
-offset_right = 138.0
-offset_bottom = 241.0
 
 [node name="Label" type="Label" parent="HFlowContainer/Settings/Speed"]
 layout_mode = 2
-offset_right = 48.0
-offset_bottom = 26.0
 text = "Speed"
 
 [node name="HSlider" type="HSlider" parent="HFlowContainer/Settings/Speed"]
 layout_mode = 2
-offset_left = 52.0
-offset_right = 138.0
-offset_bottom = 16.0
 size_flags_horizontal = 3
 max_value = 40.0
 step = 0.001
@@ -214,39 +139,23 @@ value = 10.0
 
 [node name="Noise" type="HBoxContainer" parent="HFlowContainer/Settings"]
 layout_mode = 2
-offset_top = 245.0
-offset_right = 138.0
-offset_bottom = 271.0
 
 [node name="Label" type="Label" parent="HFlowContainer/Settings/Noise"]
 layout_mode = 2
-offset_right = 110.0
-offset_bottom = 26.0
 text = "Noise Enabled"
 
 [node name="CheckBox" type="CheckBox" parent="HFlowContainer/Settings/Noise"]
 layout_mode = 2
-offset_left = 114.0
-offset_right = 138.0
-offset_bottom = 26.0
 
 [node name="NoiseAmp" type="HBoxContainer" parent="HFlowContainer/Settings"]
 layout_mode = 2
-offset_top = 275.0
-offset_right = 138.0
-offset_bottom = 301.0
 
 [node name="Label" type="Label" parent="HFlowContainer/Settings/NoiseAmp"]
 layout_mode = 2
-offset_right = 84.0
-offset_bottom = 26.0
 text = "Noise Amp"
 
 [node name="HSlider" type="HSlider" parent="HFlowContainer/Settings/NoiseAmp"]
 layout_mode = 2
-offset_left = 88.0
-offset_right = 138.0
-offset_bottom = 16.0
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.001
@@ -254,21 +163,13 @@ value = 0.28
 
 [node name="NoiseFreq" type="HBoxContainer" parent="HFlowContainer/Settings"]
 layout_mode = 2
-offset_top = 305.0
-offset_right = 138.0
-offset_bottom = 331.0
 
 [node name="Label" type="Label" parent="HFlowContainer/Settings/NoiseFreq"]
 layout_mode = 2
-offset_right = 83.0
-offset_bottom = 26.0
 text = "Noise Freq"
 
 [node name="HSlider" type="HSlider" parent="HFlowContainer/Settings/NoiseFreq"]
 layout_mode = 2
-offset_left = 87.0
-offset_right = 138.0
-offset_bottom = 16.0
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
@@ -276,21 +177,13 @@ value = 0.07
 
 [node name="NoiseSpeed" type="HBoxContainer" parent="HFlowContainer/Settings"]
 layout_mode = 2
-offset_top = 335.0
-offset_right = 138.0
-offset_bottom = 361.0
 
 [node name="Label" type="Label" parent="HFlowContainer/Settings/NoiseSpeed"]
 layout_mode = 2
-offset_right = 96.0
-offset_bottom = 26.0
 text = "Noise Speed"
 
 [node name="HSlider" type="HSlider" parent="HFlowContainer/Settings/NoiseSpeed"]
 layout_mode = 2
-offset_left = 100.0
-offset_right = 138.0
-offset_bottom = 16.0
 size_flags_horizontal = 3
 max_value = 1.0
 step = 0.01
