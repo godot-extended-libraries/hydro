@@ -1,6 +1,6 @@
 # Hydro
 
-WORK IN PROGRESS WARNING. DOES NOT WORK YET.
+WORK IN PROGRESS WARNING.
 
 Hydro is a module for Godot 4.0 which allows rigid bodies to behave realistically in water.
 
