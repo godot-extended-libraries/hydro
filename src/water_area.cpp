@@ -73,7 +73,7 @@ void WaterArea3D::_bind_methods() {
 			&WaterArea3D::get_water_height);
 	ClassDB::bind_method(D_METHOD("set_flow_direction", "flow_direction"),
 			&WaterArea3D::set_flow_direction);
-	ClassDB::bind_method(D_METHOD("get_flow_direction"),
+	ClassDB::bind_method(D_METHOD("get_flow_direction", "point"),
 			&WaterArea3D::get_flow_direction);
 	ClassDB::bind_method(D_METHOD("_body_entered", "node"),
 			&WaterArea3D::_body_entered);
@@ -86,8 +86,6 @@ void WaterArea3D::_bind_methods() {
 			"get_viscosity");
 	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "water_height"), "set_water_height",
 			"get_water_height");
-	ADD_PROPERTY(PropertyInfo(Variant::VECTOR3, "flow_direction"),
-			"set_flow_direction", "get_flow_direction");
 }
 
 void WaterArea3D::_notification(int p_what) {
