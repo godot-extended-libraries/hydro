@@ -1,17 +1,20 @@
 def can_build(env, platform):
-	return True
+    return True
+
 
 def configure(env):
-	pass
+    pass
+
 
 def get_doc_classes():
-	return [
-		"HydroRigidBody",
-		"WaterArea3D",
-		"WatercraftBallast",
-		"WatercraftPropulsion",
-		"WatercraftRudder",
-	]
+    return [
+        "HydroRigidBody",
+        "WaterArea3D",
+        "WatercraftBallast",
+        "WatercraftPropulsion",
+        "WatercraftRudder",
+    ]
+
 
 def get_doc_path():
-	return "doc_classes"
+    return "doc_classes"
