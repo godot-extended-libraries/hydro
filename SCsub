@@ -1,16 +1,16 @@
 #!/usr/bin/env python
 
-Import('env')
-Import('env_modules')
+Import("env")
+Import("env_modules")
 
 sources = [
-	"src/clippable_mesh.cpp",
-	"src/hydro_rigid_body.cpp",
-	"src/register_types.cpp",
-	"src/water_area.cpp",
-	"src/watercraft_ballast.cpp",
-	"src/watercraft_propulsion.cpp",
-	"src/watercraft_rudder.cpp",
+    "src/clippable_mesh.cpp",
+    "src/hydro_rigid_body.cpp",
+    "src/register_types.cpp",
+    "src/water_area.cpp",
+    "src/watercraft_ballast.cpp",
+    "src/watercraft_propulsion.cpp",
+    "src/watercraft_rudder.cpp",
 ]
 env_hydro = env_modules.Clone()
 env_hydro.add_source_files(env.modules_sources, sources)
