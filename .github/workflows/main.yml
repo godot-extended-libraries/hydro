@@ -19,6 +19,11 @@ jobs:
         with:
           file-url: https://raw.githubusercontent.com/godotengine/godot/4.1/doc/tools/make_rst.py
 
+      - name: Download version.py
+        uses: carlosperate/download-file-action@v1.0.3
+        with:
+          file-url: https://raw.githubusercontent.com/godotengine/godot/4.1/version.py
+
       - name: Export XML documentation to RST and fix up for Github
         run: |
           mkdir .wiki
