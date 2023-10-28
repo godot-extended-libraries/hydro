@@ -6,7 +6,7 @@
 	<description>
 		The purpose of the WaterArea3D node is threefold.  First, it limits the area in which a [HydroRigidBody] is evaluated for potential buoyancy. This means that if you only need water in a small area of your scene, the [HydroRigidBody] will not incur a performance penalty while it is outside the bounds of the WaterArea3D.
 		The second purpose of the WaterArea3D is to define the surface of the water.  For a flat body of water, set the water_height parameter to the global-space height of the water. For a body of water with waves or any other advanced scenarios, attach a script to the WaterArea3D and define a _get_water_heights(positions) function.  The positions parameter is a Vector3Array.  For each Vector3 in the array, adjust its Y value to the height of the water at the given X and Z position.  The return value of the function should be the Vector3Array with the Y-values changed.  When this function is defined, the water_height parameter is ignored.
-		Finally, the WaterArea3D acts as a standard [Area] node.  It can be used to trigger sound or particle effects to make an object splash when it hits the water.
+		Finally, the WaterArea3D acts as a standard [Area3D] node.  It can be used to trigger sound or particle effects to make an object splash when it hits the water.
 	</description>
 	<tutorials>
 	</tutorials>
