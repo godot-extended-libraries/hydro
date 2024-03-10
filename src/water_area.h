@@ -31,7 +31,7 @@
 #ifndef WATER_AREA_H
 #define WATER_AREA_H
 
-#include "scene/3d/area_3d.h"
+#include "scene/3d/physics/area_3d.h"
 
 class WaterArea3D : public Area3D {
 	GDCLASS(WaterArea3D, Area3D)
