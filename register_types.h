@@ -28,4 +28,5 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                 */
 /**************************************************************************/
 
-#include "src/register_types.h"
+void initialize_hydro_module(ModuleInitializationLevel p_level);
+void uninitialize_hydro_module(ModuleInitializationLevel p_level);
