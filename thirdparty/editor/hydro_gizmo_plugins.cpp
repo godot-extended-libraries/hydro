@@ -29,7 +29,6 @@
 #include "../src/watercraft_rudder.h"
 #include "hydro_gizmo_plugins.h"
 
-
 WatercraftBallastNode3DGizmoPlugin::WatercraftBallastNode3DGizmoPlugin() {
 	Color gizmo_color =
 			EDITOR_DEF("editors/3d_gizmos/gizmo_colors/shape", Color(0.5, 0.7, 1));

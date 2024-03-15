@@ -21,5 +21,57 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                */
 /*************************************************************************/
 
-void initialize_hydro_module(ModuleInitializationLevel p_level);
-void uninitialize_hydro_module(ModuleInitializationLevel p_level);
+#ifndef WATERCRAFT_BODY_H
+#define WATERCRAFT_BODY_H
+
+#include "clippable_mesh.h"
+#include "scene/3d/physics/physics_body_3d.h"
+#include "scene/3d/physics/rigid_body_3d.h"
+
+class ImmediateMesh;
+class MeshInstance;
+class WaterArea3D;
+class WatercraftBallast;
+class WatercraftPropulsion;
+class WatercraftRudder;
+
+class HydroRigidBody : public RigidBody3D {
+	GDCLASS(HydroRigidBody, RigidBody3D)
+
+public:
+	HydroRigidBody();
+
+protected:
+	NodePath m_hull_path;
+	ClippableMesh m_hull_mesh;
+	Ref<ImmediateMesh> m_debug_mesh;
+	Vector3 m_thrust_origin;
+	Vector3 m_thrust_direction;
+	float m_thrust_rotation;
+	float m_thrust_value;
+	float m_density;
+	float m_volume;
+	WaterArea3D *m_water_area;
+
+	Vector<WatercraftBallast *> m_ballast;
+	Vector<WatercraftPropulsion *> m_propulsion;
+	Vector<WatercraftRudder *> m_rudders;
+
+	static void _bind_methods();
+	void _notification(int p_what);
+	void _body_state_changed(PhysicsDirectBodyState3D *p_state) override;
+
+private:
+	void update_hull();
+	void draw_debug_face(const Face3 &face, const Transform3D &transform);
+	void draw_debug_mesh(const ClippableMesh &mesh, const Transform3D &transform);
+	void draw_debug_vector(const Vector3 &dir, const Vector3 &origin,
+			const Transform3D &transform);
+
+	friend class WaterArea3D;
+	friend class WatercraftBallast;
+	friend class WatercraftPropulsion;
+	friend class WatercraftRudder;
+};
+
+#endif

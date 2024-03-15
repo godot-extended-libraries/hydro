@@ -21,51 +21,40 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                */
 /*************************************************************************/
 
-#include "watercraft_ballast.h"
-#include "hydro_rigid_body.h"
+#ifndef WATER_AREA_H
+#define WATER_AREA_H
 
-WatercraftBallast::WatercraftBallast() {
-	m_mass = 0;
-}
+#include "scene/3d/physics/area_3d.h"
 
-String WatercraftBallast::get_configuration_warning() const {
-	if (!Object::cast_to<HydroRigidBody>(get_parent())) {
-		return RTR("WatercraftBallast serves to provide custom weight distribution "
-				   "to a HydroRigidBody. Please use it as a child of a "
-				   "HydroRigidBody.");
+class WaterArea3D : public Area3D {
+	GDCLASS(WaterArea3D, Area3D)
+
+public:
+	WaterArea3D();
+	void set_density(float density) { m_density = density; }
+	float get_density() { return m_density; }
+	void set_viscosity(float viscosity) { m_viscosity = viscosity; }
+	float get_viscosity() { return m_viscosity; }
+	void set_water_height(float water_height) { m_water_height = water_height; }
+	float get_water_height() { return m_water_height; }
+	void set_flow_direction(const Vector3 &direction) { m_flow_direction = direction; }
+	Vector3 get_flow_direction(const Vector3 &point);
+
+	void update_water_heights(PackedVector3Array &points);
+
+	void _validate_property(PropertyInfo &p_property) const {
 	}
 
-	return String();
-}
+protected:
+	float m_density;
+	float m_viscosity;
+	float m_water_height;
+	Vector3 m_flow_direction;
 
-void WatercraftBallast::_bind_methods() {
-	ClassDB::bind_method(D_METHOD("set_origin", "origin"),
-			&WatercraftBallast::set_origin);
-	ClassDB::bind_method(D_METHOD("get_origin"), &WatercraftBallast::get_origin);
-	ClassDB::bind_method(D_METHOD("set_mass", "mass"),
-			&WatercraftBallast::set_mass);
-	ClassDB::bind_method(D_METHOD("get_mass"), &WatercraftBallast::get_mass);
+	static void _bind_methods();
+	void _notification(int p_what);
+	void _body_entered(Node *node);
+	void _body_exited(Node *node);
+};
 
-	ADD_PROPERTY(PropertyInfo(Variant::VECTOR3, "origin"), "set_origin",
-			"get_origin");
-	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "mass"), "set_mass", "get_mass");
-}
-
-void WatercraftBallast::_notification(int p_what) {
-	if (p_what == NOTIFICATION_ENTER_TREE) {
-		HydroRigidBody *parent =
-				Object::cast_to<HydroRigidBody>(get_parent());
-		if (!parent)
-			return;
-
-		parent->m_ballast.push_back(this);
-	}
-	if (p_what == NOTIFICATION_EXIT_TREE) {
-		HydroRigidBody *parent =
-				Object::cast_to<HydroRigidBody>(get_parent());
-		if (!parent)
-			return;
-
-		parent->m_ballast.erase(this);
-	}
-}
+#endif // WATER_AREA_H

@@ -21,56 +21,52 @@
 /* SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.                */
 /*************************************************************************/
 
-#ifndef WATERCRAFT_BODY_H
-#define WATERCRAFT_BODY_H
 
-#include "clippable_mesh.h"
-#include "scene/3d/physics_body_3d.h"
+#include "watercraft_ballast.h"
+#include "hydro_rigid_body.h"
 
-class ImmediateMesh;
-class MeshInstance;
-class WaterArea3D;
-class WatercraftBallast;
-class WatercraftPropulsion;
-class WatercraftRudder;
+WatercraftBallast::WatercraftBallast() {
+	m_mass = 0;
+}
 
-class HydroRigidBody : public RigidBody3D {
-	GDCLASS(HydroRigidBody, RigidBody3D)
+String WatercraftBallast::get_configuration_warning() const {
+	if (!Object::cast_to<HydroRigidBody>(get_parent())) {
+		return RTR("WatercraftBallast serves to provide custom weight distribution "
+				   "to a HydroRigidBody. Please use it as a child of a "
+				   "HydroRigidBody.");
+	}
 
-public:
-	HydroRigidBody();
+	return String();
+}
 
-protected:
-	NodePath m_hull_path;
-	ClippableMesh m_hull_mesh;
-	Ref<ImmediateMesh> m_debug_mesh;
-	Vector3 m_thrust_origin;
-	Vector3 m_thrust_direction;
-	float m_thrust_rotation;
-	float m_thrust_value;
-	float m_density;
-	float m_volume;
-	WaterArea3D *m_water_area;
+void WatercraftBallast::_bind_methods() {
+	ClassDB::bind_method(D_METHOD("set_origin", "origin"),
+			&WatercraftBallast::set_origin);
+	ClassDB::bind_method(D_METHOD("get_origin"), &WatercraftBallast::get_origin);
+	ClassDB::bind_method(D_METHOD("set_mass", "mass"),
+			&WatercraftBallast::set_mass);
+	ClassDB::bind_method(D_METHOD("get_mass"), &WatercraftBallast::get_mass);
 
-	Vector<WatercraftBallast *> m_ballast;
-	Vector<WatercraftPropulsion *> m_propulsion;
-	Vector<WatercraftRudder *> m_rudders;
+	ADD_PROPERTY(PropertyInfo(Variant::VECTOR3, "origin"), "set_origin",
+			"get_origin");
+	ADD_PROPERTY(PropertyInfo(Variant::FLOAT, "mass"), "set_mass", "get_mass");
+}
 
-	static void _bind_methods();
-	void _notification(int p_what);
-	void _body_state_changed(PhysicsDirectBodyState3D *p_state) override;
+void WatercraftBallast::_notification(int p_what) {
+	if (p_what == NOTIFICATION_ENTER_TREE) {
+		HydroRigidBody *parent =
+				Object::cast_to<HydroRigidBody>(get_parent());
+		if (!parent)
+			return;
 
-private:
-	void update_hull();
-	void draw_debug_face(const Face3 &face, const Transform3D &transform);
-	void draw_debug_mesh(const ClippableMesh &mesh, const Transform3D &transform);
-	void draw_debug_vector(const Vector3 &dir, const Vector3 &origin,
-			const Transform3D &transform);
+		parent->m_ballast.push_back(this);
+	}
+	if (p_what == NOTIFICATION_EXIT_TREE) {
+		HydroRigidBody *parent =
+				Object::cast_to<HydroRigidBody>(get_parent());
+		if (!parent)
+			return;
 
-	friend class WaterArea3D;
-	friend class WatercraftBallast;
-	friend class WatercraftPropulsion;
-	friend class WatercraftRudder;
-};
-
-#endif
+		parent->m_ballast.erase(this);
+	}
+}

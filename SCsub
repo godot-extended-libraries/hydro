@@ -4,16 +4,16 @@ Import("env")
 Import("env_modules")
 
 sources = [
-    "src/clippable_mesh.cpp",
-    "src/hydro_rigid_body.cpp",
-    "src/register_types.cpp",
-    "src/water_area.cpp",
-    "src/watercraft_ballast.cpp",
-    "src/watercraft_propulsion.cpp",
-    "src/watercraft_rudder.cpp",
+    "thirdparty/src/clippable_mesh.cpp",
+    "thirdparty/src/hydro_rigid_body.cpp",
+    "thirdparty/src/register_types.cpp",
+    "thirdparty/src/water_area.cpp",
+    "thirdparty/src/watercraft_ballast.cpp",
+    "thirdparty/src/watercraft_propulsion.cpp",
+    "thirdparty/src/watercraft_rudder.cpp",
 ]
 env_hydro = env_modules.Clone()
 env_hydro.add_source_files(env.modules_sources, sources)
 
 if env.editor_build:
-    env_hydro.add_source_files(env.modules_sources, "editor/*.cpp")
+    env_hydro.add_source_files(env.modules_sources, "thirdparty/editor/*.cpp")
